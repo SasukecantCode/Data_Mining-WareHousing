@@ -17,6 +17,7 @@ DIM_STORE = f"s3://{SETTINGS.minio_bucket}/curated/dims/dim_store.parquet"
 DIM_CATEGORY = f"s3://{SETTINGS.minio_bucket}/curated/dims/dim_category.parquet"
 DIM_PRODUCT = f"s3://{SETTINGS.minio_bucket}/curated/dims/dim_product.parquet"
 DIM_DATE = f"s3://{SETTINGS.minio_bucket}/curated/dims/dim_date.parquet"
+DIM_PRICE_REVISION = f"s3://{SETTINGS.minio_bucket}/curated/dims/dim_price_revision.parquet"
 
 
 def connect() -> duckdb.DuckDBPyConnection:
@@ -38,6 +39,10 @@ def connect() -> duckdb.DuckDBPyConnection:
     con.execute(f"CREATE OR REPLACE VIEW dim_category AS SELECT * FROM read_parquet('{DIM_CATEGORY}')")
     con.execute(f"CREATE OR REPLACE VIEW dim_product AS SELECT * FROM read_parquet('{DIM_PRODUCT}')")
     con.execute(f"CREATE OR REPLACE VIEW dim_date AS SELECT * FROM read_parquet('{DIM_DATE}')")
+    # Task 4: price_revisions is PostgreSQL's own table name -- kept as the
+    # view name here too, so the price-as-of-period query (sql/queries/14)
+    # reads exactly like it would against PostgreSQL directly.
+    con.execute(f"CREATE OR REPLACE VIEW price_revisions AS SELECT * FROM read_parquet('{DIM_PRICE_REVISION}')")
 
     # Task 3 dashboard star schema: a VIEW (not a re-materialized fact table)
     # that adds the surrogate keys (sales_line_sk, store_sk, date_sk) a BI

@@ -1,4 +1,4 @@
-# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2 + Task 3)
+# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2 + Task 3 + Task 4 + Task 5)
 
 **Task 1** solves: *"analysts open daily sales files manually and produce
 inconsistent monthly numbers; the CFO wants October to mean October,
@@ -15,6 +15,16 @@ below.
 quickly sliced by store/product/category/day-of-week/month without
 repeating store/product/category descriptions on every sales row."* See
 [Task 3](#task-3--dashboard-star-schema) below.
+
+**Task 4** solves: *"prices change over time — a report for March 2024 must
+use March's applicable prices, a report for the latest month available must
+use that month's prices, using the same query for both."* See
+[Task 4](#task-4--price-as-of-reporting-period) below.
+
+**Task 5** solves: *"query across the two existing systems (MinIO Parquet
+sales data, PostgreSQL dimensions) without copying either side into the
+other, using DuckDB as the query engine."* See
+[Task 5](#task-5--federated-query-minio--postgresql-no-copy) below.
 
 The unrelated tender-notice deduplication problem (`LAB-1/Question-2`) is
 **not** part of this implementation.
@@ -79,6 +89,29 @@ annapurna/
     │        ...store=S01/year=2024/month=10/sales.parquet      (144 objects = 12 stores x 12 months, 20.2 MiB)
     └── dims/dim_store.parquet, dim_category.parquet, dim_product.parquet, dim_date.parquet
 ```
+
+**`raw/` is the authoritative landed source data.** It holds the exact
+files supplied (`SALES_<store>_<YYYYMMDD>[__Rn].csv`, byte-for-byte, one
+object per source file), organized by `store`/`business_date` purely for
+retrieval — nothing about the bytes is changed. Landing is append-only:
+`app/ingestion/raw_landing.py` only ever uploads new/changed files
+(checksum-gated); no code path in the normal pipeline (`scripts/02`,
+`scripts/03`, `app/loader.py::load()`) ever deletes or overwrites a `raw/`
+object. (The one exception is `app/loader.py::reset_destination()`, used
+*only* by Task 2's mandated `RESET ONCE -> LOAD x3` test to start from a
+clean destination — never called by ordinary ingestion/curation.)
+
+**`curated/` is an optional analytical layer, not a replacement for `raw/`.**
+Parquet was a design/optimization choice made here — a columnar format that
+compresses well and lets DuckDB prune irrelevant partitions/row-groups — not
+something the assignment mandated. Tasks 1-2 could have queried the raw CSVs
+directly (DuckDB can `read_csv` too); `curated/` exists because it makes the
+deduplicated, temporally-resolved, revenue-computed result reusable across
+Tasks 3 and 4 without re-deriving it per query, and Task 5's federated join
+(below) depends on it existing. It is derived data, safely rebuildable from
+`raw/` at any time by rerunning `scripts/03_curate.py` — deleting `curated/`
+would only cost a rebuild, never lose information, since `raw/` remains the
+source of truth throughout.
 
 **Why store/year/month and not store/product/day/...**: the CFO's questions
 filter by store and a time grain (day/week/month) first; product stays a
@@ -574,6 +607,281 @@ cd LAB-1/Question-1/Solution
 .venv/bin/python -m pytest tests/test_task3_star_schema.py -q
 ```
 
+## Task 4 — price as-of reporting period
+
+### Approach
+
+One parameterized query, `sql/queries/14_price_report.sql`, resolves "the
+applicable price" for every product for a reporting period
+`[$start_date, $end_date]` directly from `price_revisions`
+(`product_sk + effective_from/effective_to + reporting date`):
+
+```sql
+WITH at_period_end AS (
+    SELECT product_sk, revision_id, mrp, selling_price, effective_from, effective_to
+    FROM price_revisions
+    WHERE effective_from <= $end_date AND effective_to >= $end_date
+), ...
+```
+
+* **The reporting date used is the period's `end_date`** (the standard
+  "price as of period close" convention) — the applicable price is the
+  `price_revisions` row whose `[effective_from, effective_to]` window
+  contains `$end_date`. This is a plain `BETWEEN`-style containment check,
+  never `ORDER BY effective_from DESC LIMIT 1` and never a join to "today" —
+  structurally verified by
+  `tests/test_task4_price_report.py::test_query_never_orders_by_effective_from_desc`.
+* **No stored data is overwritten.** `price_revisions` (PostgreSQL) is read
+  read-only; `app/analytics/dims.py::build_price_revisions_dim()` only
+  writes a Parquet *snapshot* of it to `curated/dims/dim_price_revision.parquet`
+  so DuckDB can query it without a live Postgres round trip per call — the
+  same pattern Task 1/3 already use for `dim_store`/`dim_product`/etc. This
+  is the one small, additive extension needed to make Task 4 possible; the
+  Task 1/2/3 pipeline itself is untouched.
+* **Multiple revisions inside one period are not silently collapsed.** The
+  query also resolves the revision effective at `$start_date`
+  (`price_at_period_start`) and sets `price_changed_during_period = TRUE`
+  whenever that differs from the period-end revision — a mid-period price
+  change is flagged, not hidden.
+* **A missing mapping is surfaced, not substituted.** `dim_product` is
+  `LEFT JOIN`ed to `price_revisions`; if no revision covers `$end_date`,
+  `applicable_price` is `NULL` and `price_missing_for_period = TRUE`.
+
+### Demonstration: the exact same query, two periods
+
+`scripts/12_task4_price_report.py` executes `14_price_report.sql`
+**verbatim** twice — only the bound `$start_date`/`$end_date` parameters
+differ. Run 2's period is *computed* from
+`SELECT MAX(business_date) FROM fact_sales_dashboard`, never hard-coded.
+
+```
+Run 1 period: 2024-03-01 .. 2024-03-31
+Run 2 period: 2024-12-01 .. 2024-12-31  (latest month in dataset, derived from MAX(business_date)=2024-12-31)
+
+=== RUN 1 (March 2024-03) ===
+products reported:             1224
+price missing for period:      3
+price changed during period:   147
+
+=== RUN 2 (latest month 2024-12) ===
+products reported:             1224
+price missing for period:      0
+price changed during period:   0
+
+=== Products whose applicable price differs between the two periods: 916 ===
+```
+
+Full captured output:
+[`reports/task4/price_report_output.txt`](reports/task4/price_report_output.txt),
+per-product comparison CSV:
+[`reports/task4/price_comparison.csv`](reports/task4/price_comparison.csv).
+
+**Real product whose price changed between the two periods:**
+
+| Product | March price | Latest-month price |
+|---|---:|---:|
+| Thums Up Mango Juice 250g (`P100005`, `product_sk=1001`) | 103.45 | 114.37 |
+
+(`product_sk=1001` has 4 real revisions in `masters.sql`; March 2024-03-31
+falls in the 2023-11-09→2024-06-13 window, December 2024-12-31 falls in the
+2024-06-14→9999-12-31 window — the same product resolves to two different,
+correct prices purely because the reporting-date parameter changed.)
+
+### Validation (`scripts/13_task4_validate.py`)
+
+All 5 required proofs, run against the live data
+([full output](reports/task4/validation_output.txt)):
+
+```
+[PASS] 1_march_uses_price_effective_in_march_2024: 1221/1221 resolved rows have 2024-03-31 within [effective_from, effective_to]
+[PASS] 2_latest_month_uses_price_effective_in_that_month: 1224/1224 resolved rows have 2024-12-31 within [effective_from, effective_to]
+[PASS] 3_same_query_text_used_for_both_periods: sql/queries/14_price_report.sql executed verbatim for both runs; only the $start_date/$end_date parameter values differ
+[PASS] 4_no_current_price_or_hardcoded_month_logic: product_sk=1001 applicable_price by period: {'march': 103.45, 'june': 114.37, 'december': 114.37}
+[PASS] 5_price_selection_uses_real_price_revisions_validity_dates: product_sk=2217 ('Local Mandi Apple 1kg', valid_from 2024-06-01): March price_missing=True, December price=81.62
+
+TASK 4 VALIDATION: PASS (5/5 checks passed)
+```
+
+Check #5's example is the same real reissued product from Task 3
+(`P108206`/`product_sk=2217`, "Local Mandi Apple 1kg", `valid_from
+2024-06-01`): it genuinely has **no** price for a March 2024 report — the
+product itself didn't exist under that identity yet — and the query
+correctly reports `price_missing_for_period = TRUE` rather than silently
+falling back to the old "Daawat Poha 10kg" price (a different `product_sk`
+entirely) or to today's price.
+
+### How to run Task 4
+
+```bash
+cd LAB-1/Question-1/Solution
+# Task 1/2/3 must already have run once (fact_sales + dims in MinIO)
+.venv/bin/python scripts/12_task4_price_report.py   # builds the price_revisions snapshot,
+                                                     # runs both reporting periods, writes reports/task4/
+.venv/bin/python scripts/13_task4_validate.py       # 5 required validation checks
+.venv/bin/python -m pytest tests/test_task4_price_report.py -q
+```
+
+## Task 5 — federated query, MinIO + PostgreSQL, no copy
+
+**Verified (re-checked when the raw-vs-curated architecture was reviewed):
+sales data is read exclusively via `read_parquet('s3://annapurna/curated/sales/...')` —
+straight out of MinIO — in both `sql/queries/15_federated_query.sql` and
+`app/duck_federated.py`. `pg.*` (the live PostgreSQL attachment) is referenced
+only for `stores`/`products`/`product_categories`; there is no `INSERT`,
+`CREATE TABLE`, or `COPY ... TO pg` anywhere in the Task 5 code path that
+would put sales rows into PostgreSQL. This was already true before this
+review — no code change was needed here, see the "no copy" evidence below.**
+
+### Approach
+
+A **separate** DuckDB connection helper, `app/duck_federated.py`, deliberately
+does **not** reuse `app/duck.py`'s `dim_store`/`dim_product`/`dim_category`
+views — those are built from the Parquet *snapshots* Task 3/4 write to
+`curated/dims/` for dashboard convenience, and a snapshot is exactly the
+kind of copy Task 5 says not to make. Instead `connect_federated()`:
+
+1. Loads `httpfs` and points it at MinIO, same as before — sales data is
+   read straight off `s3://annapurna/curated/sales/*/*/*/sales.parquet`
+   via `read_parquet()`.
+2. Loads DuckDB's `postgres` extension and runs
+   `ATTACH '...' AS pg (TYPE postgres, READ_ONLY)` — `pg.stores`,
+   `pg.products`, `pg.product_categories` are PostgreSQL's own tables,
+   reached live through the attachment. No `CREATE TABLE ... AS`, no
+   `CREATE TEMP TABLE`, no materialization anywhere in this path.
+
+**The single federated query** (`sql/queries/15_federated_query.sql`):
+
+```sql
+SELECT
+    s.store_id, s.store_name, cat.category_id, cat.category_name,
+    ROUND(SUM(f.revenue_amount), 2) AS product_attributed_revenue
+FROM read_parquet('s3://annapurna/curated/sales/*/*/*/sales.parquet', hive_partitioning = true) f
+JOIN pg.stores s               ON s.store_id      = f.store_id
+JOIN pg.products p             ON p.product_sk    = f.product_sk
+JOIN pg.product_categories cat ON cat.category_id = p.category_id
+WHERE f.business_date >= $start_date AND f.business_date < $end_date
+GROUP BY s.store_id, s.store_name, cat.category_id, cat.category_name
+ORDER BY product_attributed_revenue DESC;
+```
+
+`product_sk` is the existing Task 3 historical-identity surrogate key,
+already resolved once during Task 1 curation — this query does a plain
+equi-join on it, no re-resolution. Only `$start_date`/`$end_date` change
+between runs; the query text is identical.
+
+### Actual result (October 2024)
+
+```
+store_id                store_name category_id     category_name  product_attributed_revenue
+     S03        Annapurna T Nagar         C04  Staples & Grains                  1220174.16
+     S01      Annapurna Jayanagar         C04  Staples & Grains                  1211339.36
+     S10 Annapurna Rajouri Garden         C04  Staples & Grains                  1185800.08
+     ...
+```
+144 rows, total revenue = 56,927,219.51 (matches Task 3's product-attributed
+revenue for October exactly — see `tests/test_task5_federated_query.py::test_federated_query_result_matches_task3_dashboard_query`).
+Full output: [`reports/task5/federated_query_output.txt`](reports/task5/federated_query_output.txt).
+
+### Evidence: where the work actually happened
+
+Captured with `EXPLAIN ANALYZE` plus DuckDB's `pg_debug_show_queries=true`
+(prints the literal SQL sent to PostgreSQL) — see section 2 and 3 of
+[`reports/task5/federated_query_output.txt`](reports/task5/federated_query_output.txt)
+for the full, unedited output.
+
+**MinIO / Parquet work** — one `TABLE_SCAN` operator, `Function: READ_PARQUET`:
+```
+Filename(s): s3://annapurna/curated/sales/*/*/*/sales.parquet, ...
+Filters: business_date>='2024-10-01'::DATE AND business_date<'2024-11-01'::DATE
+Total Files Read: 144
+```
+The `business_date` predicate is applied inside the Parquet scan (it is not
+a hive-partition column here — `store`/`year`/`month` are — so this filter
+reduces *bytes read via row-group statistics*, not *file count*: the HTTPFS
+stats block in the same plan shows only **2.7 MiB** transferred in, out of
+the curated layer's 20.2 MiB total, for the 144 files DuckDB opened).
+
+**PostgreSQL work** — three separate `TABLE_SCAN` operators, `Table: stores`
+/ `products` / `product_categories`, each reporting a **Projections:** list
+narrower than the real table's columns (e.g. `products` → only `product_sk,
+category_id`, not `product_name`/`brand`/`pack_size`/.../`is_current`). The
+**actual SQL DuckDB sent to PostgreSQL** (captured verbatim via
+`pg_debug_show_queries`) confirms this is real, not an EXPLAIN artifact:
+
+```sql
+COPY (SELECT "product_sk", "category_id" FROM "public"."products"
+      WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid) TO STDOUT (FORMAT "binary");
+COPY (SELECT "category_id", "category_name" FROM "public"."product_categories"
+      WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid) TO STDOUT (FORMAT "binary");
+COPY (SELECT "store_id", "store_name" FROM "public"."stores"
+      WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid) TO STDOUT (FORMAT "binary");
+```
+**Column-projection pushdown to PostgreSQL is real** (`SELECT "product_sk",
+"category_id"`, not `SELECT *`). **No `WHERE`-clause row filter was pushed**
+for this query — the `ctid BETWEEN` clause is DuckDB's parallel-scan page
+range, not a business filter, and there is no `AND category_id = ...`/
+`AND store_id = ...` anywhere in the captured SQL, because this query's only
+filter (`business_date`) is a Parquet-side column with nothing to push to
+PostgreSQL for it.
+
+The plan does show `Dynamic Filters: optional: store_id IN (...)` and
+`optional: category_id IN (...)` on the Parquet/products `TABLE_SCAN`s —
+these are **DuckDB-internal** runtime join filters (derived from the small
+dimension side of the hash join and applied back into the Parquet/table
+scan to skip rows early), generated and applied entirely inside DuckDB.
+**They are not sent to PostgreSQL** — the captured `COPY` statement for
+`products` has no such `WHERE`, confirming the plan's "optional" filters
+stayed client-side. Reported here precisely because the task says not to
+*claim* pushdown without evidence, and the evidence here says "some, not
+all": column pruning → real Postgres pushdown; the dynamic join filters →
+DuckDB-side only.
+
+**Contrast, to show pushdown genuinely works when it applies** (section 4 of
+the same report): a second, minimal query,
+`SELECT product_sk, category_id FROM pg.products WHERE category_id = 'C04'`,
+produces `COPY (... WHERE ctid BETWEEN ... AND "category_id" = 'C04' COLLATE
+"C") TO STDOUT (...)` — the real `WHERE` clause **does** appear this time,
+because this filter targets an actual PostgreSQL column directly. This is
+the control case proving the main query's lack of a pushed filter is a
+correct, evidence-based finding, not a missed optimization to hide.
+
+**DuckDB work** — everything else in the plan: the three `HASH_JOIN`
+operators (store, product, category), the `HASH_GROUP_BY` computing
+`SUM(revenue_amount)` per store+category, and the final `ORDER_BY`/
+`PROJECTION`. None of this happens in PostgreSQL or in MinIO — DuckDB pulls
+~81K filtered Parquet rows and 12+1224+14 dimension rows across the wire
+and does the join/aggregate itself, in-process.
+
+### Evidence that neither side was copied
+
+* `app/duck_federated.py` creates **no** `CREATE TABLE`/`CREATE TEMP TABLE`/
+  materialized view of PostgreSQL data — only `ATTACH ... (TYPE postgres,
+  READ_ONLY)`. `tests/test_task5_federated_query.py::test_federated_connection_has_no_dim_parquet_views`
+  asserts this connection's `SHOW TABLES` contains none of
+  `dim_store`/`dim_product`/`dim_category`.
+* **Live-write proof**: `test_pg_tables_are_queried_live_not_materialized`
+  inserts a throwaway row directly into PostgreSQL's `stores` table, then
+  re-queries `pg.stores` through the *same, already-open* DuckDB connection
+  and sees the new row immediately (then deletes it). A cached/copied
+  snapshot could not observe that write without being rebuilt.
+* Sales data is never pulled into PostgreSQL either — the `TABLE_SCAN
+  Function: READ_PARQUET` in the plan reads directly from
+  `s3://annapurna/curated/sales/...`; PostgreSQL is never the source for
+  fact rows anywhere in this query or in Task 1-4.
+
+### How to run / reproduce
+
+```bash
+cd LAB-1/Question-1/Solution
+# infra up, scripts/01-03 already run (curated fact_sales in MinIO), PostgreSQL reachable
+.venv/bin/python -u scripts/14_task5_federated_query.py > reports/task5/federated_query_output.txt 2>&1
+.venv/bin/python -m pytest tests/test_task5_federated_query.py -q
+```
+The `-u` (unbuffered) flag matters: `pg_debug_show_queries` prints at the
+C++ level, bypassing Python's `sys.stdout` buffering, so the debug SQL can
+interleave out of order in the captured file without it — this is a real
+gotcha discovered while building this report, not a hypothetical.
+
 ## Project layout
 
 ```
@@ -594,34 +902,45 @@ Solution/
 ├── .env.example
 ├── app/
 │   ├── config.py, db.py, object_store.py, duck.py
+│   ├── duck_federated.py              Task 5: ATTACH-based connection, MinIO + live PostgreSQL
 │   ├── loader.py                      Task 2: idempotent load() + reset_destination()
 │   ├── ingestion/raw_landing.py       source -> MinIO raw/, checksum manifest
 │   ├── normalization/                filenames.py, readers.py (3 dialects)
 │   ├── deduplication/dedup.py         (bill_no,line_no) union + conflict audit
 │   ├── enrichment/enrich.py           temporal product_sk / price resolution
-│   ├── analytics/                     revenue.py, curate.py, dims.py (Task 3 cols added),
-│   │                                  checksum.py (Task 2)
+│   ├── analytics/                     revenue.py, curate.py, dims.py (Task 3 + Task 4
+│   │                                  build_price_revisions_dim() cols added), checksum.py (Task 2)
 │   └── validation/validate.py         data-quality checks + reconciliation
 ├── sql/
 │   ├── schema/audit.sql               lineage/idempotency tables
 │   └── queries/
 │       ├── 01..07*.sql                Task 1 required analytical queries
-│       └── 08..13*.sql                Task 3 dashboard queries + attribution-rule check
+│       ├── 08..13*.sql                Task 3 dashboard queries + attribution-rule check
+│       ├── 14_price_report.sql        Task 4: parameterized price-as-of-period query
+│       └── 15_federated_query.sql     Task 5: single MinIO+PostgreSQL federated query
 ├── scripts/
 │   ├── 00..06                         one script per Task 1 pipeline phase
 │   ├── 07_idempotency_test.py         Task 2: mandatory 3-run test
 │   ├── 08_resend_demo.py              Task 2: real resend proof
 │   ├── 09_task3_validate.py           Task 3: 8 required validation checks
 │   ├── 10_dashboard_pruning_check.py  Task 3: EXPLAIN-based pruning proof
-│   └── 11_run_dashboard_queries.py    Task 3: runs sql/queries/08-13
+│   ├── 11_run_dashboard_queries.py    Task 3: runs sql/queries/08-13
+│   ├── 12_task4_price_report.py       Task 4: runs 14_price_report.sql twice (March, latest month)
+│   ├── 13_task4_validate.py           Task 4: 5 required validation checks
+│   └── 14_task5_federated_query.py    Task 5: result + EXPLAIN ANALYZE + pg_debug_show_queries
 ├── tests/                             pytest, unit + integration (@pytest.mark.integration)
-│                                      (test_task3_star_schema.py = Task 3 invariants)
+│                                      (test_task3_star_schema.py, test_task4_price_report.py,
+│                                       test_task5_federated_query.py)
 └── reports/
     ├── inspection_report.md           Phase 1 findings, with real examples
     ├── task2/                         idempotency_test_output.txt, idempotency_results.csv,
     │                                  resend_test_output.txt -- actual execution evidence
-    └── task3/                         validation_output.txt, pruning_check_output.txt,
-                                        dashboard_queries_output.txt -- actual execution evidence
+    ├── task3/                         validation_output.txt, pruning_check_output.txt,
+    │                                  dashboard_queries_output.txt -- actual execution evidence
+    ├── task4/                         price_report_output.txt, price_comparison.csv,
+    │                                  validation_output.txt -- actual execution evidence
+    └── task5/                         federated_query_output.txt -- actual result + EXPLAIN
+                                        ANALYZE + pg_debug_show_queries output
 ```
 
 ## What was deliberately not done

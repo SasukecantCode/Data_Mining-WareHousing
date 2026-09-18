@@ -1,0 +1,1225 @@
+product_sk,product_code,product_name,march_price,latest_month_price
+1001,P100005,Thums Up Mango Juice 250g,103.45,114.37
+1002,P100007,Vim Dishwash Bar 1kg,129.42,155.06
+1003,P100019,Sunfeast Cookies 150g,62.95,74.65
+1004,P100026,Dhara Rice Bran Oil 5L,304.63,315.91
+1005,P100033,Gold Winner Mustard Oil 1L,763.12,828.62
+1006,P100035,Huggies Diapers Small,1456.57,1810.38
+1007,P100044,Mamypoko Baby Powder XL,737.05,737.05
+1008,P100049,Britannia Cream Biscuit 60g,66.95,68.93
+1009,P100057,McCain French Fries 1kg,215.95,233.39
+1010,P100066,Bru Mango Juice 500g,251.22,251.22
+1011,P100074,MDH Sambar Powder 200g,57.78,57.78
+1012,P100077,Catch Sambar Powder 100g,181.42,173.95
+1013,P100086,Heritage Ghee 1L,88.95,89.0
+1014,P100095,Modern Rusk 6 pc,92.95,100.57
+1015,P100100,Sumeru French Fries 400g,374.32,435.38
+1016,P100106,Real Mango Juice 500g,287.42,318.86
+1017,P100112,Bikano Khakhra 400g,91.95,95.15
+1018,P100121,English Oven Pav Bun 400g,102.39,113.08
+1019,P100131,Huggies Baby Powder Medium,624.57,667.83
+1020,P100135,Eastern Coriander Powder 100g,67.67,72.29
+1021,P100140,Perfetti Milk Chocolate 50g,57.95,58.05
+1022,P100150,Everest Garam Masala 200g,280.8,280.8
+1023,P100156,Aashirvaad Toor Dal 1kg,1576.32,1528.63
+1024,P100164,Colgate Face Wash 180ml,581.13,594.91
+1025,P100172,Modern Muffin Pack of 2,171.71,205.47
+1026,P100178,Comfort Fabric Conditioner 500ml,427.16,480.34
+1027,P100183,Pampers Diapers Large,1426.11,1466.16
+1028,P100194,Nestle Candy Pack 25g,42.41,46.79
+1029,P100198,Fortune Sunflower Oil 2L,156.66,162.72
+1030,P100203,Aachi Sambar Powder 100g,241.95,272.1
+1031,P100210,Huggies Baby Powder Small,1073.9,1073.9
+1032,P100221,Mamypoko Baby Wipes Medium,140.95,139.88
+1033,P100224,Milky Mist Cheese Slices 500ml,78.05,79.22
+1034,P100233,Harvest Gold Muffin 6 pc,67.07,67.07
+1035,P100239,Huggies Diapers Small,352.95,360.16
+1036,P100250,Heritage Cheese Slices 500g,526.95,544.91
+1037,P100255,Sundrop Mustard Oil 1L,1250.31,1250.31
+1038,P100260,India Gate Toor Dal 5kg,1124.2,1120.33
+1039,P100268,Local Bakery Rusk 400g,197.0,197.0
+1040,P100276,Gold Winner Mustard Oil 2L,937.37,965.56
+1041,P100281,Milky Mist Paneer 500ml,449.95,485.13
+1042,P100287,Pampers Diapers Large,218.95,240.45
+1043,P100298,Nandini Curd 500ml,47.87,53.95
+1044,P100305,India Gate Toor Dal 1kg,771.81,771.81
+1045,P100308,Pampers Baby Powder Medium,277.54,328.66
+1046,P100319,English Oven Sandwich Bread Pack of 2,48.05,54.97
+1047,P100326,Sunfeast Marie Gold 400g,44.54,47.79
+1048,P100330,Amul Cheese Slices 200g,188.77,188.77
+1049,P100339,Cadbury Chewing Gum 50g,278.86,299.99
+1050,P100348,Milky Mist Cheese Slices 500g,478.95,527.9
+1051,P100354,Huggies Baby Wipes XL,182.63,182.63
+1052,P100362,24 Mantra Sona Masoori Rice 10kg,270.89,282.8
+1053,P100367,Himalaya Body Lotion 100g,537.9,537.9
+1054,P100375,Catch Turmeric Powder 500g,163.45,163.45
+1055,P100380,Classmate A4 Paper Ream Pack of 5,136.58,136.58
+1056,P100387,Local Bakery Pav Bun Pack of 2,104.82,116.37
+1057,P100394,McCain Idli Batter 1kg,320.36,320.36
+1058,P100403,Cello A4 Paper Ream 1 pc,71.73,71.79
+1059,P100406,Mother Dairy Butter 500g,342.13,435.2
+1060,P100418,Safal Banana Loose,204.95,213.97
+1061,P100421,Farm Fresh Apple 500g,126.04,121.56
+1062,P100428,Local Mandi Carrot Loose,122.83,150.84
+1063,P100438,Everest Sambar Powder 50g,64.4,66.55
+1064,P100441,Sumeru Ready Paratha 1kg,419.95,509.29
+1065,P100453,Classmate Notebook 500 sheets,195.74,207.31
+1066,P100456,Sundrop Sunflower Oil 1L,982.47,982.47
+1067,P100463,Classmate Pencil Box 500 sheets,281.78,290.57
+1068,P100469,Eastern Garam Masala 200g,46.95,49.98
+1069,P100479,Pampers Baby Wipes Small,342.53,342.92
+1070,P100483,India Gate Whole Wheat Atta 1kg,819.95,933.37
+1071,P100494,Harpic Fabric Conditioner 1kg,64.52,67.32
+1072,P100499,Camlin Ball Pen Pack of 5,234.95,258.12
+1073,P100509,Saffola Sunflower Oil 2L,143.38,143.57
+1074,P100511,McCain French Fries 200g,407.54,442.66
+1075,P100519,Pampers Baby Soap Small,365.61,365.61
+1076,P100528,Daawat Poha 10kg,623.32,595.9
+1077,P100536,Bru Soda 2L,471.52,471.52
+1078,P100543,Safal Carrot 500g,123.06,123.06
+1079,P100549,ITC Master Chef Frozen Peas 200g,301.95,320.43
+1080,P100555,Paper Boat Mineral Water 250g,435.03,435.03
+1081,P100560,iD Fresh French Fries 1kg,192.67,180.9
+1082,P100571,Amul Choco Candy Pack Pack of 10,117.95,134.98
+1083,P100577,Himalaya Toothpaste 180ml,277.95,300.1
+1084,P100582,Vim Toilet Cleaner 1kg,159.72,170.67
+1085,P100593,English Oven Sandwich Bread Pack of 2,29.38,32.38
+1086,P100595,Cello A4 Paper Ream Pack of 5,388.65,404.82
+1087,P100604,Farm Fresh Onion 1kg,154.6,167.4
+1088,P100609,Classmate Pencil Box 500 sheets,76.13,75.79
+1089,P100621,Catch Coriander Powder 500g,210.7,210.7
+1090,P100627,Heritage Toned Milk 200g,415.95,440.29
+1091,P100632,Cadbury Candy Pack 25g,331.55,331.55
+1092,P100640,ITC Master Chef Frozen Peas 200g,330.95,379.48
+1093,P100649,Sundrop Rice Bran Oil 5L,592.52,618.96
+1094,P100652,Himalaya Face Wash 75g,43.95,45.46
+1095,P100658,Local Mandi Carrot Loose,50.53,50.53
+1096,P100665,Sumeru French Fries 400g,281.09,305.11
+1097,P100677,Cadbury Milk Chocolate 50g,227.95,256.17
+1098,P100682,Johnson's Baby Wipes Small,325.28,337.76
+1099,P100686,Daawat Toor Dal 5kg,787.42,800.21
+1100,P100693,Perfetti Candy Pack Pack of 10,99.05,107.22
+1101,P100703,Mamypoko Baby Powder Large,164.26,171.1
+1102,P100711,Parle Namkeen Mix 60g,96.75,101.23
+1103,P100717,Comfort Detergent Powder 500ml,505.95,561.52
+1104,P100722,Safal Apple 1kg,287.33,330.17
+1105,P100731,Cadbury Dark Chocolate 100g,268.3,254.77
+1106,P100736,Huggies Baby Wipes Large,700.87,700.87
+1107,P100744,Harvest Gold Pav Bun 400g,61.87,67.07
+1108,P100754,Harvest Gold Sandwich Bread 6 pc,85.74,91.6
+1109,P100761,Local Bakery Muffin Pack of 2,51.26,51.26
+1110,P100767,ITC Master Chef Frozen Peas 1kg,269.95,277.22
+1111,P100771,Pampers Baby Soap Small,703.95,820.85
+1112,P100781,Dove Hair Oil 340ml,611.95,654.99
+1113,P100784,Bisleri Tea Leaf 500g,210.0,205.79
+1114,P100791,Nandini Butter 500ml,40.18,46.2
+1115,P100803,Sundrop Rice Bran Oil 1L,262.95,278.56
+1116,P100810,Eastern Sambar Powder 50g,200.65,200.65
+1117,P100816,Mamypoko Baby Soap Small,742.63,806.93
+1118,P100819,Aashirvaad Poha 5kg,1140.0,1109.59
+1119,P100827,24 Mantra Poha 10kg,1218.17,1218.17
+1120,P100838,Local Bakery Pav Bun 400g,37.95,38.03
+1121,P100840,Thums Up Instant Coffee 500g,248.08,248.08
+1122,P100850,McCain Idli Batter 1kg,166.95,172.84
+1123,P100855,Dove Hair Oil 75g,345.07,345.07
+1124,P100864,Perfetti Dark Chocolate Pack of 10,193.24,208.63
+1125,P100869,Camlin Ball Pen Pack of 5,56.95,62.15
+1126,P100879,Farm Fresh Apple Loose,155.98,159.99
+1127,P100883,Nandini Butter 200ml,723.68,723.68
+1128,P100889,Sundrop Groundnut Oil 2L,976.95,1028.39
+1129,P100899,Local Mandi Potato 500g,131.46,131.46
+1130,P100904,Perfetti Candy Pack 50g,68.79,68.79
+1131,P100911,English Oven Rusk 400g,71.1,67.4
+1132,P100921,Himalaya Toothpaste 100g,435.95,441.43
+1133,P100924,Anmol Khakhra 60g,49.24,50.37
+1134,P100933,Amul Choco Chewing Gum 25g,257.95,276.15
+1135,P100940,Vim Detergent Powder 500ml,171.39,199.52
+1136,P100946,Unibic Khakhra 150g,75.81,81.33
+1137,P100956,Sundrop Rice Bran Oil 1L,421.98,421.98
+1138,P100959,Paper Boat Cola 250g,280.97,320.67
+1139,P100967,Mamypoko Baby Soap Large,1052.07,969.23
+1140,P100974,Local Bakery Sandwich Bread Pack of 2,39.19,41.35
+1141,P100985,Comfort Detergent Powder 500ml,252.81,327.15
+1142,P100991,Nandini Cheese Slices 500g,173.46,173.46
+1143,P100999,Farm Fresh Apple Loose,153.43,171.06
+1144,P101004,Johnson's Baby Powder Small,708.94,788.12
+1145,P101010,Sumeru Ready Paratha 200g,71.39,71.39
+1146,P101018,Farm Fresh Tomato 500g,136.5,141.83
+1147,P101023,MDH Sambar Powder 100g,193.95,213.62
+1148,P101034,Cello Ball Pen 500 sheets,85.95,94.74
+1149,P101037,Comfort Fabric Conditioner 500ml,537.96,613.83
+1150,P101048,Sundrop Sunflower Oil 5L,188.58,219.9
+1151,P101052,Nestle Milk Chocolate 25g,198.99,212.18
+1152,P101062,Local Bakery Pav Bun 400g,47.97,52.38
+1153,P101064,Nestle Dark Chocolate Pack of 10,35.56,33.84
+1154,P101076,Dhara Sunflower Oil 1L,606.89,606.89
+1155,P101083,Nivea Bathing Soap 75g,312.05,349.65
+1156,P101090,Nestle Dark Chocolate 50g,22.95,24.06
+1157,P101095,Farm Fresh Potato 500g,205.38,205.38
+1158,P101101,iD Fresh Frozen Peas 200g,74.25,74.25
+1159,P101106,Mother Dairy Ghee 200g,424.09,543.49
+1160,P101117,Aashirvaad Whole Wheat Atta 10kg,195.82,208.14
+1161,P101122,Sunfeast Namkeen Mix 60g,70.95,69.38
+1162,P101127,Local Mandi Onion 1kg,45.95,51.94
+1163,P101134,24 Mantra Whole Wheat Atta 1kg,1001.95,1071.76
+1164,P101142,iD Fresh Idli Batter 200g,98.55,102.04
+1165,P101152,Comfort Toilet Cleaner 500ml,478.44,490.05
+1166,P101156,Eastern Garam Masala 500g,91.8,95.07
+1167,P101164,Thums Up Soda 1L,322.78,401.86
+1168,P101174,Mother Dairy Curd 500ml,50.1,57.43
+1169,P101177,Harvest Gold Rusk Pack of 2,150.26,166.36
+1170,P101184,Cello Pencil Box 500 sheets,55.55,64.09
+1171,P101190,Sunfeast Marie Gold 100g,84.6,89.25
+1172,P101201,Harvest Gold Pav Bun Pack of 2,45.0,48.42
+1173,P101208,24 Mantra Whole Wheat Atta 1kg,521.19,593.86
+1174,P101213,Nestle Milk Chocolate Pack of 10,232.84,232.84
+1175,P101218,Lizol Toilet Cleaner 200g,59.95,61.39
+1176,P101225,Nataraj Ball Pen Pack of 5,452.38,452.38
+1177,P101237,iD Fresh Ready Paratha 1kg,260.17,278.87
+1178,P101242,Perfetti Dark Chocolate 25g,80.24,92.35
+1179,P101248,Real Instant Coffee 600ml,469.28,497.5
+1180,P101258,Paper Boat Mango Juice 600ml,208.34,216.42
+1181,P101263,Nivea Hair Oil 100g,561.95,684.55
+1182,P101272,Everest Chilli Powder 200g,87.22,96.7
+1183,P101279,Local Mandi Apple Loose,224.83,242.9
+1184,P101283,Bru Mango Juice 250g,263.48,263.48
+1185,P101292,Nandini Curd 200g,377.27,380.75
+1186,P101298,ITC Master Chef Frozen Peas 1kg,199.67,224.87
+1187,P101305,Britannia Khakhra 100g,119.82,114.22
+1188,P101311,Dhara Groundnut Oil 1L,481.74,481.74
+1189,P101321,Thums Up Tea Leaf 250g,24.76,24.76
+1190,P101327,Harpic Fabric Conditioner 200g,233.22,233.22
+1191,P101332,Patanjali Body Lotion 75g,400.98,400.98
+1192,P101339,Sundrop Rice Bran Oil 1L,222.95,230.61
+1193,P101345,Heritage Ghee 1L,69.59,80.74
+1194,P101356,Saffola Rice Bran Oil 5L,1054.95,1264.05
+1195,P101359,Himalaya Toothpaste 340ml,438.42,472.41
+1196,P101367,Real Mineral Water 1L,466.61,512.46
+1197,P101374,Amul Choco Milk Chocolate 100g,49.36,55.98
+1198,P101384,Eastern Garam Masala 200g,43.95,42.99
+1199,P101389,Real Cola 250g,430.39,430.39
+1200,P101393,Aachi Chilli Powder 100g,32.95,36.64
+1201,P101404,Mother Dairy Butter 200ml,214.54,228.51
+1202,P101410,Mamypoko Baby Wipes XL,798.18,958.72
+1203,P101419,Huggies Baby Powder Medium,179.95,202.93
+1204,P101421,Parle Glucose Biscuit 150g,112.02,119.6
+1205,P101428,Paper Boat Mango Juice 1L,394.08,431.72
+1206,P101440,Safal Apple 500g,234.68,253.26
+1207,P101444,Gold Winner Mustard Oil 1L,834.95,838.86
+1208,P101454,Cello Pencil Box 500 sheets,130.95,148.61
+1209,P101458,India Gate Basmati Rice 5kg,1309.22,1365.07
+1210,P101465,Nivea Bathing Soap 75g,550.58,573.89
+1211,P101470,Local Mandi Potato Loose,155.81,196.94
+1212,P101481,Eastern Sambar Powder 100g,42.95,55.03
+1213,P101489,India Gate Chana Dal 10kg,493.95,555.59
+1214,P101492,Nestle Milk Chocolate 50g,110.48,113.44
+1215,P101500,Fortune Sona Masoori Rice 1kg,330.53,330.53
+1216,P101507,Nandini Ghee 500g,619.87,635.95
+1217,P101515,Farm Fresh Apple Loose,53.95,60.18
+1218,P101520,Gold Winner Groundnut Oil 1L,168.04,187.47
+1219,P101530,Himalaya Hair Oil 340ml,576.5,576.5
+1220,P101533,Johnson's Baby Powder Large,1020.37,975.6
+1221,P101543,Nestle Milk Chocolate 100g,178.1,178.1
+1222,P101547,Modern Muffin 6 pc,57.95,66.03
+1223,P101558,Sunfeast Cookies 60g,44.31,52.58
+1224,P101564,Paper Boat Mango Juice 2L,155.83,172.72
+1225,P101570,Huggies Baby Wipes Large,288.76,298.03
+1226,P101578,English Oven Muffin Pack of 2,37.17,44.18
+1227,P101585,Britannia Khakhra 400g,11.51,10.45
+1228,P101592,Colgate Hair Oil 180ml,280.95,295.58
+1229,P101599,Surf Excel Floor Cleaner 500g,387.95,417.76
+1230,P101603,Huggies Baby Soap Large,911.37,965.71
+1231,P101613,Britannia Glucose Biscuit 250g,109.83,125.3
+1232,P101622,Mother Dairy Paneer 500ml,259.77,272.35
+1233,P101626,Mamypoko Baby Soap XL,941.95,1040.69
+1234,P101634,Bisleri Tea Leaf 1L,25.05,25.05
+1235,P101638,Camlin Ball Pen Pack of 5,373.95,402.54
+1236,P101648,Eastern Turmeric Powder 50g,334.22,334.22
+1237,P101656,Classmate Pencil Box 1 pc,262.95,324.95
+1238,P101660,English Oven Pav Bun 6 pc,193.14,193.14
+1239,P101669,English Oven Pav Bun 400g,45.8,56.49
+1240,P101674,Real Mineral Water 600ml,373.95,387.7
+1241,P101681,Camlin Ball Pen Pack of 5,139.09,139.09
+1242,P101690,Saffola Rice Bran Oil 5L,1048.95,1044.81
+1243,P101697,Farm Fresh Onion Loose,85.25,102.34
+1244,P101702,Vim Detergent Powder 500g,491.39,491.39
+1245,P101710,Nataraj Pencil Box 1 pc,307.38,345.87
+1246,P101720,Catch Garam Masala 100g,43.95,44.26
+1247,P101722,Gold Winner Rice Bran Oil 1L,1331.86,1460.17
+1248,P101732,Pampers Baby Powder Medium,1250.95,1390.76
+1249,P101740,India Gate Sona Masoori Rice 1kg,800.86,855.0
+1250,P101747,Amul Ghee 200ml,245.75,245.75
+1251,P101751,Thums Up Mineral Water 1L,460.11,477.38
+1252,P101762,Mamypoko Baby Wipes Medium,529.95,528.36
+1253,P101766,McCain Ready Paratha 400g,207.0,220.67
+1254,P101774,Mamypoko Baby Wipes Small,1121.41,1168.66
+1255,P101779,Aachi Turmeric Powder 500g,197.95,209.76
+1256,P101789,Mother Dairy Ghee 500g,336.02,391.48
+1257,P101796,Gold Winner Groundnut Oil 5L,990.67,990.67
+1258,P101802,Everest Garam Masala 50g,41.95,44.15
+1259,P101810,Pampers Baby Powder XL,757.6,793.98
+1260,P101813,Farm Fresh Apple Loose,237.06,273.64
+1261,P101825,Harvest Gold Rusk Pack of 2,168.15,183.68
+1262,P101827,Fortune Mustard Oil 5L,139.26,155.74
+1263,P101839,Classmate Ball Pen Pack of 5,408.4,402.65
+1264,P101842,MDH Chilli Powder 500g,210.53,227.96
+1265,P101851,Daawat Chana Dal 1kg,1750.29,1750.29
+1266,P101859,Camlin A4 Paper Ream 1 pc,64.92,66.16
+1267,P101864,Sunfeast Glucose Biscuit 250g,101.95,112.21
+1268,P101874,Local Mandi Tomato Loose,19.95,21.48
+1269,P101876,English Oven Pav Bun 400g,71.32,68.16
+1270,P101884,Sumeru Frozen Peas 1kg,352.98,352.98
+1271,P101894,Mamypoko Baby Wipes Medium,662.7,668.48
+1272,P101899,Surf Excel Floor Cleaner 500ml,345.29,326.35
+1273,P101904,Mamaearth Body Lotion 75g,634.24,607.91
+1274,P101911,Daawat Sona Masoori Rice 1kg,1431.8,1431.8
+1275,P101923,Comfort Dishwash Bar 500g,484.95,527.5
+1276,P101925,Himalaya Body Lotion 180ml,181.41,186.54
+1277,P101933,Mamypoko Baby Powder Medium,1288.17,1344.63
+1278,P101940,ITC Master Chef Idli Batter 1kg,185.49,201.44
+1279,P101949,Dhara Mustard Oil 1L,857.51,857.51
+1280,P101955,Comfort Toilet Cleaner 200g,356.95,364.45
+1281,P101961,Colgate Shampoo 100g,679.58,767.84
+1282,P101968,Anmol Glucose Biscuit 100g,9.95,12.46
+1283,P101974,Comfort Floor Cleaner 500g,302.0,302.0
+1284,P101982,Himalaya Hair Oil 340ml,366.95,428.91
+1285,P101990,Classmate Ball Pen Pack of 5,408.52,408.52
+1286,P102000,Parle Cookies 60g,79.16,82.98
+1287,P102006,Fortune Toor Dal 10kg,1424.95,1553.68
+1288,P102014,Cadbury Candy Pack 50g,261.84,261.84
+1289,P102021,Classmate Notebook 500 sheets,90.22,90.22
+1290,P102023,McCain Frozen Peas 1kg,425.67,425.67
+1291,P102035,Nandini Toned Milk 1L,493.95,471.15
+1292,P102042,Milky Mist Cheese Slices 200ml,540.93,583.05
+1293,P102045,Paper Boat Cola 250g,21.31,21.89
+1294,P102054,Harvest Gold Muffin 400g,133.39,142.99
+1295,P102060,Local Mandi Apple 500g,155.69,165.83
+1296,P102067,Everest Chilli Powder 50g,151.39,181.5
+1297,P102074,Milky Mist Ghee 500ml,415.9,415.9
+1298,P102081,Tata Tea Cola 1L,164.15,164.15
+1299,P102091,Safal Apple 1kg,87.6,87.97
+1300,P102096,Pampers Baby Powder XL,1101.93,982.72
+1301,P102103,Surf Excel Fabric Conditioner 500ml,345.7,400.89
+1302,P102112,Sumeru Ready Paratha 1kg,389.72,389.72
+1303,P102114,English Oven Sandwich Bread 400g,128.95,134.74
+1304,P102122,Paper Boat Tea Leaf 600ml,126.23,138.84
+1305,P102129,Everest Chilli Powder 100g,252.76,241.9
+1306,P102139,Dhara Mustard Oil 5L,1231.6,1710.06
+1307,P102142,Milky Mist Paneer 500ml,93.89,93.89
+1308,P102151,Sundrop Mustard Oil 2L,935.36,1117.25
+1309,P102160,Mamypoko Baby Powder XL,221.62,221.62
+1310,P102166,Harpic Dishwash Bar 1kg,50.1,52.54
+1311,P102175,Local Mandi Apple 1kg,191.56,191.56
+1312,P102181,24 Mantra Poha 5kg,1394.08,1615.15
+1313,P102184,Aashirvaad Whole Wheat Atta 10kg,327.95,327.95
+1314,P102193,Real Mango Juice 1L,343.13,343.13
+1315,P102202,Nestle Dark Chocolate 100g,184.86,194.7
+1316,P102207,Classmate Ball Pen 1 pc,342.36,342.36
+1317,P102217,Local Mandi Apple 500g,65.41,68.46
+1318,P102219,Fortune Rice Bran Oil 2L,726.06,780.86
+1319,P102230,Himalaya Face Wash 75g,313.7,335.28
+1320,P102236,Saffola Sunflower Oil 2L,933.52,928.51
+1321,P102243,Eastern Turmeric Powder 100g,133.95,145.61
+1322,P102248,Safal Carrot 500g,21.8,22.39
+1323,P102255,Farm Fresh Apple 1kg,167.76,167.76
+1324,P102263,Classmate Pencil Box Pack of 5,116.79,116.79
+1325,P102272,Pampers Baby Powder Small,373.95,389.34
+1326,P102280,Nivea Bathing Soap 340ml,561.95,644.81
+1327,P102286,Real Instant Coffee 2L,238.95,281.91
+1328,P102290,Huggies Baby Soap Medium,547.95,587.69
+1329,P102296,Amul Choco Chewing Gum Pack of 10,43.24,48.88
+1330,P102305,ITC Master Chef Ready Paratha 200g,116.95,111.72
+1331,P102311,Milky Mist Curd 200ml,284.95,308.69
+1332,P102321,Cello Ball Pen 1 pc,27.09,35.15
+1333,P102324,Heritage Cheese Slices 500ml,194.59,194.59
+1334,P102335,Perfetti Dark Chocolate 25g,94.25,94.24
+1335,P102342,Nataraj Pencil Box 1 pc,99.85,107.02
+1336,P102346,Cello A4 Paper Ream 500 sheets,79.95,89.47
+1337,P102353,Eastern Garam Masala 200g,139.83,139.83
+1338,P102364,Anmol Cream Biscuit 60g,104.57,104.57
+1339,P102371,Local Mandi Tomato 500g,58.36,59.77
+1340,P102375,Surf Excel Toilet Cleaner 500g,487.64,509.34
+1341,P102383,Anmol Cookies 150g,9.95,10.62
+1342,P102389,Dove Bathing Soap 180ml,74.34,84.91
+1343,P102397,Nataraj Ball Pen 1 pc,355.28,355.28
+1344,P102404,Fortune Whole Wheat Atta 5kg,371.4,370.32
+1345,P102409,Catch Sambar Powder 50g,383.71,385.2
+1346,P102415,Dhara Sunflower Oil 5L,1121.85,1245.81
+1347,P102424,Everest Coriander Powder 50g,333.88,333.88
+1348,P102432,Pampers Diapers Large,819.74,895.86
+1349,P102436,Himalaya Hair Oil 340ml,264.6,243.03
+1350,P102445,Parle Cream Biscuit 250g,28.95,31.53
+1351,P102452,Everest Garam Masala 500g,169.06,176.54
+1352,P102460,Amul Curd 500ml,548.91,582.21
+1353,P102465,Dhara Groundnut Oil 1L,1321.88,1410.14
+1354,P102471,Real Tea Leaf 1L,137.95,151.71
+1355,P102480,Local Bakery Rusk 6 pc,198.67,198.67
+1356,P102485,Modern Rusk 6 pc,202.08,208.13
+1357,P102494,Britannia Cookies 150g,11.95,14.54
+1358,P102502,Harpic Dishwash Bar 200g,366.79,408.64
+1359,P102510,Cello A4 Paper Ream 1 pc,35.56,37.13
+1360,P102516,Dhara Groundnut Oil 1L,1272.67,1272.67
+1361,P102520,Saffola Mustard Oil 2L,564.97,731.86
+1362,P102531,McCain Frozen Peas 200g,148.04,160.54
+1363,P102534,Anmol Namkeen Mix 150g,98.12,98.12
+1364,P102546,Colgate Body Lotion 180ml,69.95,74.67
+1365,P102549,Milky Mist Butter 500g,114.02,119.01
+1366,P102559,English Oven Pav Bun 400g,86.19,86.19
+1367,P102566,Amul Toned Milk 1L,415.94,414.37
+1368,P102569,Cello Notebook 500 sheets,119.46,116.37
+1369,P102581,English Oven Sandwich Bread 400g,189.36,185.56
+1370,P102585,Eastern Turmeric Powder 200g,516.36,516.36
+1371,P102593,Bikano Cookies 400g,84.95,92.93
+1372,P102598,Farm Fresh Potato 500g,132.95,133.17
+1373,P102609,McCain Ready Paratha 1kg,176.55,183.47
+1374,P102616,Anmol Namkeen Mix 60g,81.45,82.31
+1375,P102623,Cello Ball Pen 500 sheets,110.85,107.54
+1376,P102626,Classmate Notebook 1 pc,344.82,416.91
+1377,P102636,Everest Coriander Powder 500g,114.77,113.15
+1378,P102640,Cadbury Candy Pack 25g,241.34,270.61
+1379,P102648,Comfort Dishwash Bar 500ml,435.0,389.8
+1380,P102656,Harvest Gold Sandwich Bread Pack of 2,176.92,194.33
+1381,P102664,Paper Boat Mango Juice 1L,256.95,261.47
+1382,P102671,Perfetti Milk Chocolate Pack of 10,231.95,252.0
+1383,P102674,Himalaya Toothpaste 180ml,450.95,515.88
+1384,P102682,Mother Dairy Paneer 200g,95.25,95.0
+1385,P102691,MDH Sambar Powder 100g,210.63,219.72
+1386,P102695,Pampers Baby Wipes Small,1254.95,1277.24
+1387,P102707,iD Fresh Idli Batter 400g,419.47,425.19
+1388,P102714,iD Fresh French Fries 1kg,80.41,86.8
+1389,P102718,Comfort Detergent Powder 500ml,287.95,356.09
+1390,P102724,Himalaya Body Lotion 100g,354.69,391.04
+1391,P102735,Nivea Toothpaste 340ml,517.39,534.08
+1392,P102738,Johnson's Baby Soap Large,531.89,572.74
+1393,P102744,English Oven Rusk Pack of 2,86.95,98.75
+1394,P102755,Harvest Gold Pav Bun Pack of 2,68.95,75.17
+1395,P102761,Local Mandi Onion 500g,159.81,170.84
+1396,P102768,Nestle Candy Pack Pack of 10,152.65,158.73
+1397,P102772,Local Bakery Muffin Pack of 2,151.97,151.97
+1398,P102779,Classmate Pencil Box Pack of 5,25.62,25.62
+1399,P102788,Gold Winner Mustard Oil 5L,871.07,920.26
+1400,P102794,India Gate Chana Dal 5kg,416.24,416.24
+1401,P102801,Lizol Fabric Conditioner 200g,99.95,108.87
+1402,P102811,Heritage Butter 200g,199.15,199.78
+1403,P102814,Milky Mist Butter 200g,524.95,543.91
+1404,P102821,Aashirvaad Chana Dal 10kg,1356.95,1314.43
+1405,P102833,Sundrop Rice Bran Oil 2L,680.71,680.71
+1406,P102835,Classmate A4 Paper Ream Pack of 5,101.19,101.19
+1407,P102845,Milky Mist Cheese Slices 500g,80.09,80.09
+1408,P102849,Mamypoko Diapers Large,641.17,682.39
+1409,P102857,Bikano Glucose Biscuit 250g,114.95,116.85
+1410,P102868,Paper Boat Mineral Water 2L,471.29,471.29
+1411,P102874,Nandini Ghee 1L,142.38,142.11
+1412,P102880,Saffola Rice Bran Oil 5L,547.95,575.53
+1413,P102886,Harvest Gold Rusk 6 pc,137.84,139.22
+1414,P102892,Vim Detergent Powder 500g,220.95,227.52
+1415,P102903,Sunfeast Namkeen Mix 400g,51.46,51.46
+1416,P102909,Safal Apple 1kg,48.95,48.78
+1417,P102913,Cello Pencil Box 1 pc,347.82,375.37
+1418,P102922,Nestle Chewing Gum 25g,120.11,120.15
+1419,P102931,Saffola Mustard Oil 2L,737.59,770.82
+1420,P102933,Mamypoko Baby Wipes XL,614.03,610.87
+1421,P102945,Bru Mango Juice 600ml,47.95,43.42
+1422,P102947,Farm Fresh Banana 500g,59.21,59.21
+1423,P102954,McCain Ready Paratha 1kg,119.54,129.98
+1424,P102963,Surf Excel Toilet Cleaner 1kg,365.76,415.64
+1425,P102972,iD Fresh French Fries 1kg,212.89,227.38
+1426,P102975,Nestle Candy Pack Pack of 10,226.32,234.92
+1427,P102982,Amul Choco Milk Chocolate 50g,263.07,255.95
+1428,P102993,Dhara Sunflower Oil 2L,293.96,318.19
+1429,P102998,Thums Up Instant Coffee 600ml,145.74,158.64
+1430,P103004,English Oven Pav Bun 6 pc,78.61,82.09
+1431,P103012,iD Fresh French Fries 400g,256.77,240.75
+1432,P103022,Classmate Ball Pen 500 sheets,47.95,60.43
+1433,P103029,Parle Cookies 60g,11.28,11.28
+1434,P103035,Sundrop Rice Bran Oil 5L,1201.33,1333.74
+1435,P103040,Mamaearth Face Wash 100g,402.85,410.59
+1436,P103050,24 Mantra Chana Dal 5kg,543.63,569.48
+1437,P103054,Farm Fresh Banana 500g,104.95,145.96
+1438,P103062,Harvest Gold Sandwich Bread 6 pc,177.19,173.63
+1439,P103068,Amul Ghee 1L,137.26,153.43
+1440,P103074,Sunfeast Glucose Biscuit 150g,52.85,52.85
+1441,P103081,Vim Toilet Cleaner 500ml,480.46,480.46
+1442,P103090,Sundrop Sunflower Oil 2L,805.95,841.97
+1443,P103096,Bisleri Tea Leaf 250g,277.95,315.47
+1444,P103105,Paper Boat Cola 250g,29.46,34.12
+1445,P103111,Mother Dairy Curd 200ml,40.41,40.41
+1446,P103118,Modern Muffin 400g,40.95,47.89
+1447,P103124,Bisleri Mineral Water 1L,478.95,523.92
+1448,P103129,Cadbury Milk Chocolate 25g,79.05,84.49
+1449,P103137,Sumeru French Fries 1kg,218.09,218.09
+1450,P103144,Modern Pav Bun 400g,145.27,145.27
+1451,P103155,Thums Up Tea Leaf 500g,243.23,270.2
+1452,P103159,Daawat Chana Dal 5kg,1193.28,1193.28
+1453,P103168,Mamypoko Diapers Medium,923.59,980.21
+1454,P103171,Modern Sandwich Bread 400g,56.95,68.42
+1455,P103178,Cadbury Candy Pack Pack of 10,21.49,21.89
+1456,P103188,Britannia Khakhra 250g,29.57,30.16
+1457,P103197,Pampers Diapers Medium,292.95,339.4
+1458,P103202,Nataraj A4 Paper Ream 500 sheets,262.95,295.26
+1459,P103206,Thums Up Mineral Water 2L,450.05,450.05
+1460,P103214,Gold Winner Groundnut Oil 5L,283.38,283.38
+1461,P103222,Nataraj Pencil Box 500 sheets,317.95,427.41
+1462,P103231,Milky Mist Toned Milk 200g,219.95,241.8
+1463,P103234,Tata Tea Tea Leaf 600ml,121.56,128.39
+1464,P103243,Aachi Chilli Powder 200g,195.61,231.63
+1465,P103249,Milky Mist Butter 200g,521.24,521.24
+1466,P103259,Safal Apple 1kg,298.27,298.27
+1467,P103262,Modern Pav Bun 6 pc,54.76,54.76
+1468,P103273,Camlin Pencil Box 1 pc,340.81,356.86
+1469,P103281,Harpic Dishwash Bar 1kg,163.32,172.43
+1470,P103283,Local Bakery Pav Bun 6 pc,145.09,166.64
+1471,P103294,Heritage Butter 1L,67.95,69.64
+1472,P103299,Lizol Dishwash Bar 500ml,220.95,238.05
+1473,P103309,Local Bakery Muffin 400g,59.57,59.95
+1474,P103316,Huggies Diapers Small,1749.88,1774.02
+1475,P103319,Aachi Sambar Powder 500g,356.46,356.46
+1476,P103328,Nivea Shampoo 340ml,236.27,228.35
+1477,P103337,MDH Sambar Powder 500g,79.95,94.03
+1478,P103340,Surf Excel Fabric Conditioner 500g,466.84,537.5
+1479,P103348,Gold Winner Mustard Oil 1L,456.57,485.6
+1480,P103354,India Gate Toor Dal 10kg,844.26,894.5
+1481,P103364,Safal Banana 500g,105.92,118.9
+1482,P103372,Anmol Cream Biscuit 100g,43.95,49.0
+1483,P103374,Bikano Namkeen Mix 100g,34.95,38.02
+1484,P103382,MDH Garam Masala 500g,187.59,196.46
+1485,P103389,Perfetti Milk Chocolate 25g,251.95,239.67
+1486,P103397,Aashirvaad Basmati Rice 10kg,371.02,371.02
+1487,P103406,Pampers Baby Powder XL,1154.48,1248.48
+1488,P103413,Gold Winner Rice Bran Oil 1L,1296.43,1352.06
+1489,P103416,Bru Soda 500g,73.27,73.27
+1490,P103424,ITC Master Chef Idli Batter 200g,295.58,295.58
+1491,P103435,Comfort Toilet Cleaner 200g,434.83,443.24
+1492,P103438,Heritage Ghee 500ml,187.96,187.96
+1493,P103449,Everest Sambar Powder 100g,381.08,381.08
+1494,P103452,Gold Winner Groundnut Oil 5L,1039.07,1033.7
+1495,P103461,Cello Pencil Box Pack of 5,104.95,109.46
+1496,P103465,Harpic Detergent Powder 200g,27.3,32.05
+1497,P103473,iD Fresh French Fries 200g,424.75,428.66
+1498,P103484,Perfetti Dark Chocolate 100g,109.59,109.59
+1499,P103487,Sumeru Frozen Peas 400g,345.08,361.14
+1500,P103496,Perfetti Candy Pack Pack of 10,70.71,70.71
+1501,P103504,Sumeru French Fries 400g,364.24,366.55
+1502,P103510,MDH Garam Masala 500g,183.91,196.86
+1503,P103517,Farm Fresh Apple Loose,160.29,177.49
+1504,P103525,Aachi Sambar Powder 500g,219.41,252.51
+1505,P103530,Bisleri Mango Juice 250g,427.69,427.69
+1506,P103538,Catch Sambar Powder 200g,265.96,265.96
+1507,P103542,Cello Pencil Box 500 sheets,398.89,398.89
+1508,P103552,Local Mandi Onion 1kg,120.81,125.2
+1509,P103559,Dhara Mustard Oil 2L,370.21,370.21
+1510,P103563,Sunfeast Cookies 60g,21.95,26.76
+1511,P103575,MDH Turmeric Powder 500g,54.47,54.47
+1512,P103577,Nataraj Ball Pen 500 sheets,99.48,100.44
+1513,P103584,Nivea Face Wash 75g,402.02,402.02
+1514,P103591,Cadbury Dark Chocolate 50g,102.7,102.7
+1515,P103600,Everest Sambar Powder 200g,98.09,107.84
+1516,P103606,Local Bakery Rusk 6 pc,178.05,185.94
+1517,P103616,Saffola Rice Bran Oil 2L,621.95,662.98
+1518,P103620,24 Mantra Sona Masoori Rice 10kg,468.18,474.03
+1519,P103629,Bisleri Cola 500g,57.95,60.58
+1520,P103637,Vim Dishwash Bar 500g,338.13,338.13
+1521,P103645,Local Mandi Potato 1kg,241.18,285.25
+1522,P103647,Farm Fresh Banana 1kg,37.95,42.08
+1523,P103654,Heritage Toned Milk 500g,460.36,481.76
+1524,P103661,Cadbury Candy Pack Pack of 10,118.1,125.81
+1525,P103668,Gold Winner Rice Bran Oil 1L,1530.18,1530.18
+1526,P103680,Daawat Basmati Rice 10kg,210.26,210.26
+1527,P103682,Nivea Face Wash 340ml,372.67,372.67
+1528,P103693,Local Mandi Apple 1kg,97.06,102.71
+1529,P103701,Gold Winner Groundnut Oil 2L,1171.33,1171.33
+1530,P103704,Paper Boat Mineral Water 1L,164.95,188.13
+1531,P103712,Pampers Baby Wipes Large,481.86,481.86
+1532,P103719,Mamypoko Baby Wipes Medium,957.52,957.52
+1533,P103727,McCain French Fries 1kg,116.88,116.88
+1534,P103732,Eastern Sambar Powder 200g,94.74,94.74
+1535,P103743,Daawat Sona Masoori Rice 1kg,1117.9,1117.9
+1536,P103749,Unibic Cream Biscuit 60g,13.83,17.91
+1537,P103757,Local Bakery Pav Bun 400g,147.98,159.4
+1538,P103760,Britannia Marie Gold 400g,94.95,103.67
+1539,P103766,Eastern Garam Masala 200g,191.95,212.45
+1540,P103777,Aachi Sambar Powder 50g,44.82,44.82
+1541,P103785,Classmate Notebook Pack of 5,491.9,606.71
+1542,P103792,Heritage Cheese Slices 200ml,26.45,25.06
+1543,P103794,Saffola Mustard Oil 2L,729.86,785.54
+1544,P103806,Fortune Basmati Rice 10kg,305.95,319.17
+1545,P103811,Daawat Chana Dal 10kg,801.95,778.9
+1546,P103816,Nestle Chewing Gum 50g,209.63,209.63
+1547,P103822,Himalaya Bathing Soap 75g,512.89,594.96
+1548,P103833,Sundrop Groundnut Oil 2L,1136.81,1136.81
+1549,P103839,Perfetti Candy Pack 25g,202.77,226.78
+1550,P103843,Colgate Body Lotion 340ml,636.12,660.15
+1551,P103855,Tata Tea Mango Juice 2L,276.95,322.11
+1552,P103861,Local Bakery Sandwich Bread Pack of 2,52.95,57.59
+1553,P103864,Dhara Mustard Oil 2L,424.35,540.44
+1554,P103871,Modern Rusk 400g,198.67,220.55
+1555,P103882,Lizol Dishwash Bar 500ml,269.95,273.56
+1556,P103886,Fortune Whole Wheat Atta 1kg,301.95,312.24
+1557,P103896,Harpic Detergent Powder 1kg,200.95,203.3
+1558,P103904,Gold Winner Groundnut Oil 1L,1081.09,1081.09
+1559,P103908,Cello Ball Pen Pack of 5,104.62,104.62
+1560,P103918,Milky Mist Ghee 500g,534.07,527.1
+1561,P103922,Unibic Cookies 100g,48.6,51.0
+1562,P103927,Harvest Gold Pav Bun Pack of 2,206.11,206.11
+1563,P103934,Real Instant Coffee 500g,250.41,284.79
+1564,P103946,India Gate Chana Dal 10kg,328.7,338.64
+1565,P103950,Fortune Sunflower Oil 5L,1209.55,1283.54
+1566,P103958,Britannia Glucose Biscuit 60g,30.95,32.46
+1567,P103964,Local Bakery Sandwich Bread 6 pc,129.59,134.21
+1568,P103973,Sunfeast Khakhra 400g,103.2,108.48
+1569,P103978,Catch Chilli Powder 200g,347.08,347.08
+1570,P103986,Thums Up Cola 250g,495.05,495.05
+1571,P103994,Local Mandi Onion 1kg,134.95,148.39
+1572,P103999,Local Bakery Rusk Pack of 2,118.59,120.61
+1573,P104008,Local Bakery Sandwich Bread Pack of 2,107.37,116.02
+1574,P104011,Nandini Ghee 500g,655.99,657.72
+1575,P104023,Amul Butter 500g,553.55,630.48
+1576,P104026,Local Bakery Muffin 400g,152.97,152.97
+1577,P104032,Patanjali Face Wash 180ml,568.95,603.87
+1578,P104042,McCain Idli Batter 200g,346.95,365.03
+1579,P104048,McCain Ready Paratha 1kg,162.96,193.57
+1580,P104058,Himalaya Shampoo 180ml,351.54,351.54
+1581,P104064,iD Fresh Frozen Peas 400g,318.07,326.15
+1582,P104072,Sundrop Rice Bran Oil 5L,650.2,724.1
+1583,P104079,Farm Fresh Onion Loose,72.2,75.55
+1584,P104081,India Gate Basmati Rice 5kg,586.63,652.8
+1585,P104089,Colgate Bathing Soap 75g,316.95,358.58
+1586,P104097,iD Fresh French Fries 200g,319.17,330.82
+1587,P104107,Harpic Fabric Conditioner 500ml,475.22,479.48
+1588,P104112,McCain French Fries 200g,425.51,435.25
+1589,P104121,Amul Choco Candy Pack 25g,130.95,131.32
+1590,P104123,ITC Master Chef Idli Batter 400g,340.95,432.72
+1591,P104133,Local Mandi Apple 500g,248.31,248.31
+1592,P104139,Farm Fresh Carrot 500g,202.92,249.08
+1593,P104149,Eastern Sambar Powder 500g,85.95,88.07
+1594,P104155,Aashirvaad Basmati Rice 5kg,137.26,144.69
+1595,P104160,Local Mandi Banana 1kg,258.87,256.98
+1596,P104168,Amul Cheese Slices 1L,512.27,512.27
+1597,P104175,India Gate Whole Wheat Atta 5kg,846.06,814.13
+1598,P104181,McCain Ready Paratha 1kg,279.95,298.55
+1599,P104187,Catch Chilli Powder 500g,86.95,86.95
+1600,P104194,Bisleri Mineral Water 600ml,119.04,119.04
+1601,P104202,Safal Banana Loose,132.95,166.1
+1602,P104212,Lizol Floor Cleaner 200g,401.95,426.07
+1603,P104219,Mamypoko Diapers XL,230.95,249.74
+1604,P104226,Fortune Poha 1kg,303.01,303.01
+1605,P104233,Sundrop Rice Bran Oil 5L,1232.09,1271.89
+1606,P104236,Paper Boat Tea Leaf 2L,274.58,289.43
+1607,P104242,ITC Master Chef Ready Paratha 400g,275.95,308.27
+1608,P104251,Sunfeast Marie Gold 150g,79.68,79.68
+1609,P104257,Aachi Turmeric Powder 500g,41.91,42.95
+1610,P104266,Dove Toothpaste 180ml,386.95,431.11
+1611,P104270,Saffola Groundnut Oil 1L,1036.53,1153.64
+1612,P104277,ITC Master Chef Ready Paratha 400g,136.79,128.39
+1613,P104285,Mother Dairy Cheese Slices 200g,582.95,683.7
+1614,P104294,McCain Idli Batter 200g,115.73,115.73
+1615,P104302,Mamypoko Diapers Medium,1205.95,1255.97
+1616,P104308,Bikano Marie Gold 60g,53.87,53.24
+1617,P104316,Real Mango Juice 2L,406.45,489.63
+1618,P104320,Local Mandi Banana Loose,128.95,147.42
+1619,P104328,Heritage Ghee 1L,66.17,64.22
+1620,P104334,Nandini Ghee 1L,258.22,294.34
+1621,P104344,Thums Up Cola 600ml,407.54,390.44
+1622,P104351,Saffola Sunflower Oil 5L,1128.29,1128.29
+1623,P104358,Pampers Diapers Small,1189.17,1243.57
+1624,P104361,Pampers Baby Soap Large,1350.95,1519.18
+1625,P104372,Everest Coriander Powder 50g,105.38,105.38
+1626,P104378,Cello Pencil Box Pack of 5,99.16,95.33
+1627,P104382,Nandini Cheese Slices 500g,58.95,62.22
+1628,P104389,Cadbury Candy Pack 50g,169.98,169.98
+1629,P104401,ITC Master Chef French Fries 400g,208.95,207.51
+1630,P104404,Johnson's Baby Powder XL,849.83,890.27
+1631,P104410,Tata Tea Instant Coffee 2L,466.86,541.11
+1632,P104417,iD Fresh Frozen Peas 1kg,322.95,332.65
+1633,P104427,Harpic Dishwash Bar 500g,462.16,506.64
+1634,P104435,McCain Ready Paratha 1kg,407.95,477.09
+1635,P104439,Parle Cookies 150g,109.14,123.98
+1636,P104446,Unibic Cream Biscuit 150g,52.95,66.45
+1637,P104454,Harvest Gold Sandwich Bread 6 pc,47.84,49.63
+1638,P104462,Eastern Turmeric Powder 50g,86.38,86.38
+1639,P104469,Huggies Baby Wipes XL,1383.23,1631.11
+1640,P104478,Anmol Namkeen Mix 150g,16.95,18.27
+1641,P104485,Pampers Baby Powder Large,582.09,643.04
+1642,P104487,Nataraj A4 Paper Ream Pack of 5,359.81,388.9
+1643,P104497,Amul Cheese Slices 500g,212.37,229.16
+1644,P104501,Aashirvaad Whole Wheat Atta 1kg,449.67,413.53
+1645,P104512,Harvest Gold Pav Bun 6 pc,94.53,94.53
+1646,P104517,Daawat Poha 10kg,1474.9,1474.9
+1647,P104526,Mother Dairy Butter 200ml,345.63,363.05
+1648,P104533,Eastern Chilli Powder 50g,256.47,313.53
+1649,P104541,Gold Winner Rice Bran Oil 2L,144.95,149.08
+1650,P104544,Aachi Chilli Powder 50g,93.89,104.46
+1651,P104554,Johnson's Baby Powder Small,437.01,437.01
+1652,P104558,iD Fresh French Fries 200g,396.14,440.08
+1653,P104567,McCain French Fries 400g,141.21,141.21
+1654,P104572,English Oven Pav Bun 6 pc,179.13,182.16
+1655,P104579,Local Mandi Banana 500g,67.48,67.48
+1656,P104587,Everest Sambar Powder 200g,252.25,252.25
+1657,P104593,Huggies Baby Wipes Small,867.34,867.34
+1658,P104600,Modern Pav Bun 400g,48.49,56.45
+1659,P104606,Sumeru Frozen Peas 200g,90.58,98.45
+1660,P104617,Anmol Cream Biscuit 250g,101.65,107.09
+1661,P104625,Local Mandi Potato 1kg,255.83,296.8
+1662,P104628,Nestle Milk Chocolate 100g,196.55,196.55
+1663,P104637,ITC Master Chef Frozen Peas 400g,294.49,353.99
+1664,P104645,Aashirvaad Sona Masoori Rice 10kg,1110.62,1052.62
+1665,P104651,Johnson's Baby Powder Large,540.51,540.51
+1666,P104658,Amul Paneer 500g,73.05,75.9
+1667,P104665,McCain Ready Paratha 1kg,217.71,217.71
+1668,P104670,Sunfeast Khakhra 150g,106.95,108.77
+1669,P104676,Bikano Cookies 60g,81.62,87.52
+1670,P104688,English Oven Muffin Pack of 2,178.09,178.09
+1671,P104695,Catch Sambar Powder 200g,66.6,80.54
+1672,P104700,Daawat Basmati Rice 1kg,1389.68,1425.82
+1673,P104708,Paper Boat Tea Leaf 1L,22.95,23.12
+1674,P104715,Comfort Detergent Powder 1kg,152.16,162.67
+1675,P104718,Sumeru Frozen Peas 1kg,364.54,364.54
+1676,P104725,Amul Choco Milk Chocolate Pack of 10,163.86,174.85
+1677,P104733,Mamaearth Face Wash 100g,627.95,669.6
+1678,P104739,Real Tea Leaf 2L,172.21,172.21
+1679,P104747,Sumeru Idli Batter 400g,342.93,342.93
+1680,P104756,Mamypoko Baby Wipes Large,334.95,373.5
+1681,P104765,Nataraj Ball Pen 1 pc,405.96,401.36
+1682,P104772,Bisleri Mineral Water 2L,332.47,342.57
+1683,P104774,Local Bakery Rusk Pack of 2,81.94,81.81
+1684,P104784,Cello Notebook Pack of 5,370.89,370.89
+1685,P104789,Local Mandi Tomato 1kg,65.95,67.52
+1686,P104800,Pampers Diapers XL,692.51,692.51
+1687,P104802,Perfetti Chewing Gum 100g,194.24,213.28
+1688,P104811,Patanjali Body Lotion 180ml,113.95,108.16
+1689,P104820,Tata Tea Mineral Water 2L,207.26,207.26
+1690,P104827,Farm Fresh Tomato 1kg,164.35,168.97
+1691,P104831,Pampers Baby Powder Small,1516.75,1516.75
+1692,P104842,Cello Notebook 1 pc,357.87,352.8
+1693,P104844,Heritage Ghee 500g,530.87,553.13
+1694,P104854,Farm Fresh Potato 1kg,35.76,35.8
+1695,P104858,McCain Ready Paratha 1kg,297.94,331.88
+1696,P104867,Local Bakery Pav Bun Pack of 2,190.5,190.5
+1697,P104872,Classmate Notebook 1 pc,132.95,132.45
+1698,P104883,Amul Butter 200g,342.92,370.64
+1699,P104891,Johnson's Baby Soap Small,692.46,757.22
+1700,P104898,Local Bakery Rusk 400g,161.27,181.5
+1701,P104902,Harpic Fabric Conditioner 500ml,445.79,516.78
+1702,P104909,Farm Fresh Tomato Loose,334.66,363.1
+1703,P104916,Lizol Fabric Conditioner 500ml,284.74,340.18
+1704,P104921,Dove Body Lotion 340ml,398.95,425.26
+1705,P104933,Colgate Bathing Soap 75g,468.07,560.59
+1706,P104938,Mamypoko Baby Wipes Small,999.94,999.94
+1707,P104944,Perfetti Dark Chocolate 25g,42.95,54.97
+1708,P104950,Sunfeast Cookies 400g,91.01,91.01
+1709,P104956,Cadbury Chewing Gum 50g,133.95,141.84
+1710,P104965,Harvest Gold Muffin Pack of 2,88.45,88.5
+1711,P104975,Fortune Whole Wheat Atta 1kg,496.12,568.03
+1712,P104980,English Oven Sandwich Bread Pack of 2,69.95,92.75
+1713,P104986,Cadbury Milk Chocolate Pack of 10,215.5,221.68
+1714,P104992,Aashirvaad Toor Dal 10kg,828.19,979.87
+1715,P105003,Lizol Detergent Powder 200g,285.67,323.64
+1716,P105009,Bikano Glucose Biscuit 250g,65.38,65.38
+1717,P105017,Vim Dishwash Bar 500ml,193.22,220.46
+1718,P105021,Mamypoko Baby Powder Small,1086.75,1246.7
+1719,P105030,Amul Choco Milk Chocolate 25g,211.39,224.07
+1720,P105035,Safal Potato 1kg,158.77,159.58
+1721,P105042,Parle Cookies 60g,59.37,66.53
+1722,P105050,Nandini Curd 200ml,103.36,109.65
+1723,P105057,Nestle Dark Chocolate 50g,254.08,294.62
+1724,P105062,Anmol Cream Biscuit 400g,14.36,14.84
+1725,P105069,Tata Tea Instant Coffee 2L,162.6,168.3
+1726,P105075,Britannia Glucose Biscuit 400g,46.35,49.58
+1727,P105083,Harpic Floor Cleaner 500ml,245.38,245.38
+1728,P105092,Bisleri Instant Coffee 2L,421.74,421.37
+1729,P105100,Nestle Candy Pack 25g,276.61,270.01
+1730,P105106,Sunfeast Marie Gold 100g,101.21,104.56
+1731,P105112,Modern Rusk Pack of 2,179.95,194.64
+1732,P105119,Amul Choco Milk Chocolate 50g,91.19,106.45
+1733,P105127,Local Bakery Muffin 400g,62.95,77.13
+1734,P105136,Farm Fresh Potato 1kg,158.61,158.61
+1735,P105139,iD Fresh Idli Batter 200g,100.45,119.64
+1736,P105145,India Gate Whole Wheat Atta 1kg,675.82,763.65
+1737,P105155,Eastern Turmeric Powder 500g,317.12,350.84
+1738,P105164,India Gate Basmati Rice 5kg,216.12,242.35
+1739,P105167,Dhara Sunflower Oil 2L,826.2,826.2
+1740,P105176,Dove Toothpaste 180ml,499.95,509.66
+1741,P105180,Parle Marie Gold 60g,103.95,102.63
+1742,P105187,Fortune Chana Dal 5kg,1057.95,1046.11
+1743,P105198,Cello A4 Paper Ream Pack of 5,14.66,15.39
+1744,P105201,Gold Winner Mustard Oil 5L,280.95,365.02
+1745,P105209,Lizol Floor Cleaner 500ml,367.95,399.92
+1746,P105219,Himalaya Toothpaste 75g,653.26,763.15
+1747,P105227,Cello Ball Pen Pack of 5,257.52,292.54
+1748,P105230,Nataraj Ball Pen 500 sheets,107.33,123.72
+1749,P105236,Pampers Baby Powder Small,511.25,552.6
+1750,P105246,Sundrop Groundnut Oil 1L,840.69,840.69
+1751,P105252,Anmol Cookies 400g,10.57,12.09
+1752,P105260,Camlin Notebook Pack of 5,72.61,72.61
+1753,P105268,Amul Choco Milk Chocolate Pack of 10,255.65,300.66
+1754,P105272,iD Fresh Frozen Peas 1kg,351.65,351.65
+1755,P105280,Heritage Paneer 200ml,220.35,220.35
+1756,P105288,Safal Carrot Loose,239.51,271.73
+1757,P105294,Cadbury Candy Pack 50g,129.95,143.55
+1758,P105302,Mother Dairy Toned Milk 200ml,258.62,281.37
+1759,P105307,Gold Winner Sunflower Oil 2L,863.64,818.25
+1760,P105313,Local Mandi Tomato 500g,51.83,51.83
+1761,P105323,Catch Coriander Powder 200g,73.95,84.67
+1762,P105331,Nandini Toned Milk 1L,270.95,308.39
+1763,P105337,Local Bakery Sandwich Bread 400g,31.85,35.2
+1764,P105345,Aachi Coriander Powder 200g,295.95,335.85
+1765,P105351,Cadbury Milk Chocolate 25g,102.95,109.14
+1766,P105356,MDH Sambar Powder 100g,232.26,232.26
+1767,P105365,Johnson's Baby Wipes Large,393.76,420.06
+1768,P105369,Nestle Candy Pack 25g,135.84,143.76
+1769,P105377,Classmate Ball Pen 500 sheets,262.95,275.11
+1770,P105384,McCain Idli Batter 1kg,300.95,315.25
+1771,P105394,Tata Tea Soda 1L,335.45,327.72
+1772,P105400,Unibic Namkeen Mix 150g,48.1,53.13
+1773,P105405,Sundrop Mustard Oil 5L,389.95,430.78
+1774,P105413,Huggies Diapers Small,1243.79,1403.47
+1775,P105418,Perfetti Dark Chocolate 50g,243.05,257.82
+1776,P105425,Saffola Rice Bran Oil 5L,146.3,153.55
+1777,P105433,Amul Choco Candy Pack 50g,126.03,144.32
+1778,P105440,Modern Pav Bun 6 pc,107.89,107.89
+1779,P105450,Safal Onion 500g,252.15,252.15
+1780,P105453,Mamaearth Toothpaste 75g,393.95,465.18
+1781,P105460,Perfetti Candy Pack Pack of 10,143.35,148.47
+1782,P105468,Sundrop Groundnut Oil 1L,994.58,1100.43
+1783,P105479,iD Fresh Ready Paratha 400g,237.28,253.92
+1784,P105483,Perfetti Milk Chocolate 50g,153.63,160.65
+1785,P105490,Real Cola 1L,154.49,154.49
+1786,P105497,Camlin Ball Pen Pack of 5,70.98,70.98
+1787,P105507,Safal Potato 500g,20.17,22.07
+1788,P105511,Patanjali Hair Oil 75g,270.77,310.12
+1789,P105518,Colgate Shampoo 180ml,729.3,729.3
+1790,P105524,Anmol Glucose Biscuit 250g,77.9,81.14
+1791,P105531,Sumeru Idli Batter 400g,472.66,502.91
+1792,P105541,Vim Fabric Conditioner 200g,201.95,189.75
+1793,P105547,iD Fresh Ready Paratha 200g,406.95,431.77
+1794,P105553,Mamypoko Diapers Large,739.86,764.76
+1795,P105562,ITC Master Chef Idli Batter 200g,128.95,131.88
+1796,P105570,Nandini Ghee 500ml,345.21,345.21
+1797,P105575,Nandini Paneer 200ml,430.13,513.17
+1798,P105583,Real Mango Juice 2L,178.95,179.43
+1799,P105589,Unibic Cookies 60g,84.8,90.25
+1800,P105594,McCain Ready Paratha 400g,317.3,321.63
+1801,P105603,Real Tea Leaf 600ml,193.95,202.29
+1802,P105609,Daawat Basmati Rice 5kg,817.71,817.71
+1803,P105614,Colgate Shampoo 100g,652.27,652.27
+1804,P105624,Nandini Toned Milk 500ml,380.06,380.06
+1805,P105633,Harvest Gold Sandwich Bread 6 pc,46.25,46.25
+1806,P105636,Daawat Chana Dal 5kg,526.95,558.71
+1807,P105643,Aashirvaad Sona Masoori Rice 10kg,1294.23,1294.23
+1808,P105651,Nestle Dark Chocolate 100g,110.95,108.83
+1809,P105656,24 Mantra Basmati Rice 5kg,438.95,516.52
+1810,P105666,Daawat Basmati Rice 1kg,1064.29,1064.29
+1811,P105672,Safal Apple 1kg,62.95,69.48
+1812,P105677,Bikano Cookies 250g,89.95,109.29
+1813,P105684,Dhara Rice Bran Oil 1L,1096.95,1114.27
+1814,P105695,English Oven Rusk 6 pc,135.65,158.81
+1815,P105698,Nestle Dark Chocolate 25g,165.72,194.14
+1816,P105707,Camlin Pencil Box 500 sheets,130.64,130.64
+1817,P105713,MDH Garam Masala 50g,327.34,345.36
+1818,P105720,Safal Carrot Loose,67.32,69.64
+1819,P105729,Bikano Khakhra 400g,68.08,75.27
+1820,P105733,Patanjali Toothpaste 75g,135.79,151.69
+1821,P105740,Sunfeast Khakhra 250g,103.24,103.24
+1822,P105747,Nestle Chewing Gum 50g,287.56,287.56
+1823,P105757,Aachi Turmeric Powder 50g,248.44,248.44
+1824,P105765,Dove Body Lotion 340ml,439.9,529.25
+1825,P105772,Colgate Body Lotion 340ml,539.31,576.55
+1826,P105775,Farm Fresh Apple 1kg,104.41,104.41
+1827,P105784,Safal Onion Loose,116.81,116.81
+1828,P105789,Perfetti Milk Chocolate 100g,46.48,42.75
+1829,P105797,Surf Excel Fabric Conditioner 500g,243.46,254.07
+1830,P105805,Safal Banana Loose,111.39,110.21
+1831,P105815,McCain Ready Paratha 200g,320.65,320.65
+1832,P105819,Dove Toothpaste 100g,66.64,66.64
+1833,P105827,Amul Ghee 500ml,96.95,124.38
+1834,P105835,Milky Mist Toned Milk 200ml,243.66,238.39
+1835,P105838,Aashirvaad Poha 5kg,594.5,594.5
+1836,P105845,Perfetti Dark Chocolate 25g,102.36,121.94
+1837,P105855,Local Bakery Pav Bun Pack of 2,128.68,123.28
+1838,P105860,Safal Tomato Loose,141.88,141.88
+1839,P105868,Modern Pav Bun 6 pc,71.99,68.91
+1840,P105878,Eastern Sambar Powder 100g,268.52,282.51
+1841,P105882,Amul Choco Milk Chocolate 100g,221.21,222.02
+1842,P105890,Dhara Mustard Oil 2L,1102.54,1196.88
+1843,P105897,Nataraj A4 Paper Ream 1 pc,225.21,249.03
+1844,P105901,McCain Idli Batter 200g,73.95,80.48
+1845,P105908,Saffola Sunflower Oil 5L,638.48,698.64
+1846,P105918,Harpic Fabric Conditioner 500g,315.8,294.44
+1847,P105923,Eastern Coriander Powder 50g,242.95,245.29
+1848,P105929,Britannia Glucose Biscuit 100g,11.18,11.18
+1849,P105937,Cadbury Dark Chocolate 25g,259.08,259.08
+1850,P105944,Huggies Baby Powder Medium,985.47,985.47
+1851,P105950,Fortune Sona Masoori Rice 1kg,1356.49,1356.49
+1852,P105959,Bisleri Soda 500g,479.13,513.93
+1853,P105965,Harvest Gold Rusk 400g,61.37,66.08
+1854,P105971,Fortune Mustard Oil 5L,1150.46,1150.46
+1855,P105980,Nataraj Pencil Box Pack of 5,263.95,288.7
+1856,P105988,Modern Pav Bun 400g,26.95,29.57
+1857,P105997,Local Bakery Pav Bun 6 pc,115.85,124.6
+1858,P106004,Aachi Chilli Powder 200g,137.38,137.38
+1859,P106009,Catch Sambar Powder 100g,320.74,353.21
+1860,P106015,Sumeru Frozen Peas 200g,150.41,148.43
+1861,P106024,Harpic Toilet Cleaner 1kg,461.42,472.89
+1862,P106027,Aashirvaad Whole Wheat Atta 1kg,1436.61,1548.23
+1863,P106035,Cadbury Candy Pack 25g,89.95,86.76
+1864,P106044,Real Cola 1L,37.47,40.72
+1865,P106048,Mamypoko Baby Wipes Medium,310.59,310.59
+1866,P106059,Harpic Floor Cleaner 200g,292.81,313.87
+1867,P106067,Milky Mist Cheese Slices 500g,417.22,444.09
+1868,P106072,Nataraj Pencil Box 1 pc,78.69,78.69
+1869,P106080,Cello Notebook Pack of 5,342.95,361.06
+1870,P106084,Dhara Groundnut Oil 5L,592.14,592.14
+1871,P106093,Classmate Pencil Box 500 sheets,315.93,315.93
+1872,P106098,Johnson's Baby Wipes Small,362.95,334.84
+1873,P106106,Harpic Dishwash Bar 1kg,219.14,219.14
+1874,P106115,Sunfeast Cream Biscuit 150g,128.36,128.36
+1875,P106123,24 Mantra Whole Wheat Atta 1kg,244.95,248.44
+1876,P106130,Fortune Sona Masoori Rice 1kg,1254.95,1317.16
+1877,P106133,Bisleri Cola 250g,307.37,370.91
+1878,P106143,Comfort Dishwash Bar 1kg,56.15,61.74
+1879,P106151,Cello Ball Pen 1 pc,289.47,298.42
+1880,P106158,Sundrop Sunflower Oil 1L,564.54,507.58
+1881,P106162,Daawat Sona Masoori Rice 1kg,527.95,534.57
+1882,P106169,Vim Toilet Cleaner 1kg,221.03,221.89
+1883,P106174,Local Mandi Apple Loose,229.89,229.89
+1884,P106181,Aashirvaad Chana Dal 1kg,885.95,778.6
+1885,P106191,24 Mantra Sona Masoori Rice 5kg,1230.97,1230.97
+1886,P106200,Mamypoko Diapers Small,117.95,119.89
+1887,P106207,Patanjali Hair Oil 100g,459.95,564.89
+1888,P106209,Nataraj Pencil Box 500 sheets,182.34,199.51
+1889,P106221,Unibic Glucose Biscuit 150g,31.65,31.65
+1890,P106228,Amul Choco Chewing Gum Pack of 10,43.95,44.54
+1891,P106234,Classmate Notebook 1 pc,78.81,79.42
+1892,P106239,Fortune Basmati Rice 1kg,803.36,803.36
+1893,P106244,McCain Frozen Peas 200g,73.94,73.94
+1894,P106254,India Gate Whole Wheat Atta 5kg,1135.5,1282.79
+1895,P106258,Dhara Rice Bran Oil 5L,423.67,423.67
+1896,P106270,Aashirvaad Chana Dal 1kg,308.83,308.83
+1897,P106277,Nandini Ghee 1L,395.95,416.62
+1898,P106282,Mamaearth Body Lotion 100g,440.95,448.43
+1899,P106288,Amul Ghee 200g,42.41,48.38
+1900,P106297,Thums Up Cola 600ml,143.5,169.05
+1901,P106300,Classmate Pencil Box 500 sheets,387.92,425.27
+1902,P106310,Lizol Detergent Powder 200g,462.03,462.03
+1903,P106317,Sumeru Frozen Peas 200g,423.01,485.55
+1904,P106323,Aachi Coriander Powder 50g,218.99,218.99
+1905,P106330,Comfort Toilet Cleaner 200g,188.0,218.33
+1906,P106336,Bru Mineral Water 250g,456.47,452.43
+1907,P106344,Aashirvaad Whole Wheat Atta 5kg,817.92,801.3
+1908,P106353,Paper Boat Instant Coffee 1L,244.95,267.43
+1909,P106357,Pampers Baby Powder Small,1078.45,1078.45
+1910,P106367,Mother Dairy Butter 200ml,650.25,650.25
+1911,P106373,Eastern Chilli Powder 50g,46.84,48.45
+1912,P106382,Farm Fresh Potato 500g,81.6,81.6
+1913,P106388,India Gate Whole Wheat Atta 10kg,1042.36,1120.55
+1914,P106391,Gold Winner Rice Bran Oil 2L,747.95,795.61
+1915,P106399,Mamypoko Diapers XL,1107.95,1270.25
+1916,P106405,Patanjali Bathing Soap 100g,39.79,40.51
+1917,P106415,Mamypoko Baby Wipes XL,911.99,911.99
+1918,P106424,Amul Paneer 200g,535.14,535.14
+1919,P106426,Unibic Khakhra 60g,149.87,154.27
+1920,P106434,Classmate Notebook Pack of 5,165.67,178.02
+1921,P106443,Eastern Coriander Powder 500g,52.87,52.87
+1922,P106452,Modern Rusk Pack of 2,27.9,31.15
+1923,P106454,Milky Mist Ghee 500ml,118.78,127.35
+1924,P106464,Huggies Baby Powder Medium,271.59,277.18
+1925,P106473,Thums Up Mineral Water 600ml,298.68,297.16
+1926,P106478,Catch Sambar Powder 500g,57.98,56.12
+1927,P106486,Mamypoko Diapers XL,1342.57,1837.06
+1928,P106490,India Gate Chana Dal 5kg,574.62,671.88
+1929,P106501,Comfort Toilet Cleaner 200g,165.98,164.07
+1930,P106506,Unibic Marie Gold 60g,91.95,125.8
+1931,P106512,Lizol Floor Cleaner 500ml,418.86,467.07
+1932,P106522,Dhara Mustard Oil 5L,208.95,203.79
+1933,P106528,Mamypoko Diapers Medium,832.82,832.82
+1934,P106534,Harpic Detergent Powder 200g,78.95,96.0
+1935,P106542,Bikano Namkeen Mix 250g,107.95,139.24
+1936,P106550,Perfetti Chewing Gum 25g,27.06,29.54
+1937,P106553,Lizol Detergent Powder 500g,139.74,139.74
+1938,P106563,Mamypoko Baby Wipes Small,426.95,469.9
+1939,P106566,Colgate Body Lotion 75g,229.43,251.68
+1940,P106577,Modern Muffin Pack of 2,46.9,52.98
+1941,P106584,Farm Fresh Banana Loose,235.23,247.63
+1942,P106592,Dhara Sunflower Oil 2L,690.17,815.9
+1943,P106599,Milky Mist Paneer 200ml,224.95,245.11
+1944,P106602,Heritage Paneer 1L,120.1,122.17
+1945,P106611,Cello Pencil Box Pack of 5,341.44,341.44
+1946,P106620,Pampers Diapers XL,296.41,273.19
+1947,P106624,Daawat Toor Dal 5kg,96.88,98.44
+1948,P106629,Unibic Glucose Biscuit 400g,52.08,57.49
+1949,P106639,Camlin Notebook 500 sheets,415.94,485.46
+1950,P106648,Milky Mist Ghee 200ml,330.96,339.01
+1951,P106651,Fortune Toor Dal 5kg,855.95,900.59
+1952,P106659,iD Fresh Ready Paratha 1kg,88.95,106.86
+1953,P106669,Everest Garam Masala 500g,102.72,102.72
+1954,P106671,Local Bakery Pav Bun 400g,101.77,90.38
+1955,P106679,Local Mandi Carrot 500g,172.95,181.66
+1956,P106686,Everest Chilli Powder 200g,275.45,324.48
+1957,P106697,Sumeru Frozen Peas 200g,342.69,342.69
+1958,P106703,Modern Sandwich Bread Pack of 2,76.37,76.83
+1959,P106710,Bru Cola 600ml,93.71,98.77
+1960,P106718,Dove Hair Oil 75g,448.91,525.27
+1961,P106720,Perfetti Candy Pack 50g,126.28,126.28
+1962,P106731,Local Mandi Onion 500g,142.59,153.24
+1963,P106735,Thums Up Tea Leaf 250g,320.99,320.99
+1964,P106745,Surf Excel Fabric Conditioner 500ml,518.86,621.98
+1965,P106751,English Oven Muffin Pack of 2,132.55,134.6
+1966,P106757,Amul Paneer 500g,398.95,387.95
+1967,P106765,Nestle Dark Chocolate 50g,270.4,279.73
+1968,P106773,Harpic Fabric Conditioner 200g,371.2,397.71
+1969,P106776,Amul Paneer 200g,404.48,445.4
+1970,P106783,Mamaearth Hair Oil 100g,87.95,94.23
+1971,P106793,Dhara Groundnut Oil 1L,287.78,303.65
+1972,P106802,Fortune Mustard Oil 2L,689.06,739.16
+1973,P106807,Comfort Fabric Conditioner 200g,322.15,322.15
+1974,P106813,Mamypoko Baby Powder Medium,264.52,257.87
+1975,P106823,ITC Master Chef Ready Paratha 400g,136.43,148.11
+1976,P106830,Parle Cookies 100g,103.94,103.94
+1977,P106833,Colgate Hair Oil 100g,397.38,446.47
+1978,P106844,Unibic Marie Gold 400g,22.95,23.44
+1979,P106848,Local Mandi Potato 1kg,16.02,17.39
+1980,P106858,Patanjali Body Lotion 100g,257.07,281.23
+1981,P106865,Paper Boat Mango Juice 250g,299.72,299.72
+1982,P106872,Sunfeast Cream Biscuit 150g,73.31,73.12
+1983,P106877,Fortune Basmati Rice 1kg,1012.95,1085.3
+1984,P106885,Bikano Namkeen Mix 400g,132.48,137.92
+1985,P106891,Nandini Ghee 200ml,642.78,642.78
+1986,P106900,Nandini Toned Milk 500g,179.85,179.85
+1987,P106907,Aashirvaad Basmati Rice 10kg,294.95,321.26
+1988,P106911,24 Mantra Chana Dal 1kg,232.77,232.77
+1989,P106920,India Gate Poha 10kg,1398.34,1398.34
+1990,P106927,Local Bakery Rusk Pack of 2,140.95,156.05
+1991,P106934,Aashirvaad Whole Wheat Atta 1kg,1554.16,1604.94
+1992,P106942,English Oven Rusk 400g,169.95,206.7
+1993,P106948,MDH Sambar Powder 500g,160.95,209.81
+1994,P106955,Amul Curd 1L,203.91,204.37
+1995,P106958,Colgate Face Wash 75g,120.44,125.66
+1996,P106965,Modern Sandwich Bread 400g,78.22,89.01
+1997,P106975,Nestle Candy Pack 25g,136.95,143.78
+1998,P106984,English Oven Rusk 400g,26.9,28.34
+1999,P106989,Unibic Cookies 60g,24.76,26.75
+2000,P106997,Camlin Notebook 500 sheets,39.7,42.42
+2001,P107003,Daawat Sona Masoori Rice 10kg,1186.93,1218.85
+2002,P107012,Modern Rusk 400g,104.24,109.16
+2003,P107018,Everest Turmeric Powder 200g,179.95,187.58
+2004,P107026,Surf Excel Floor Cleaner 1kg,65.23,69.1
+2005,P107028,Bikano Khakhra 100g,56.6,56.6
+2006,P107040,Amul Butter 500g,474.18,474.18
+2007,P107047,Camlin Pencil Box Pack of 5,413.27,413.27
+2008,P107053,Milky Mist Toned Milk 200ml,524.95,457.07
+2009,P107056,Bisleri Mineral Water 2L,341.76,341.76
+2010,P107063,McCain Frozen Peas 1kg,374.87,387.93
+2011,P107072,iD Fresh Idli Batter 1kg,197.46,229.12
+2012,P107078,Local Mandi Tomato 1kg,111.95,98.82
+2013,P107089,Mother Dairy Cheese Slices 200ml,192.1,208.86
+2014,P107094,Comfort Floor Cleaner 500g,87.94,97.95
+2015,P107100,Cello Ball Pen 1 pc,171.95,200.76
+2016,P107110,Unibic Marie Gold 250g,76.95,77.73
+2017,P107115,Modern Sandwich Bread 400g,173.36,172.62
+2018,P107119,Cadbury Milk Chocolate 50g,15.87,18.29
+2019,P107126,Cello Pencil Box 500 sheets,75.95,68.67
+2020,P107137,Farm Fresh Apple 500g,31.95,32.59
+2021,P107145,iD Fresh French Fries 400g,235.69,235.69
+2022,P107149,Bru Soda 600ml,145.83,145.83
+2023,P107158,Nestle Candy Pack 100g,142.95,147.89
+2024,P107163,Everest Sambar Powder 200g,171.95,187.11
+2025,P107171,Nataraj Ball Pen 500 sheets,325.58,335.2
+2026,P107178,Classmate Notebook Pack of 5,294.44,298.69
+2027,P107182,Amul Choco Chewing Gum Pack of 10,109.95,112.81
+2028,P107190,Nestle Milk Chocolate Pack of 10,223.5,223.5
+2029,P107197,Nivea Face Wash 340ml,602.03,669.72
+2030,P107208,Nandini Cheese Slices 200g,302.95,323.06
+2031,P107215,Pampers Baby Powder Medium,153.85,153.85
+2032,P107217,ITC Master Chef Ready Paratha 1kg,259.95,293.45
+2033,P107226,Paper Boat Tea Leaf 500g,86.9,88.38
+2034,P107231,Daawat Toor Dal 5kg,1193.22,1193.22
+2035,P107242,Amul Curd 500ml,589.95,635.24
+2036,P107246,Tata Tea Soda 500g,310.13,313.74
+2037,P107253,Local Mandi Apple 500g,232.65,249.41
+2038,P107264,Bru Mineral Water 500g,181.93,190.99
+2039,P107266,English Oven Rusk 6 pc,69.3,71.89
+2040,P107278,Classmate A4 Paper Ream Pack of 5,57.4,55.18
+2041,P107282,Aashirvaad Sona Masoori Rice 1kg,1189.2,1189.2
+2042,P107292,Cello Notebook 500 sheets,324.95,372.98
+2043,P107294,Local Bakery Muffin 400g,83.95,85.13
+2044,P107301,Daawat Sona Masoori Rice 1kg,893.95,945.94
+2045,P107308,Bru Mango Juice 250g,207.74,226.19
+2046,P107320,Camlin A4 Paper Ream 500 sheets,223.25,231.92
+2047,P107327,Aashirvaad Sona Masoori Rice 10kg,1146.95,1138.42
+2048,P107330,Paper Boat Instant Coffee 2L,115.95,134.92
+2049,P107337,Catch Turmeric Powder 500g,365.85,429.21
+2050,P107346,Dhara Groundnut Oil 1L,449.29,449.29
+2051,P107354,McCain French Fries 400g,205.43,227.6
+2052,P107362,Bru Soda 600ml,61.09,75.9
+2053,P107365,Mamypoko Baby Wipes Large,934.48,978.42
+2054,P107373,Safal Banana 1kg,86.15,96.28
+2055,P107381,McCain French Fries 400g,185.69,195.99
+2056,P107385,Saffola Mustard Oil 1L,797.95,811.35
+2057,P107393,Cello Pencil Box Pack of 5,413.99,469.9
+2058,P107400,Amul Choco Milk Chocolate Pack of 10,282.29,273.33
+2059,P107409,Mother Dairy Paneer 500ml,419.09,486.68
+2060,P107414,Mother Dairy Toned Milk 1L,539.23,565.57
+2061,P107422,Amul Paneer 1L,193.56,193.56
+2062,P107432,Nandini Cheese Slices 200g,41.96,45.6
+2063,P107435,Dove Bathing Soap 340ml,549.51,636.54
+2064,P107446,Himalaya Toothpaste 100g,561.07,593.14
+2065,P107449,Mamypoko Baby Soap XL,1290.5,1495.62
+2066,P107458,Aashirvaad Toor Dal 10kg,1239.88,1239.88
+2067,P107463,Patanjali Hair Oil 100g,177.06,188.92
+2068,P107472,Eastern Garam Masala 200g,60.81,64.61
+2069,P107477,English Oven Pav Bun Pack of 2,116.48,116.48
+2070,P107488,Cadbury Chewing Gum 25g,303.21,303.21
+2071,P107495,Nataraj Pencil Box 500 sheets,402.26,448.19
+2072,P107502,Surf Excel Floor Cleaner 200g,296.43,311.85
+2073,P107508,Pampers Diapers Medium,1450.59,1577.69
+2074,P107516,Himalaya Face Wash 340ml,598.37,565.2
+2075,P107520,Dhara Mustard Oil 2L,136.95,139.81
+2076,P107526,Perfetti Milk Chocolate 50g,46.11,54.94
+2077,P107536,Aashirvaad Toor Dal 1kg,1495.35,1613.47
+2078,P107542,Local Mandi Onion Loose,162.57,162.57
+2079,P107549,Anmol Cream Biscuit 150g,47.87,47.87
+2080,P107555,Fortune Poha 5kg,1314.43,1314.43
+2081,P107564,Classmate A4 Paper Ream 500 sheets,303.45,325.35
+2082,P107568,Local Bakery Rusk Pack of 2,147.18,140.27
+2083,P107575,Local Mandi Onion 500g,65.95,82.07
+2084,P107581,Sumeru Ready Paratha 1kg,243.81,287.09
+2085,P107589,Harpic Fabric Conditioner 500ml,266.18,257.75
+2086,P107597,Milky Mist Ghee 200g,519.83,562.77
+2087,P107605,Johnson's Baby Wipes Medium,1290.76,1129.73
+2088,P107609,Britannia Glucose Biscuit 100g,108.46,108.46
+2089,P107621,Safal Banana Loose,92.47,119.64
+2090,P107623,Patanjali Hair Oil 340ml,442.34,468.34
+2091,P107630,Bisleri Soda 1L,275.41,309.72
+2092,P107639,McCain Idli Batter 400g,128.49,128.49
+2093,P107646,Aachi Sambar Powder 500g,225.19,225.19
+2094,P107654,ITC Master Chef Ready Paratha 400g,363.7,409.57
+2095,P107662,Amul Choco Milk Chocolate 50g,312.42,330.01
+2096,P107667,McCain Idli Batter 200g,338.95,367.93
+2097,P107676,Everest Sambar Powder 50g,186.95,213.04
+2098,P107681,Himalaya Hair Oil 340ml,184.66,193.13
+2099,P107686,Comfort Toilet Cleaner 200g,347.22,347.22
+2100,P107695,Comfort Dishwash Bar 500ml,282.58,271.01
+2101,P107705,Mamypoko Baby Wipes Medium,706.38,763.24
+2102,P107708,India Gate Toor Dal 10kg,163.95,167.35
+2103,P107715,Patanjali Face Wash 340ml,241.95,241.95
+2104,P107721,Safal Banana Loose,92.25,92.25
+2105,P107733,Harvest Gold Pav Bun 400g,55.17,56.44
+2106,P107740,Mamypoko Baby Wipes Large,1366.88,1366.88
+2107,P107743,McCain French Fries 1kg,206.95,197.87
+2108,P107753,Farm Fresh Banana 500g,67.96,73.61
+2109,P107759,Fortune Basmati Rice 10kg,229.95,257.69
+2110,P107767,Dhara Mustard Oil 5L,468.44,510.38
+2111,P107775,Sundrop Groundnut Oil 1L,755.55,737.39
+2112,P107777,Farm Fresh Banana 1kg,222.77,222.77
+2113,P107784,Pampers Baby Wipes XL,245.59,245.59
+2114,P107795,Camlin Notebook 500 sheets,286.95,284.47
+2115,P107799,Milky Mist Ghee 500g,738.35,751.07
+2116,P107807,Heritage Cheese Slices 200g,118.66,118.66
+2117,P107815,iD Fresh French Fries 200g,106.85,106.85
+2118,P107822,Parle Marie Gold 100g,68.95,69.77
+2119,P107826,Cadbury Dark Chocolate 50g,161.95,200.47
+2120,P107837,Tata Tea Cola 2L,94.99,104.51
+2121,P107843,Colgate Shampoo 180ml,430.45,486.47
+2122,P107848,Eastern Coriander Powder 500g,267.41,267.41
+2123,P107859,Sundrop Mustard Oil 5L,130.84,136.84
+2124,P107863,Harpic Fabric Conditioner 500g,489.79,575.65
+2125,P107872,Gold Winner Rice Bran Oil 2L,554.95,650.85
+2126,P107880,Heritage Curd 1L,307.95,347.04
+2127,P107884,Parle Cream Biscuit 60g,29.54,29.77
+2128,P107890,Modern Rusk 400g,133.07,133.07
+2129,P107899,English Oven Muffin 6 pc,197.21,197.21
+2130,P107903,Himalaya Bathing Soap 75g,144.89,144.89
+2131,P107914,Comfort Fabric Conditioner 1kg,231.95,244.98
+2132,P107920,Sunfeast Namkeen Mix 250g,100.63,109.22
+2133,P107925,Fortune Rice Bran Oil 5L,1023.82,992.11
+2134,P107933,Johnson's Diapers Large,1175.95,1146.02
+2135,P107943,Cadbury Dark Chocolate 100g,252.32,252.32
+2136,P107946,Daawat Whole Wheat Atta 1kg,303.95,313.77
+2137,P107952,24 Mantra Toor Dal 10kg,1852.4,1964.7
+2138,P107960,Huggies Diapers Small,1047.81,1191.78
+2139,P107966,India Gate Whole Wheat Atta 5kg,391.71,391.71
+2140,P107973,Amul Curd 500ml,271.34,271.93
+2141,P107984,Surf Excel Floor Cleaner 200g,340.95,357.15
+2142,P107989,Comfort Floor Cleaner 500g,184.95,189.72
+2143,P107996,Fortune Groundnut Oil 5L,211.95,224.54
+2144,P108001,Local Mandi Banana Loose,87.0,96.97
+2145,P108008,Bisleri Cola 2L,128.46,128.46
+2146,P108017,Safal Banana 500g,103.22,105.98
+2147,P108026,Parle Marie Gold 60g,89.33,103.54
+2148,P108032,Huggies Baby Powder Small,660.37,648.04
+2149,P108041,Camlin Notebook Pack of 5,368.87,368.87
+2150,P108046,Parle Cream Biscuit 150g,95.35,101.85
+2151,P108050,Saffola Mustard Oil 2L,1178.1,1166.49
+2152,P108060,Nivea Face Wash 340ml,217.09,217.09
+2153,P108067,Fortune Toor Dal 10kg,621.95,640.5
+2154,P108076,Nestle Candy Pack 100g,145.31,151.55
+2155,P108082,Real Soda 600ml,218.64,236.4
+2156,P108090,Harvest Gold Sandwich Bread 6 pc,129.95,139.96
+2157,P108097,Sumeru Ready Paratha 200g,84.95,93.69
+2158,P108101,Mamypoko Baby Wipes XL,1603.81,1603.81
+2159,P108110,Bikano Namkeen Mix 150g,15.95,16.57
+2160,P108118,English Oven Pav Bun 400g,66.05,66.05
+2161,P108125,Safal Onion Loose,129.06,129.06
+2162,P108131,Nandini Butter 1L,611.06,627.37
+2163,P108135,Daawat Toor Dal 5kg,539.95,562.62
+2164,P108144,iD Fresh Ready Paratha 200g,257.95,253.94
+2165,P108149,Fortune Basmati Rice 10kg,985.9,1073.33
+2166,P108159,Aashirvaad Chana Dal 1kg,457.97,488.81
+2167,P108162,Everest Garam Masala 500g,221.93,257.55
+2168,P108174,Eastern Garam Masala 500g,235.92,235.92
+2169,P108179,Cello A4 Paper Ream 500 sheets,290.92,307.53
+2170,P108186,Cello A4 Paper Ream 1 pc,336.07,324.5
+2171,P108191,Catch Turmeric Powder 200g,301.95,309.71
+2172,P108200,McCain Frozen Peas 200g,336.95,333.41
+2173,P108206,Daawat Poha 10kg,609.36,726.09
+2174,P108216,English Oven Rusk 400g,71.71,69.7
+2175,P108221,Unibic Namkeen Mix 150g,51.41,50.44
+2176,P108227,Daawat Toor Dal 5kg,551.58,551.58
+2177,P108234,Sunfeast Marie Gold 60g,32.17,33.09
+2178,P108239,Cadbury Milk Chocolate 50g,256.06,256.06
+2179,P108247,Comfort Detergent Powder 200g,242.95,252.59
+2180,P108258,Anmol Cream Biscuit 250g,54.62,54.62
+2181,P108262,Patanjali Face Wash 180ml,601.82,592.59
+2182,P108272,McCain Idli Batter 400g,101.95,121.99
+2183,P108275,Mamaearth Bathing Soap 340ml,477.08,504.53
+2184,P108282,Nandini Cheese Slices 1L,360.34,472.97
+2185,P108292,Farm Fresh Apple 1kg,104.02,104.02
+2186,P108300,Patanjali Bathing Soap 100g,260.37,286.59
+2187,P108302,Sundrop Groundnut Oil 2L,855.55,855.55
+2188,P108313,ITC Master Chef Frozen Peas 1kg,372.95,455.94
+2189,P108319,Sundrop Mustard Oil 5L,262.51,262.79
+2190,P108326,Classmate Ball Pen 1 pc,439.67,472.8
+2191,P108335,Farm Fresh Onion 500g,153.41,187.61
+2192,P108338,Amul Choco Chewing Gum 25g,218.68,218.68
+2193,P108346,Milky Mist Ghee 200ml,478.23,534.07
+2194,P108356,Camlin Pencil Box Pack of 5,206.87,234.68
+2195,P108361,India Gate Chana Dal 10kg,69.61,73.59
+2196,P108369,Paper Boat Mineral Water 1L,314.26,343.2
+2197,P108374,Fortune Toor Dal 5kg,1247.39,1417.29
+2198,P108379,Sumeru Frozen Peas 1kg,305.48,300.71
+2199,P108389,Gold Winner Sunflower Oil 1L,793.52,837.3
+2200,P108397,Sumeru Ready Paratha 400g,286.03,286.03
+2201,P102931,Safal Tomato Loose,185.66,185.66
+2202,P105860,Sundrop Rice Bran Oil 2L,653.3,674.13
+2203,P102738,McCain Ready Paratha 1kg,236.55,236.55
+2204,P105413,Nataraj Notebook Pack of 5,,168.78
+2205,P100784,Camlin A4 Paper Ream Pack of 5,319.36,319.36
+2206,P101359,Amul Choco Chewing Gum 50g,51.47,49.69
+2207,P102042,Pampers Diapers Medium,146.54,151.18
+2208,P101004,Mother Dairy Cheese Slices 500g,324.97,357.75
+2209,P102409,Real Instant Coffee 500g,316.25,326.59
+2210,P107903,Sunfeast Marie Gold 100g,22.86,22.86
+2211,P105092,Colgate Shampoo 340ml,53.12,57.0
+2212,P102184,Surf Excel Floor Cleaner 500ml,91.57,101.58
+2213,P100621,Cadbury Chewing Gum 50g,132.46,134.28
+2214,P104112,Catch Chilli Powder 200g,44.57,52.93
+2215,P104708,Mother Dairy Curd 500ml,443.2,487.33
+2216,P104725,Dove Toothpaste 100g,536.92,551.38
+2217,P108206,Local Mandi Apple 1kg,,81.62
+2218,P105562,Vim Fabric Conditioner 500ml,422.85,422.85
+2219,P106399,Modern Muffin 6 pc,198.14,198.14
+2220,P102845,Aachi Coriander Powder 50g,261.08,261.08
+2221,P107072,Farm Fresh Onion 1kg,75.15,75.15
+2222,P106009,Camlin Notebook Pack of 5,372.6,372.6
+2223,P102549,Farm Fresh Carrot 1kg,126.3,139.23
+2224,P107826,iD Fresh Ready Paratha 400g,,136.08

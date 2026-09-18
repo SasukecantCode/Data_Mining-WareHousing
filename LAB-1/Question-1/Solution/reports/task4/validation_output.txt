@@ -1,0 +1,9 @@
+=== Task 4 validation ===
+
+[PASS] 1_march_uses_price_effective_in_march_2024: 1221/1221 resolved rows have 2024-03-31 within [effective_from, effective_to]
+[PASS] 2_latest_month_uses_price_effective_in_that_month: 1224/1224 resolved rows have 2024-12-31 within [effective_from, effective_to]
+[PASS] 3_same_query_text_used_for_both_periods: sql/queries/14_price_report.sql executed verbatim for both runs; only the $start_date/$end_date parameter values differ (see scripts/12_task4_price_report.py)
+[PASS] 4_no_current_price_or_hardcoded_month_logic: product_sk=1001 applicable_price by period: {'march': np.float64(103.45), 'june': np.float64(114.37), 'december': np.float64(114.37)} (varies purely from the date parameters passed to the one query)
+[PASS] 5_price_selection_uses_real_price_revisions_validity_dates: product_sk=2217 ('Local Mandi Apple 1kg', valid_from 2024-06-01): March price_missing=True, December price=81.62
+
+TASK 4 VALIDATION: PASS (5/5 checks passed)

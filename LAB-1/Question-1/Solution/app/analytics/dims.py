@@ -111,3 +111,22 @@ def build_dims(conn: psycopg.Connection, date_start: str, date_end: str) -> None
         ("day_of_month", pa.int64()), ("iso_week", pa.int64()), ("iso_year", pa.int64()),
         ("week_of_year", pa.int64()), ("day_of_week", pa.int64()), ("day_name", pa.string()),
     ]), "curated/dims/dim_date.parquet", c)
+
+
+def build_price_revisions_dim(conn: psycopg.Connection) -> None:
+    """Task 4: a Parquet snapshot of price_revisions (PostgreSQL, unchanged
+    system of record) so DuckDB can resolve as-of-reporting-period prices
+    without a separate DB round trip per query. Written as its own function
+    (not part of build_dims) so Tasks 1-3's dimension build is untouched."""
+    c = object_store.client()
+    revisions = pd.read_sql(
+        "SELECT revision_id, product_sk, mrp, selling_price, effective_from, effective_to "
+        "FROM price_revisions ORDER BY product_sk, effective_from", conn
+    )
+    revisions["mrp"] = revisions["mrp"].map(lambda x: Decimal(str(x)))
+    revisions["selling_price"] = revisions["selling_price"].map(lambda x: Decimal(str(x)))
+    _write(revisions, pa.schema([
+        ("revision_id", pa.int64()), ("product_sk", pa.int64()),
+        ("mrp", pa.decimal128(12, 2)), ("selling_price", pa.decimal128(12, 2)),
+        ("effective_from", pa.date32()), ("effective_to", pa.date32()),
+    ]), "curated/dims/dim_price_revision.parquet", c)

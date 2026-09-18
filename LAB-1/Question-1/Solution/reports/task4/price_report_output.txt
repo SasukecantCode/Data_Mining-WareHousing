@@ -1,0 +1,45 @@
+Task 4: price-as-of-reporting-period report
+Query file: sql/queries/14_price_report.sql (identical SQL text both runs)
+
+Run 1 period: 2024-03-01 .. 2024-03-31
+Run 2 period: 2024-12-01 .. 2024-12-31  (latest month in dataset, derived from MAX(business_date)=2024-12-31)
+
+=== RUN 1 (March 2024-03) ===
+products reported:             1224
+price missing for period:      3
+price changed during period:   147
+ product_sk product_code               product_name  applicable_price  applicable_mrp effective_from effective_to  price_at_period_start  price_missing_for_period  price_changed_during_period
+       1001      P100005  Thums Up Mango Juice 250g            103.45          115.86     2023-11-09   2024-06-13                 103.45                     False                        False
+       1002      P100007       Vim Dishwash Bar 1kg            129.42          144.95     2023-09-19   2024-05-23                 129.42                     False                        False
+       1003      P100019      Sunfeast Cookies 150g             62.95           70.50     2022-01-01   2024-04-13                  62.95                     False                        False
+       1004      P100026     Dhara Rice Bran Oil 5L            304.63          341.19     2024-01-30   2024-10-22                 304.63                     False                        False
+       1005      P100033 Gold Winner Mustard Oil 1L            763.12          854.69     2023-07-19   2024-07-12                 763.12                     False                        False
+
+=== RUN 2 (latest month 2024-12) ===
+products reported:             1224
+price missing for period:      0
+price changed during period:   0
+ product_sk product_code               product_name  applicable_price  applicable_mrp effective_from effective_to  price_at_period_start  price_missing_for_period  price_changed_during_period
+       1001      P100005  Thums Up Mango Juice 250g            114.37          128.09     2024-06-14   9999-12-31                 114.37                     False                        False
+       1002      P100007       Vim Dishwash Bar 1kg            155.06          173.67     2024-07-28   9999-12-31                 155.06                     False                        False
+       1003      P100019      Sunfeast Cookies 150g             74.65           83.61     2024-09-26   9999-12-31                  74.65                     False                        False
+       1004      P100026     Dhara Rice Bran Oil 5L            315.91          353.82     2024-10-23   9999-12-31                 315.91                     False                        False
+       1005      P100033 Gold Winner Mustard Oil 1L            828.62          928.05     2024-07-13   9999-12-31                 828.62                     False                        False
+
+=== Products whose applicable price differs between the two periods: 916 ===
+ product_sk product_code                product_name  march_price  latest_month_price
+       1001      P100005   Thums Up Mango Juice 250g       103.45              114.37
+       1002      P100007        Vim Dishwash Bar 1kg       129.42              155.06
+       1003      P100019       Sunfeast Cookies 150g        62.95               74.65
+       1004      P100026      Dhara Rice Bran Oil 5L       304.63              315.91
+       1005      P100033  Gold Winner Mustard Oil 1L       763.12              828.62
+       1006      P100035       Huggies Diapers Small      1456.57             1810.38
+       1008      P100049 Britannia Cream Biscuit 60g        66.95               68.93
+       1009      P100057     McCain French Fries 1kg       215.95              233.39
+       1012      P100077    Catch Sambar Powder 100g       181.42              173.95
+       1013      P100086            Heritage Ghee 1L        88.95               89.00
+
+=== Headline example ===
+product:            Thums Up Mango Juice 250g (P100005, product_sk=1001)
+March price:        103.45
+latest-month price: 114.37

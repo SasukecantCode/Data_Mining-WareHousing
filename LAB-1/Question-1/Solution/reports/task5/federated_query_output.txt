@@ -1,0 +1,497 @@
+==============================================================================
+Task 5: federated query -- MinIO Parquet (sales) + live PostgreSQL (dims)
+==============================================================================
+
+Query file: sql/queries/15_federated_query.sql
+Parameters: {'start_date': '2024-10-01', 'end_date': '2024-11-01'}
+
+--- 1. Actual query result ---
+store_id               store_name category_id         category_name  product_attributed_revenue
+     S03        Annapurna T Nagar         C04      Staples & Grains                  1220174.16
+     S01      Annapurna Jayanagar         C04      Staples & Grains                  1211339.36
+     S10 Annapurna Rajouri Garden         C04      Staples & Grains                  1185800.08
+     S03        Annapurna T Nagar         C09             Baby Care                  1111494.45
+     S01      Annapurna Jayanagar         C09             Baby Care                  1106941.04
+     S10 Annapurna Rajouri Garden         C09             Baby Care                  1070144.74
+     S01      Annapurna Jayanagar         C05           Edible Oils                  1030266.99
+     S10 Annapurna Rajouri Garden         C05           Edible Oils                  1027022.96
+     S06   Annapurna Andheri West         C04      Staples & Grains                  1007208.04
+     S03        Annapurna T Nagar         C05           Edible Oils                   971631.57
+     S06   Annapurna Andheri West         C09             Baby Care                   965631.22
+     S02    Annapurna Koramangala         C04      Staples & Grains                   958242.74
+     S06   Annapurna Andheri West         C05           Edible Oils                   953192.05
+     S04     Annapurna Kukatpally         C04      Staples & Grains                   935383.98
+     S12      Annapurna Salt Lake         C04      Staples & Grains                   924113.97
+     S02    Annapurna Koramangala         C09             Baby Care                   819303.54
+     S02    Annapurna Koramangala         C05           Edible Oils                   792269.35
+     S07          Annapurna Baner         C04      Staples & Grains                   773234.30
+     S12      Annapurna Salt Lake         C09             Baby Care                   767795.87
+     S04     Annapurna Kukatpally         C05           Edible Oils                   766214.42
+     S12      Annapurna Salt Lake         C05           Edible Oils                   755451.04
+     S04     Annapurna Kukatpally         C09             Baby Care                   714155.95
+     S07          Annapurna Baner         C09             Baby Care                   686415.92
+     S07          Annapurna Baner         C05           Edible Oils                   684919.02
+     S11    Annapurna Gomti Nagar         C04      Staples & Grains                   667790.45
+     S05   Annapurna Kochi Marine         C04      Staples & Grains                   614962.29
+     S08      Annapurna Satellite         C04      Staples & Grains                   592944.08
+     S11    Annapurna Gomti Nagar         C09             Baby Care                   569852.85
+     S08      Annapurna Satellite         C05           Edible Oils                   565914.28
+     S08      Annapurna Satellite         C09             Baby Care                   541420.09
+     S09       Annapurna Vaishali         C09             Baby Care                   514655.39
+     S05   Annapurna Kochi Marine         C09             Baby Care                   512433.57
+     S05   Annapurna Kochi Marine         C05           Edible Oils                   500050.55
+     S11    Annapurna Gomti Nagar         C05           Edible Oils                   497432.05
+     S03        Annapurna T Nagar         C02                 Dairy                   496511.45
+     S10 Annapurna Rajouri Garden         C02                 Dairy                   495520.62
+     S09       Annapurna Vaishali         C04      Staples & Grains                   491480.89
+     S10 Annapurna Rajouri Garden         C07         Personal Care                   483703.88
+     S03        Annapurna T Nagar         C07         Personal Care                   459210.46
+     S09       Annapurna Vaishali         C05           Edible Oils                   458273.38
+     S01      Annapurna Jayanagar         C02                 Dairy                   451213.15
+     S06   Annapurna Andheri West         C02                 Dairy                   441961.04
+     S01      Annapurna Jayanagar         C07         Personal Care                   436186.79
+     S02    Annapurna Koramangala         C02                 Dairy                   433414.52
+     S03        Annapurna T Nagar         C10 Frozen & Ready to Eat                   388723.98
+     S02    Annapurna Koramangala         C07         Personal Care                   380814.04
+     S01      Annapurna Jayanagar         C08             Home Care                   380375.71
+     S01      Annapurna Jayanagar         C10 Frozen & Ready to Eat                   380334.82
+     S06   Annapurna Andheri West         C07         Personal Care                   378850.53
+     S10 Annapurna Rajouri Garden         C08             Home Care                   363066.23
+     S03        Annapurna T Nagar         C14  Stationery & General                   362180.91
+     S10 Annapurna Rajouri Garden         C10 Frozen & Ready to Eat                   360851.42
+     S03        Annapurna T Nagar         C03             Beverages                   352036.35
+     S12      Annapurna Salt Lake         C02                 Dairy                   349266.72
+     S03        Annapurna T Nagar         C08             Home Care                   345797.07
+     S12      Annapurna Salt Lake         C07         Personal Care                   342839.45
+     S04     Annapurna Kukatpally         C02                 Dairy                   341789.64
+     S10 Annapurna Rajouri Garden         C14  Stationery & General                   339132.13
+     S06   Annapurna Andheri West         C10 Frozen & Ready to Eat                   336173.34
+     S07          Annapurna Baner         C02                 Dairy                   331507.13
+     S06   Annapurna Andheri West         C08             Home Care                   314977.53
+     S12      Annapurna Salt Lake         C10 Frozen & Ready to Eat                   312002.49
+     S01      Annapurna Jayanagar         C14  Stationery & General                   309550.67
+     S01      Annapurna Jayanagar         C03             Beverages                   297304.09
+     S04     Annapurna Kukatpally         C07         Personal Care                   294674.44
+     S10 Annapurna Rajouri Garden         C03             Beverages                   290589.50
+     S08      Annapurna Satellite         C02                 Dairy                   282097.44
+     S06   Annapurna Andheri West         C03             Beverages                   281063.20
+     S02    Annapurna Koramangala         C08             Home Care                   280182.16
+     S02    Annapurna Koramangala         C10 Frozen & Ready to Eat                   276020.89
+     S07          Annapurna Baner         C07         Personal Care                   270219.98
+     S02    Annapurna Koramangala         C14  Stationery & General                   266044.91
+     S05   Annapurna Kochi Marine         C02                 Dairy                   264445.56
+     S06   Annapurna Andheri West         C14  Stationery & General                   262899.86
+     S04     Annapurna Kukatpally         C10 Frozen & Ready to Eat                   261278.74
+     S08      Annapurna Satellite         C07         Personal Care                   255416.82
+     S11    Annapurna Gomti Nagar         C07         Personal Care                   255057.18
+     S12      Annapurna Salt Lake         C08             Home Care                   253711.23
+     S12      Annapurna Salt Lake         C14  Stationery & General                   253514.41
+     S02    Annapurna Koramangala         C03             Beverages                   250513.34
+     S11    Annapurna Gomti Nagar         C02                 Dairy                   237757.39
+     S12      Annapurna Salt Lake         C03             Beverages                   237749.27
+     S03        Annapurna T Nagar         C06       Spices & Masala                   233810.09
+     S04     Annapurna Kukatpally         C08             Home Care                   224994.89
+     S10 Annapurna Rajouri Garden         C06       Spices & Masala                   224084.25
+     S01      Annapurna Jayanagar         C13         Confectionery                   220639.51
+     S05   Annapurna Kochi Marine         C07         Personal Care                   216580.89
+     S07          Annapurna Baner         C08             Home Care                   213575.80
+     S07          Annapurna Baner         C10 Frozen & Ready to Eat                   212448.12
+     S10 Annapurna Rajouri Garden         C13         Confectionery                   211265.34
+     S01      Annapurna Jayanagar         C06       Spices & Masala                   209895.72
+     S03        Annapurna T Nagar         C13         Confectionery                   209664.90
+     S08      Annapurna Satellite         C10 Frozen & Ready to Eat                   209594.26
+     S01      Annapurna Jayanagar         C12   Fruits & Vegetables                   209478.39
+     S11    Annapurna Gomti Nagar         C10 Frozen & Ready to Eat                   206063.28
+     S06   Annapurna Andheri West         C06       Spices & Masala                   204514.41
+     S09       Annapurna Vaishali         C02                 Dairy                   201331.21
+     S07          Annapurna Baner         C14  Stationery & General                   200106.78
+     S11    Annapurna Gomti Nagar         C08             Home Care                   197437.80
+     S09       Annapurna Vaishali         C07         Personal Care                   197422.71
+     S04     Annapurna Kukatpally         C03             Beverages                   195385.96
+     S07          Annapurna Baner         C03             Beverages                   193543.63
+     S11    Annapurna Gomti Nagar         C14  Stationery & General                   192381.70
+     S08      Annapurna Satellite         C03             Beverages                   189764.63
+     S05   Annapurna Kochi Marine         C08             Home Care                   189093.14
+     S03        Annapurna T Nagar         C12   Fruits & Vegetables                   188120.79
+     S06   Annapurna Andheri West         C13         Confectionery                   185884.48
+     S10 Annapurna Rajouri Garden         C12   Fruits & Vegetables                   183385.41
+     S04     Annapurna Kukatpally         C14  Stationery & General                   182709.11
+     S02    Annapurna Koramangala         C13         Confectionery                   177793.91
+     S05   Annapurna Kochi Marine         C10 Frozen & Ready to Eat                   176373.06
+     S06   Annapurna Andheri West         C12   Fruits & Vegetables                   175417.99
+     S02    Annapurna Koramangala         C12   Fruits & Vegetables                   172259.34
+     S08      Annapurna Satellite         C14  Stationery & General                   171351.54
+     S11    Annapurna Gomti Nagar         C03             Beverages                   169558.66
+     S05   Annapurna Kochi Marine         C14  Stationery & General                   167746.40
+     S03        Annapurna T Nagar         C11                Bakery                   165635.16
+     S08      Annapurna Satellite         C08             Home Care                   161277.25
+     S10 Annapurna Rajouri Garden         C11                Bakery                   160726.53
+     S01      Annapurna Jayanagar         C11                Bakery                   160107.74
+     S02    Annapurna Koramangala         C06       Spices & Masala                   159471.71
+     S04     Annapurna Kukatpally         C13         Confectionery                   159030.35
+     S09       Annapurna Vaishali         C10 Frozen & Ready to Eat                   157587.04
+     S12      Annapurna Salt Lake         C06       Spices & Masala                   154994.23
+     S09       Annapurna Vaishali         C03             Beverages                   151551.66
+     S09       Annapurna Vaishali         C14  Stationery & General                   150422.73
+     S04     Annapurna Kukatpally         C06       Spices & Masala                   149674.87
+     S09       Annapurna Vaishali         C08             Home Care                   147759.92
+     S12      Annapurna Salt Lake         C13         Confectionery                   147499.29
+     S05   Annapurna Kochi Marine         C03             Beverages                   144728.91
+     S06   Annapurna Andheri West         C11                Bakery                   136757.80
+     S07          Annapurna Baner         C13         Confectionery                   136090.93
+     S12      Annapurna Salt Lake         C12   Fruits & Vegetables                   131613.57
+     S07          Annapurna Baner         C06       Spices & Masala                   130205.26
+     S07          Annapurna Baner         C12   Fruits & Vegetables                   128172.57
+     S02    Annapurna Koramangala         C11                Bakery                   127111.92
+     S04     Annapurna Kukatpally         C12   Fruits & Vegetables                   123607.28
+     S08      Annapurna Satellite         C06       Spices & Masala                   123590.01
+     S12      Annapurna Salt Lake         C11                Bakery                   121275.26
+     S08      Annapurna Satellite         C12   Fruits & Vegetables                   114105.11
+     S08      Annapurna Satellite         C13         Confectionery                   113827.98
+     S05   Annapurna Kochi Marine         C06       Spices & Masala                   112172.08
+     S11    Annapurna Gomti Nagar         C12   Fruits & Vegetables                   109528.93
+     S04     Annapurna Kukatpally         C11                Bakery                   109060.52
+     S09       Annapurna Vaishali         C06       Spices & Masala                   106122.66
+     S11    Annapurna Gomti Nagar         C06       Spices & Masala                   105726.87
+     S08      Annapurna Satellite         C11                Bakery                   104842.50
+     S11    Annapurna Gomti Nagar         C13         Confectionery                   104806.30
+     S05   Annapurna Kochi Marine         C13         Confectionery                   102311.12
+     S09       Annapurna Vaishali         C13         Confectionery                   100749.62
+     S01      Annapurna Jayanagar         C01     Biscuits & Snacks                    96236.86
+     S05   Annapurna Kochi Marine         C12   Fruits & Vegetables                    95949.37
+     S03        Annapurna T Nagar         C01     Biscuits & Snacks                    91441.85
+     S10 Annapurna Rajouri Garden         C01     Biscuits & Snacks                    88128.58
+     S11    Annapurna Gomti Nagar         C11                Bakery                    87389.36
+     S06   Annapurna Andheri West         C01     Biscuits & Snacks                    86932.96
+     S07          Annapurna Baner         C11                Bakery                    85266.74
+     S09       Annapurna Vaishali         C12   Fruits & Vegetables                    75687.38
+     S02    Annapurna Koramangala         C01     Biscuits & Snacks                    74756.73
+     S05   Annapurna Kochi Marine         C11                Bakery                    71787.20
+     S09       Annapurna Vaishali         C11                Bakery                    65688.18
+     S04     Annapurna Kukatpally         C01     Biscuits & Snacks                    63589.27
+     S12      Annapurna Salt Lake         C01     Biscuits & Snacks                    61760.85
+     S07          Annapurna Baner         C01     Biscuits & Snacks                    61063.76
+     S05   Annapurna Kochi Marine         C01     Biscuits & Snacks                    55141.12
+     S08      Annapurna Satellite         C01     Biscuits & Snacks                    51695.58
+     S11    Annapurna Gomti Nagar         C01     Biscuits & Snacks                    44558.85
+     S09       Annapurna Vaishali         C01     Biscuits & Snacks                    40231.98
+
+168 rows, total revenue = 56,927,219.51
+
+==============================================================================
+--- 2. EXPLAIN ANALYZE (actual execution plan + timings) ---
+==============================================================================
+┌─────────────────────────────────────┐
+│┌───────────────────────────────────┐│
+││    Query Profiling Information    ││
+│└───────────────────────────────────┘│
+└─────────────────────────────────────┘
+EXPLAIN ANALYZE -- Task 5: ONE query, joining live across two systems, neither copied into -- the other: -- --   * f  -- sales fact data: read_parquet() straight out of MinIO (the --           Task 1/2 curated Parquet, s3://annapurna/curated/sales/...) --   * s, p, cat -- store/product/category dimensions: pg.stores / pg.products --           / pg.product_categories, read live through DuckDB's `postgres` --           ATTACH (app/duck_federated.py) -- no Parquet snapshot of these --           tables exists anywhere for this query to use. -- -- product_sk is the existing Task 3 historical-identity surrogate key, -- already resolved once during Task 1 curation (product_code + business_date -- -> product_sk) -- this query does a plain equi-join on it, no re-resolution. -- -- Only $start_date/$end_date vary between runs; the query text is identical. SELECT     s.store_id,     s.store_name,     cat.category_id,     cat.category_name,     ROUND(SUM(f.revenue_amount), 2) AS product_attributed_revenue FROM read_parquet('s3://annapurna/curated/sales/*/*/*/sales.parquet', hive_partitioning = true) f JOIN pg.stores s              ON s.store_id    = f.store_id JOIN pg.products p            ON p.product_sk  = f.product_sk JOIN pg.product_categories cat ON cat.category_id = p.category_id WHERE f.business_date >= $start_date AND f.business_date < $end_date GROUP BY s.store_id, s.store_name, cat.category_id, cat.category_name ORDER BY product_attributed_revenue DESC; 
+┌─────────────────────────────────────┐
+│┌───────────────────────────────────┐│
+││         HTTPFS HTTP Stats         ││
+││                                   ││
+││            in: 2.7 MiB            ││
+││            out: 0 bytes           ││
+││              #HEAD: 0             ││
+││             #GET: 193             ││
+││              #PUT: 0              ││
+││              #POST: 0             ││
+││             #DELETE: 0            ││
+│└───────────────────────────────────┘│
+└─────────────────────────────────────┘
+┌────────────────────────────────────────────────┐
+│┌──────────────────────────────────────────────┐│
+││              Total Time: 0.0619s             ││
+│└──────────────────────────────────────────────┘│
+└────────────────────────────────────────────────┘
+┌───────────────────────────┐
+│           QUERY           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│      EXPLAIN_ANALYZE      │
+│    ────────────────────   │
+│                           │
+│           0 rows          │
+│           0.00s           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│          ORDER_BY         │
+│    ────────────────────   │
+│ round(sum(f.revenue_amount│
+│         ), 2) DESC        │
+│                           │
+│                           │
+│                           │
+│          168 rows         │
+│           0.00s           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│          store_id         │
+│         store_name        │
+│        category_id        │
+│       category_name       │
+│ product_attributed_revenue│
+│                           │
+│                           │
+│                           │
+│          168 rows         │
+│           0.00s           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│       HASH_GROUP_BY       │
+│    ────────────────────   │
+│          Groups:          │
+│             #0            │
+│             #1            │
+│             #2            │
+│             #3            │
+│                           │
+│    Aggregates: sum(#4)    │
+│                           │
+│                           │
+│                           │
+│          168 rows         │
+│           0.02s           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│          store_id         │
+│         store_name        │
+│        category_id        │
+│       category_name       │
+│       revenue_amount      │
+│                           │
+│                           │
+│                           │
+│        81,453 rows        │
+│           0.00s           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         HASH_JOIN         │
+│    ────────────────────   │
+│      Join Type: INNER     │
+│                           │
+│        Conditions:        │
+│  product_sk = product_sk  ├───────────────────────────────────────────┐
+│                           │                                           │
+│                           │                                           │
+│                           │                                           │
+│        81,453 rows        │                                           │
+│           0.00s           │                                           │
+└─────────────┬─────────────┘                                           │
+┌─────────────┴─────────────┐                             ┌─────────────┴─────────────┐
+│         HASH_JOIN         │                             │         HASH_JOIN         │
+│    ────────────────────   │                             │    ────────────────────   │
+│      Join Type: INNER     │                             │      Join Type: INNER     │
+│                           │                             │                           │
+│        Conditions:        │                             │        Conditions:        │
+│    store_id = store_id    ├──────────────┐              │ category_id = category_id ├──────────────┐
+│                           │              │              │                           │              │
+│                           │              │              │                           │              │
+│                           │              │              │                           │              │
+│        81,453 rows        │              │              │         1,224 rows        │              │
+│           0.00s           │              │              │           0.00s           │              │
+└─────────────┬─────────────┘              │              └─────────────┬─────────────┘              │
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         TABLE_SCAN        ││         TABLE_SCAN        ││         TABLE_SCAN        ││         TABLE_SCAN        │
+│    ────────────────────   ││    ────────────────────   ││    ────────────────────   ││    ────────────────────   │
+│         Function:         ││       Table: stores       ││      Table: products      ││           Table:          │
+│        READ_PARQUET       ││                           ││                           ││     product_categories    │
+│                           ││        Projections:       ││        Projections:       ││                           │
+│        Projections:       ││          store_id         ││         product_sk        ││        Projections:       │
+│          store_id         ││         store_name        ││        category_id        ││        category_id        │
+│         product_sk        ││                           ││                           ││       category_name       │
+│       revenue_amount      ││                           ││      Dynamic Filters:     ││                           │
+│                           ││                           ││ optional: category_id IN (││                           │
+│          Filters:         ││                           ││ 'C07', 'C09', 'C04', 'C06'││                           │
+│ business_date>='2024-10-01││           0.00s           ││  , 'C14', 'C01', 'C08',   ││                           │
+│ '::DATE AND business_date<││                           ││ 'C03', 'C12', 'C10', 'C02'││           0.00s           │
+│     '2024-11-01'::DATE    ││                           ││ , 'C11', 'C13', 'C05') AND││                           │
+│                           ││                           ││   optional: category_id>= ││                           │
+│      Dynamic Filters:     ││                           ││    'C01' AND optional:    ││                           │
+│  optional: store_id IN (  ││                           ││     category_id<='C14'    ││                           │
+│ 'S12', 'S09', 'S08', 'S02'││                           ││                           ││                           │
+│  , 'S06', 'S04', 'S07',   ││                           ││                           ││                           │
+│ 'S01', 'S10', 'S05', 'S11'││                           ││                           ││                           │
+│   , 'S03') AND optional:  ││                           ││                           ││                           │
+│     store_id>='S01' AND   ││                           ││           0.00s           ││                           │
+│  optional: store_id<='S12'││                           ││                           ││                           │
+│ optional: product_sk>=1001││                           ││                           ││                           │
+│  AND optional: product_sk<││                           ││                           ││                           │
+│           =2224           ││                           ││                           ││                           │
+│                           ││                           ││                           ││                           │
+│   Total Files Read: 144   ││                           ││                           ││                           │
+│                           ││                           ││                           ││                           │
+│        Filename(s):       ││                           ││                           ││                           │
+│   s3://annapurna/curated  ││                           ││                           ││                           │
+│ /sales/*/*/*/sales.parquet││                           ││                           ││                           │
+│           , ...           ││                           ││                           ││                           │
+│                           ││                           ││                           ││                           │
+│                           ││                           ││                           ││                           │
+│                           ││                           ││                           ││                           │
+│        81,453 rows        ││          12 rows          ││         1,224 rows        ││          14 rows          │
+│           0.54s           ││          (0.00s)          ││          (0.00s)          ││          (0.00s)          │
+└───────────────────────────┘└───────────────────────────┘└───────────────────────────┘└───────────────────────────┘
+
+
+==============================================================================
+--- 3. Actual SQL DuckDB sent to PostgreSQL (pg_debug_show_queries=true) ---
+==============================================================================
+BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY;
+
+SELECT oid, nspname
+FROM pg_namespace
+
+ORDER BY oid;
+
+SELECT pg_namespace.oid AS namespace_id, relname, relpages, attname,
+    pg_type.typname type_name, atttypmod type_modifier, pg_attribute.attndims ndim,
+    attnum, pg_attribute.attnotnull AS notnull, NULL constraint_id,
+    NULL constraint_type, NULL constraint_key, type_ns.nspname AS type_schema,
+    col_desc.description AS column_comment,
+    tbl_desc.description AS table_comment
+FROM pg_class
+JOIN pg_namespace ON relnamespace = pg_namespace.oid
+JOIN pg_attribute ON pg_class.oid=pg_attribute.attrelid
+JOIN pg_type ON atttypid=pg_type.oid
+JOIN pg_namespace type_ns ON pg_type.typnamespace = type_ns.oid
+LEFT JOIN pg_description col_desc ON col_desc.objoid=pg_class.oid AND col_desc.objsubid=pg_attribute.attnum
+LEFT JOIN pg_description tbl_desc ON tbl_desc.objoid=pg_class.oid AND tbl_desc.objsubid=0
+WHERE attnum > 0 AND relkind IN ('r', 'v', 'm', 'f', 'p') 
+UNION ALL
+SELECT pg_namespace.oid AS namespace_id, relname, NULL relpages, NULL attname, NULL type_name,
+    NULL type_modifier, NULL ndim, NULL attnum, NULL AS notnull,
+    pg_constraint.oid AS constraint_id, contype AS constraint_type,
+    conkey AS constraint_key, NULL AS type_schema,
+    NULL AS column_comment, NULL AS table_comment
+FROM pg_class
+JOIN pg_namespace ON relnamespace = pg_namespace.oid
+JOIN pg_constraint ON (pg_class.oid=pg_constraint.conrelid)
+WHERE relkind IN ('r', 'v', 'm', 'f', 'p') AND contype IN ('p', 'u') 
+ORDER BY namespace_id, relname, attnum, constraint_id;
+
+SELECT n.oid, enumtypid, typname, enumlabel
+FROM pg_enum e
+JOIN pg_type t ON e.enumtypid = t.oid
+JOIN pg_namespace AS n ON (typnamespace=n.oid)
+
+ORDER BY n.oid, enumtypid, enumsortorder;
+
+SELECT n.oid, t.typrelid AS id, t.typname as type, pg_attribute.attname, sub_type.typname,
+       sub_type_ns.nspname AS sub_type_schema
+FROM pg_type t
+JOIN pg_catalog.pg_namespace n ON n.oid = t.typnamespace
+JOIN pg_class ON pg_class.oid = t.typrelid
+JOIN pg_attribute ON attrelid=t.typrelid
+JOIN pg_type sub_type ON (pg_attribute.atttypid=sub_type.oid)
+JOIN pg_catalog.pg_namespace sub_type_ns ON sub_type_ns.oid = sub_type.typnamespace
+WHERE pg_class.relkind IN ('c', 'r', 'v', 'm', 'f', 'p')
+AND t.typtype='c'
+AND pg_attribute.attnum > 0
+AND NOT pg_attribute.attisdropped
+
+ORDER BY n.oid, t.oid, attrelid, attnum;
+
+SELECT pg_namespace.oid, tablename, indexname
+FROM pg_indexes
+JOIN pg_namespace ON (schemaname=nspname)
+
+ORDER BY pg_namespace.oid;
+
+
+COPY (SELECT "product_sk", "category_id" FROM "public"."products" WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid) TO STDOUT (FORMAT "binary");
+
+COPY (SELECT "category_id", "category_name" FROM "public"."product_categories" WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid) TO STDOUT (FORMAT "binary");
+
+COPY (SELECT "store_id", "store_name" FROM "public"."stores" WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid) TO STDOUT (FORMAT "binary");
+
+COMMIT
+
+
+==============================================================================
+--- 4. Contrast: a filter that DOES target a PostgreSQL column gets pushed down ---
+==============================================================================
+(sql/queries/15 has no filter on store/product/category -- only on
+ business_date, which lives in Parquet, not PostgreSQL. To show pushdown
+ genuinely happens when it CAN apply -- and isn't just claimed -- here is
+ a second, minimal query with a real PostgreSQL-side filter:)
+
+SELECT product_sk, category_id FROM pg.products WHERE category_id = 'C04';
+
+SELECT version(), (SELECT COUNT(*) FROM pg_settings WHERE name LIKE 'rds%')
+
+SELECT to_regclass('duckdb_secrets')
+
+BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY;
+
+SELECT oid, nspname
+FROM pg_namespace
+
+ORDER BY oid;
+
+SELECT pg_namespace.oid AS namespace_id, relname, relpages, attname,
+    pg_type.typname type_name, atttypmod type_modifier, pg_attribute.attndims ndim,
+    attnum, pg_attribute.attnotnull AS notnull, NULL constraint_id,
+    NULL constraint_type, NULL constraint_key, type_ns.nspname AS type_schema,
+    col_desc.description AS column_comment,
+    tbl_desc.description AS table_comment
+FROM pg_class
+JOIN pg_namespace ON relnamespace = pg_namespace.oid
+JOIN pg_attribute ON pg_class.oid=pg_attribute.attrelid
+JOIN pg_type ON atttypid=pg_type.oid
+JOIN pg_namespace type_ns ON pg_type.typnamespace = type_ns.oid
+LEFT JOIN pg_description col_desc ON col_desc.objoid=pg_class.oid AND col_desc.objsubid=pg_attribute.attnum
+LEFT JOIN pg_description tbl_desc ON tbl_desc.objoid=pg_class.oid AND tbl_desc.objsubid=0
+WHERE attnum > 0 AND relkind IN ('r', 'v', 'm', 'f', 'p') 
+UNION ALL
+SELECT pg_namespace.oid AS namespace_id, relname, NULL relpages, NULL attname, NULL type_name,
+    NULL type_modifier, NULL ndim, NULL attnum, NULL AS notnull,
+    pg_constraint.oid AS constraint_id, contype AS constraint_type,
+    conkey AS constraint_key, NULL AS type_schema,
+    NULL AS column_comment, NULL AS table_comment
+FROM pg_class
+JOIN pg_namespace ON relnamespace = pg_namespace.oid
+JOIN pg_constraint ON (pg_class.oid=pg_constraint.conrelid)
+WHERE relkind IN ('r', 'v', 'm', 'f', 'p') AND contype IN ('p', 'u') 
+ORDER BY namespace_id, relname, attnum, constraint_id;
+
+SELECT n.oid, enumtypid, typname, enumlabel
+FROM pg_enum e
+JOIN pg_type t ON e.enumtypid = t.oid
+JOIN pg_namespace AS n ON (typnamespace=n.oid)
+
+ORDER BY n.oid, enumtypid, enumsortorder;
+
+SELECT n.oid, t.typrelid AS id, t.typname as type, pg_attribute.attname, sub_type.typname,
+       sub_type_ns.nspname AS sub_type_schema
+FROM pg_type t
+JOIN pg_catalog.pg_namespace n ON n.oid = t.typnamespace
+JOIN pg_class ON pg_class.oid = t.typrelid
+JOIN pg_attribute ON attrelid=t.typrelid
+JOIN pg_type sub_type ON (pg_attribute.atttypid=sub_type.oid)
+JOIN pg_catalog.pg_namespace sub_type_ns ON sub_type_ns.oid = sub_type.typnamespace
+WHERE pg_class.relkind IN ('c', 'r', 'v', 'm', 'f', 'p')
+AND t.typtype='c'
+AND pg_attribute.attnum > 0
+AND NOT pg_attribute.attisdropped
+
+ORDER BY n.oid, t.oid, attrelid, attnum;
+
+SELECT pg_namespace.oid, tablename, indexname
+FROM pg_indexes
+JOIN pg_namespace ON (schemaname=nspname)
+
+ORDER BY pg_namespace.oid;
+
+
+COPY (SELECT "category_id", "product_sk" FROM "public"."products" WHERE ctid BETWEEN '(0,0)'::tid AND '(4294967295,0)'::tid AND "category_id" = 'C04' COLLATE "C") TO STDOUT (FORMAT "binary");
+
+COMMIT
+
+
+-> 95 rows returned; note the WHERE clause appears verbatim in the COPY
+   statement DuckDB sent to PostgreSQL above -- real pushdown, not assumed.
