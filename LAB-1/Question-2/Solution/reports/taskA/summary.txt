@@ -1,0 +1,17 @@
+Notices: 12000  Labelled pairs: 900 (same=279, different=621)
+Corpus-frequency stopwords (df > 40% of 12000 notices): 209 tokens
+
+Choice 1 -- word unigrams, raw text, no noise removal
+  same:      mean=0.722  median=0.716  min=0.271  max=0.996
+  different: mean=0.440  median=0.440  min=0.214  max=0.672
+  best single threshold: 0.637 -> accuracy 0.893
+
+Choice 2 -- word bigrams, structurally + statistically denoised
+  same:      mean=0.718  median=0.835  min=0.126  max=1.000
+  different: mean=0.011  median=0.000  min=0.000  max=0.217
+  best single threshold: 0.215 -> accuracy 0.993
+
+Worked example -- N010018/N010020 (labelled 'same', corrigendum republish):
+  choice1=0.301  choice2=0.235
+Worked example -- N007876/N008565 (labelled 'different'):
+  choice1=0.405  choice2=0.000

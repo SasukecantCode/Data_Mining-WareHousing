@@ -1,0 +1,26 @@
+=== 1. Isolate denoising vs. granularity (4-way ablation) ===
+raw+unigram (Choice 1 as shipped)      acc=0.893  thr=0.637  mean_same=0.722  mean_diff=0.440
+raw+bigram (granularity only)          acc=0.889  thr=0.543  mean_same=0.659  mean_diff=0.323
+denoised+unigram (denoising only)      acc=0.986  thr=0.250  mean_same=0.746  mean_diff=0.051
+denoised+bigram (Choice 2 as shipped)  acc=0.993  thr=0.215  mean_same=0.718  mean_diff=0.011
+
+=== 2. Is the 40% document-frequency stopword cutoff load-bearing? ===
+df_threshold=0.15  n_stopwords= 263  acc=0.989  mean_same=0.733  mean_diff=0.010
+df_threshold=0.2   n_stopwords= 250  acc=0.989  mean_same=0.724  mean_diff=0.011
+df_threshold=0.3   n_stopwords= 211  acc=0.993  mean_same=0.717  mean_diff=0.011
+df_threshold=0.4   n_stopwords= 209  acc=0.993  mean_same=0.718  mean_diff=0.011
+df_threshold=0.5   n_stopwords= 209  acc=0.993  mean_same=0.718  mean_diff=0.011
+df_threshold=0.6   n_stopwords= 207  acc=0.994  mean_same=0.721  mean_diff=0.011
+df_threshold=0.8   n_stopwords=  81  acc=0.981  mean_same=0.770  mean_diff=0.105
+df_threshold=1.01  n_stopwords=   0  acc=0.972  mean_same=0.836  mean_diff=0.298
+
+=== 3. Alternative: character 5-shingles, same structural denoising, no stopwording ===
+char 3-shingle  acc=0.941  mean_same=0.883  mean_diff=0.546  mean_set_size~1018
+char 5-shingle  acc=0.956  mean_same=0.853  mean_diff=0.413  mean_set_size~1637
+char 8-shingle  acc=0.963  mean_same=0.844  mean_diff=0.345  mean_set_size~1953
+
+=== 4. Trigram instead of bigram, same denoising ===
+word 1-gram, denoised  acc=0.986  mean_same=0.746  mean_diff=0.051
+word 2-gram, denoised  acc=0.993  mean_same=0.718  mean_diff=0.011
+word 3-gram, denoised  acc=0.992  mean_same=0.690  mean_diff=0.008
+word 4-gram, denoised  acc=0.991  mean_same=0.667  mean_diff=0.006

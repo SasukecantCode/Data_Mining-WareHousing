@@ -1,0 +1,47 @@
+=== The argument ===
+tau (adopted threshold, Section A(a)) = 0.215
+p5 margin-to-threshold across 900 labelled pairs = 0.0892
+SE_target (margin/2, one-sided 2-sigma) = 0.0446
+k = ceil(1 / margin_p5^2) = 126   <- derived, not a round-number default
+
+Exact-score classification accuracy at tau=0.215: 0.9922
+
+=== Sweep: does error actually shrink like the 1/sqrt(k) argument predicts? ===
+     k  trials  mean|err|  observed_SE  theory_SE(worst-case)  flips_vs_exact     acc
+    25       8     0.0228       0.0383                 0.1000            16.1  0.9801
+    50       8     0.0163       0.0274                 0.0707            11.0  0.9842
+   100       8     0.0118       0.0197                 0.0500             8.8  0.9875
+   126       8     0.0101       0.0169                 0.0445             7.4  0.9874
+   200       8     0.0083       0.0140                 0.0354             4.9  0.9910
+   400       8     0.0058       0.0097                 0.0250             4.8  0.9919
+   800       8     0.0042       0.0070                 0.0177             2.6  0.9926
+
+=== Detail at the derived k=126 (averaged over 8 independent hash families) ===
+  label=same       mean|err|=0.0261  observed_SE=0.0220
+  label=different  mean|err|=0.0036  observed_SE=0.0085
+  total flips across 8 trials x 900 pairs = 53  (0.74% of trial-pairs)
+  flip examples (true_score, estimate, trial):
+    N000268/N009659 label=different  true=0.209 margin_to_tau=0.006 est=0.286 (trial 0)
+    N003908/N003909 label=same       true=0.246 margin_to_tau=0.031 est=0.214 (trial 0)
+    N009445/N009562 label=different  true=0.191 margin_to_tau=0.024 est=0.254 (trial 0)
+    N003821/N009085 label=different  true=0.192 margin_to_tau=0.023 est=0.278 (trial 0)
+    N004522/N009816 label=different  true=0.210 margin_to_tau=0.005 est=0.262 (trial 0)
+    N006364/N006366 label=same       true=0.306 margin_to_tau=0.091 est=0.198 (trial 0)
+    N011414/N011759 label=different  true=0.194 margin_to_tau=0.021 est=0.246 (trial 0)
+    N007004/N011967 label=different  true=0.194 margin_to_tau=0.021 est=0.222 (trial 0)
+    N004151/N010614 label=different  true=0.166 margin_to_tau=0.049 est=0.222 (trial 0)
+    N010018/N010020 label=same       true=0.235 margin_to_tau=0.020 est=0.198 (trial 1)
+    N007783/N007784 label=same       true=0.240 margin_to_tau=0.025 est=0.159 (trial 1)
+    N008967/N008968 label=same       true=0.207 margin_to_tau=0.008 est=0.238 (trial 1)
+    N000985/N000986 label=same       true=0.228 margin_to_tau=0.013 est=0.206 (trial 2)
+    N000576/N000577 label=same       true=0.280 margin_to_tau=0.065 est=0.214 (trial 2)
+    N000183/N001889 label=different  true=0.217 margin_to_tau=0.002 est=0.206 (trial 2)
+    N009982/N009985 label=same       true=0.275 margin_to_tau=0.060 est=0.206 (trial 2)
+    N001141/N001142 label=same       true=0.185 margin_to_tau=0.030 est=0.222 (trial 2)
+    N001104/N001107 label=same       true=0.218 margin_to_tau=0.003 est=0.183 (trial 3)
+    N002084/N007552 label=different  true=0.148 margin_to_tau=0.067 est=0.230 (trial 3)
+    N000266/N010102 label=different  true=0.168 margin_to_tau=0.047 est=0.230 (trial 3)
+    N001010/N001011 label=same       true=0.250 margin_to_tau=0.035 est=0.214 (trial 3)
+    N001362/N001363 label=same       true=0.215 margin_to_tau=0.000 est=0.270 (trial 3)
+    N009983/N009985 label=same       true=0.189 margin_to_tau=0.026 est=0.238 (trial 5)
+    N011041/N011048 label=same       true=0.275 margin_to_tau=0.060 est=0.198 (trial 7)
