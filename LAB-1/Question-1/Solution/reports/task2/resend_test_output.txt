@@ -1,0 +1,11 @@
+original file:            SALES_S01_20241112.csv
+resend file:              SALES_S01_20241112__R1.csv
+original rows:            263
+resend rows:              150
+duplicate business lines: 150  (present in both, byte-identical where checked)
+new business lines:       0  (present only in the resend)
+lines only in original:   113  (would be LOST by 'latest file wins')
+final unique business lines: 263
+dedup conflicts detected: 0
+
+Check: every line that existed ONLY in the original survives in the final dataset: PASS

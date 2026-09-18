@@ -1,0 +1,53 @@
+Task 2 idempotency test
+Dataset: /home/roshan/repos/Data_Mining-WareHousing/LAB-1/Question-1/data/sales
+Sequence: RESET ONCE -> LOAD #1 -> LOAD #2 -> LOAD #3 (no reset between loads)
+
+--- RESET (once) ---
+Cleared MinIO raw/ and curated/ prefixes; truncated ingestion_manifest, dedup_conflicts, enrichment_rejects, curation_runs. Master data (stores/products/price_revisions) left untouched.
+
+=== LOAD #1 ===
+raw files scanned:            4457
+raw files landed (new/changed): 4457
+raw files skipped (unchanged):   0
+load elapsed:                  48.1s
+
+=== RUN 1 ===
+row_count: 1120924
+checksum:  bb5be8f4b6142e460aa803ea98088614db4ed3492ab8e5be4b8ba0ec04d0eacb
+revenue:   522865735.75
+
+=== LOAD #2 ===
+raw files scanned:            4457
+raw files landed (new/changed): 0
+raw files skipped (unchanged):   4457
+load elapsed:                  36.6s
+
+=== RUN 2 ===
+row_count: 1120924
+checksum:  bb5be8f4b6142e460aa803ea98088614db4ed3492ab8e5be4b8ba0ec04d0eacb
+revenue:   522865735.75
+
+=== LOAD #3 ===
+raw files scanned:            4457
+raw files landed (new/changed): 0
+raw files skipped (unchanged):   4457
+load elapsed:                  37.1s
+
+=== RUN 3 ===
+row_count: 1120924
+checksum:  bb5be8f4b6142e460aa803ea98088614db4ed3492ab8e5be4b8ba0ec04d0eacb
+revenue:   522865735.75
+
+============================================================
+Comparison
+============================================================
+Run     Row count  Checksum                     Revenue
+1         1120924  bb5be8f4b6142e46...   522,865,735.75
+2         1120924  bb5be8f4b6142e46...   522,865,735.75
+3         1120924  bb5be8f4b6142e46...   522,865,735.75
+
+row_count_1 == row_count_2 == row_count_3: 1120924
+checksum_1  == checksum_2  == checksum_3:  MATCH
+revenue_1   == revenue_2   == revenue_3:   522865735.75
+
+IDEMPOTENCY: PASS

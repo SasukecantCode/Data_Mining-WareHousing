@@ -1,11 +1,18 @@
-# Annapurna Stores — Task 1: Lakehouse-style sales platform
+# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2)
 
-Solves: *"analysts open daily sales files manually and produce inconsistent
-monthly numbers; the CFO wants October to mean October, historical
-prices/products to stay historically correct, and revenue queryable by
-store/product/day/week/month without opening files."*
+**Task 1** solves: *"analysts open daily sales files manually and produce
+inconsistent monthly numbers; the CFO wants October to mean October,
+historical prices/products to stay historically correct, and revenue
+queryable by store/product/day/week/month without opening files."*
 
-Task 2 (tender-notice deduplication) is **not** part of this implementation.
+**Task 2** solves: *"some days appear in the source folder more than once
+because the billing system resends a store report. Running the loader
+multiple times must produce exactly the same final dataset — load once =
+load twice = load three times."* See [Task 2](#task-2--idempotent-loading)
+below.
+
+The unrelated tender-notice deduplication problem (`LAB-1/Question-2`) is
+**not** part of this implementation.
 
 ## Architecture
 
@@ -175,6 +182,151 @@ object per store-month rather than appending, so a full rerun reproduces
 identical totals (verified: revenue is ₹522,865,735.75 on both the first and
 second run).
 
+## Task 2 — idempotent loading
+
+**What "idempotent" means here**: running the loading step (raw landing +
+curation, `app/loader.py`) any number of times against the same source
+folder must leave the curated dataset in exactly the same state as running
+it once. Not "no errors on rerun" — the actual row count, the actual set of
+business lines, and the actual revenue must be identical, because the source
+folder legitimately contains the same trading day more than once (a store's
+till gets re-triggered and re-exports, landing `SALES_S03_20241014__R1.csv`
+next to `SALES_S03_20241014.csv`).
+
+**Why "latest resend wins" is wrong**: a resend is not guaranteed to be a
+full replacement. `SALES_S01_20241112__R1.csv` (a real file in the supplied
+dataset) has only 150 of the original file's 263 `(bill_no,line_no)` keys —
+the till was mid-roll when the re-export was triggered. Picking "the newest
+file for this store-day" and discarding the rest would silently delete 113
+real, already-billed sales lines. The reverse case matters too: a resend
+that adds a genuinely new key (e.g. a bill that failed to commit the first
+time) must not be discarded just because an older file for that day already
+exists.
+
+**How `(bill_no, line_no)` prevents duplicate business lines**: the business
+identity of a line is `(bill_no, line_no)`, never "this file". Every load
+groups *all* files currently known for a store-day (original + every
+resend) and unions them by that key
+(`app/deduplication/dedup.py::dedup_store_day`), keeping exactly one row per
+key. Two independent mechanisms make repeated loading safe:
+
+1. **File level** — `ingestion_manifest` (PostgreSQL) records each source
+   file's sha256. Landing the same bytes again is a no-op: nothing is
+   re-uploaded, nothing is re-recorded.
+2. **Business-line level** — regardless of file-level skipping, curation
+   always re-derives each store-month's curated Parquet from the *complete*
+   current union of `(bill_no,line_no)` keys across every known file for
+   that month, and overwrites the same deterministic object key
+   (`curated/sales/store=../year=../month=../sales.parquet`). It never
+   appends. If the exact same files are present, the union is the exact
+   same set of lines every time — that is what makes reruns idempotent
+   without needing to compare against what was previously loaded.
+
+If two files disagree about the content of the same `(bill_no,line_no)` key,
+that conflict is written to the `dedup_conflicts` audit table rather than
+silently resolved — see `reports/inspection_report.md` for why no real
+conflicts were found in this dataset (checked exhaustively) and what would
+happen if one existed.
+
+### How to run the loader
+
+```bash
+cd LAB-1/Question-1/Solution
+.venv/bin/python -c "
+from app.db import connect
+from app.loader import load
+from app.config import SETTINGS
+with connect() as conn:
+    load(SETTINGS.source_sales_dir, conn)
+"
+```
+(equivalent to running `scripts/02_land_raw.py` then `scripts/03_curate.py`
+then `scripts/03_curate.py`'s `build_dims` call — `app/loader.py::load()` is
+the single entrypoint Task 2 tests against.)
+
+### How to run the mandatory three-run test
+
+```bash
+.venv/bin/python scripts/07_idempotency_test.py
+```
+
+This resets the destination **once** (clears MinIO `raw/`+`curated/` and the
+`ingestion_manifest`/`dedup_conflicts`/`enrichment_rejects`/`curation_runs`
+tables — master data is left untouched), then calls `load()` three times in
+a row with **no reset in between**, recomputing `row_count` /
+`logical_dataset_checksum` / `revenue` from a **fresh DuckDB connection**
+after each run. Exits non-zero if any of the three runs disagree.
+
+The logical dataset checksum (`app/analytics/checksum.py`) is not a Parquet
+file hash — physical file layout can change without the data changing. It
+selects the canonical business columns, casts each to a stable string form,
+orders by `(bill_no, line_no)` (globally unique — `bill_no` already encodes
+store + business date), concatenates, and takes sha256. Two runs that
+produced the same set of business lines get the same checksum no matter how
+many curated files they were split across or what order rows were written.
+
+### Actual test result (real execution, not fabricated)
+
+```
+=== RUN 1 ===
+row_count: 1120924
+checksum:  bb5be8f4b6142e460aa803ea98088614db4ed3492ab8e5be4b8ba0ec04d0eacb
+revenue:   522865735.75
+
+=== RUN 2 ===
+row_count: 1120924
+checksum:  bb5be8f4b6142e460aa803ea98088614db4ed3492ab8e5be4b8ba0ec04d0eacb
+revenue:   522865735.75
+
+=== RUN 3 ===
+row_count: 1120924
+checksum:  bb5be8f4b6142e460aa803ea98088614db4ed3492ab8e5be4b8ba0ec04d0eacb
+revenue:   522865735.75
+```
+
+| Run | Row count | Checksum | Revenue |
+|---|---:|---|---:|
+| 1 | 1,120,924 | `bb5be8f4b6142e46...` | 522,865,735.75 |
+| 2 | 1,120,924 | `bb5be8f4b6142e46...` | 522,865,735.75 |
+| 3 | 1,120,924 | `bb5be8f4b6142e46...` | 522,865,735.75 |
+
+```
+row_count_1 == row_count_2 == row_count_3: 1120924
+checksum_1  == checksum_2  == checksum_3:  MATCH
+revenue_1   == revenue_2   == revenue_3:   522865735.75
+
+IDEMPOTENCY: PASS
+```
+
+Note load #1 landed all 4,457 files (48.1s); loads #2 and #3 landed 0 new
+files each (36-37s, spent entirely in curation re-deriving the union and
+rewriting the same curated objects) — proof the file-level skip is working
+*and* that skipping file uploads still produces byte-for-byte-equivalent
+logical output. Full captured output:
+[`reports/task2/idempotency_test_output.txt`](reports/task2/idempotency_test_output.txt),
+machine-readable: [`reports/task2/idempotency_results.csv`](reports/task2/idempotency_results.csv).
+
+### Resend test (real resend files, not just repeated execution)
+
+```bash
+.venv/bin/python scripts/08_resend_demo.py
+```
+
+```
+original file:            SALES_S01_20241112.csv
+resend file:              SALES_S01_20241112__R1.csv
+original rows:            263
+resend rows:              150
+duplicate business lines: 150  (present in both, byte-identical where checked)
+new business lines:       0  (present only in the resend)
+lines only in original:   113  (would be LOST by 'latest file wins')
+final unique business lines: 263
+dedup conflicts detected: 0
+
+Check: every line that existed ONLY in the original survives in the final dataset: PASS
+```
+Saved at [`reports/task2/resend_test_output.txt`](reports/task2/resend_test_output.txt).
+
 ## Project layout
 
 ```
@@ -186,7 +338,7 @@ LAB-1/
 │       ├── docker-compose.yml PostgreSQL + MinIO
 │       ├── .env.example
 │       └── app/
-└── Question-2/                 Task 2 (not implemented)
+└── Question-2/                 unrelated problem (tender-notice dedup, not implemented)
     ├── data_2/
     └── Solution/
 
@@ -195,18 +347,25 @@ Solution/
 ├── .env.example
 ├── app/
 │   ├── config.py, db.py, object_store.py, duck.py
-│   ├── ingestion/raw_landing.py       source -> MinIO raw/
+│   ├── loader.py                      Task 2: idempotent load() + reset_destination()
+│   ├── ingestion/raw_landing.py       source -> MinIO raw/, checksum manifest
 │   ├── normalization/                filenames.py, readers.py (3 dialects)
 │   ├── deduplication/dedup.py         (bill_no,line_no) union + conflict audit
 │   ├── enrichment/enrich.py           temporal product_sk / price resolution
-│   ├── analytics/                     revenue.py, curate.py, dims.py
+│   ├── analytics/                     revenue.py, curate.py, dims.py, checksum.py (Task 2)
 │   └── validation/validate.py         data-quality checks + reconciliation
 ├── sql/
 │   ├── schema/audit.sql               lineage/idempotency tables
 │   └── queries/01..07*.sql            the required analytical queries
-├── scripts/00..06                     one script per pipeline phase
+├── scripts/
+│   ├── 00..06                         one script per Task 1 pipeline phase
+│   ├── 07_idempotency_test.py         Task 2: mandatory 3-run test
+│   └── 08_resend_demo.py              Task 2: real resend proof
 ├── tests/                             pytest, unit + integration (@pytest.mark.integration)
-└── reports/inspection_report.md       Phase 1 findings, with real examples
+└── reports/
+    ├── inspection_report.md           Phase 1 findings, with real examples
+    └── task2/                         idempotency_test_output.txt, idempotency_results.csv,
+                                        resend_test_output.txt -- actual execution evidence
 ```
 
 ## What was deliberately not done
