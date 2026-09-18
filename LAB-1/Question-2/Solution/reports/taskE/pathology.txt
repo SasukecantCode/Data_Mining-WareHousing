@@ -1,0 +1,26 @@
+Empirically located outlier population: 711 notices (5.9% of the 12,000-notice corpus) contain both a truncation marker and a disclaimer footer in their raw body.
+
+=== BEFORE (unmitigated) ===
+  total candidate pairs: 907,426  (LSH build time: 0.70s)
+  degree distribution: median=9  p99=1092  max=1415
+  of top-15 highest-degree notices, 13/15 are in the 711-notice outlier population
+  candidate pairs with BOTH endpoints in outlier population: 182,943 (20.2% of all candidates, from 5.9% of notices)
+  theoretical mean recall on labelled 'same' (900 pairs' exact scores): 0.9957
+  theoretical mean false-candidate rate on labelled 'different': 0.0411
+
+=== AFTER (mitigated) ===
+  total candidate pairs: 439,021  (LSH build time: 0.72s)
+  degree distribution: median=8  p99=760  max=1067
+  of top-15 highest-degree notices, 0/15 are in the 711-notice outlier population
+  candidate pairs with BOTH endpoints in outlier population: 1,612 (0.4% of all candidates, from 5.9% of notices)
+  theoretical mean recall on labelled 'same' (900 pairs' exact scores): 0.9966
+  theoretical mean false-candidate rate on labelled 'different': 0.0245
+
+=== Summary: cost of the pathology, and price of the fix ===
+Candidate volume:      907,426 -> 439,021  (51.6% reduction)
+Outlier-population internal candidate pairs: 182,943 -> 1,612
+Max single-notice degree: 1,415 -> 1,067
+LSH build wall-clock:  0.70s -> 0.72s
+Labelled-set theoretical recall (same):        0.9957 -> 0.9966  (change: +0.0009)
+Labelled-set theoretical false-cand (different): 0.0411 -> 0.0245  (change: -0.0166)
+At current corpus size (12,000 notices, 907,426 candidates, 0.70s build), this pathology is NOT yet budget-threatening on its own -- the concern is how it scales: the outlier population's internal cost grows quadratically with its own size, while genuine-duplicate cost grows near-linearly with corpus size (clusters stay small, bounded ~9 members).

@@ -1,0 +1,90 @@
+=== btree_composite (band_no, bucket_hash) -- rejected ===
+  planner node (example notice N005306): ->  Nested Loop  (cost=0.85..650.85 rows=7 width=8) (actual time=0.017..0.116 rows=165 loops=1)
+  Buffers: shared hit=359
+  EXPLAIN ANALYZE Execution Time: 0.163 ms
+  wall-clock over 30 distinct notices (python-timed, incl. round-trip): mean=0.587ms  median=0.493ms  p95=1.452ms
+
+=== hash (bucket_hash) -- adopted ===
+  planner node (example notice N005306): ->  Nested Loop  (cost=0.42..1118.91 rows=6 width=8) (actual time=0.011..0.390 rows=165 loops=1)
+  Buffers: shared hit=237
+  EXPLAIN ANALYZE Execution Time: 0.442 ms
+  wall-clock over 30 distinct notices (python-timed, incl. round-trip): mean=0.458ms  median=0.346ms  p95=1.197ms
+
+=== no index (seq scan) -- floor ===
+  planner node (example notice N005306): ->  Hash Join  (cost=118.97..10558.09 rows=3 width=8) (actual time=14.923..23.624 rows=55 loops=3)
+  Buffers: shared hit=4969
+  EXPLAIN ANALYZE Execution Time: 26.936 ms
+  wall-clock over 30 distinct notices (python-timed, incl. round-trip): mean=20.732ms  median=20.762ms  p95=22.004ms
+
+=== Full EXPLAIN (ANALYZE, BUFFERS) for one representative notice, all three configs ===
+--- btree_composite (band_no, bucket_hash) -- rejected ---
+Unique  (cost=650.95..650.98 rows=7 width=8) (actual time=0.134..0.144 rows=4 loops=1)
+  Buffers: shared hit=359
+  ->  Sort  (cost=650.95..650.97 rows=7 width=8) (actual time=0.133..0.137 rows=165 loops=1)
+        Sort Key: m2.notice_id
+        Sort Method: quicksort  Memory: 27kB
+        Buffers: shared hit=359
+        ->  Nested Loop  (cost=0.85..650.85 rows=7 width=8) (actual time=0.017..0.116 rows=165 loops=1)
+              Buffers: shared hit=359
+              ->  Index Scan using lsh_bucket_members_pkey on lsh_bucket_members m1  (cost=0.42..118.03 rows=63 width=10) (actual time=0.010..0.013 rows=63 loops=1)
+                    Index Cond: (notice_id = 'N005306'::text)
+                    Buffers: shared hit=5
+              ->  Index Scan using ix_btree_bucket on lsh_bucket_members m2  (cost=0.42..8.45 rows=1 width=18) (actual time=0.001..0.001 rows=3 loops=63)
+                    Index Cond: ((band_no = m1.band_no) AND (bucket_hash = m1.bucket_hash))
+                    Filter: (notice_id <> 'N005306'::text)
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=354
+Planning Time: 0.099 ms
+Execution Time: 0.163 ms
+
+--- hash (bucket_hash) -- adopted ---
+Unique  (cost=1118.99..1119.02 rows=6 width=8) (actual time=0.410..0.421 rows=4 loops=1)
+  Buffers: shared hit=237
+  ->  Sort  (cost=1118.99..1119.00 rows=6 width=8) (actual time=0.410..0.414 rows=165 loops=1)
+        Sort Key: m2.notice_id
+        Sort Method: quicksort  Memory: 27kB
+        Buffers: shared hit=237
+        ->  Nested Loop  (cost=0.42..1118.91 rows=6 width=8) (actual time=0.011..0.390 rows=165 loops=1)
+              Buffers: shared hit=237
+              ->  Index Scan using lsh_bucket_members_pkey on lsh_bucket_members m1  (cost=0.42..118.03 rows=63 width=10) (actual time=0.009..0.012 rows=63 loops=1)
+                    Index Cond: (notice_id = 'N005306'::text)
+                    Buffers: shared hit=5
+              ->  Index Scan using ix_hash_bucket on lsh_bucket_members m2  (cost=0.00..15.88 rows=1 width=18) (actual time=0.005..0.006 rows=3 loops=63)
+                    Index Cond: (bucket_hash = m1.bucket_hash)
+                    Filter: ((notice_id <> 'N005306'::text) AND (band_no = m1.band_no))
+                    Rows Removed by Filter: 1
+                    Buffers: shared hit=232
+Planning Time: 0.068 ms
+Execution Time: 0.442 ms
+
+--- no index (seq scan) -- floor ---
+Unique  (cost=11558.13..11558.86 rows=6 width=8) (actual time=25.160..26.898 rows=4 loops=1)
+  Buffers: shared hit=4969
+  ->  Gather Merge  (cost=11558.13..11558.84 rows=6 width=8) (actual time=25.160..26.896 rows=5 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=4969
+        ->  Unique  (cost=10558.11..10558.12 rows=3 width=8) (actual time=23.652..23.657 rows=2 loops=3)
+              Buffers: shared hit=4969
+              ->  Sort  (cost=10558.11..10558.12 rows=3 width=8) (actual time=23.651..23.653 rows=55 loops=3)
+                    Sort Key: m2.notice_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=4969
+                    Worker 0:  Sort Method: quicksort  Memory: 26kB
+                    Worker 1:  Sort Method: quicksort  Memory: 25kB
+                    ->  Hash Join  (cost=118.97..10558.09 rows=3 width=8) (actual time=14.923..23.624 rows=55 loops=3)
+                          Hash Cond: ((m2.band_no = m1.band_no) AND (m2.bucket_hash = m1.bucket_hash))
+                          Buffers: shared hit=4953
+                          ->  Parallel Seq Scan on lsh_bucket_members m2  (cost=0.00..8785.50 rows=314974 width=18) (actual time=0.004..12.984 rows=251979 loops=3)
+                                Filter: (notice_id <> 'N005306'::text)
+                                Rows Removed by Filter: 21
+                                Buffers: shared hit=4848
+                          ->  Hash  (cost=118.03..118.03 rows=63 width=10) (actual time=0.028..0.029 rows=63 loops=3)
+                                Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                Buffers: shared hit=17
+                                ->  Index Scan using lsh_bucket_members_pkey on lsh_bucket_members m1  (cost=0.42..118.03 rows=63 width=10) (actual time=0.016..0.020 rows=63 loops=3)
+                                      Index Cond: (notice_id = 'N005306'::text)
+                                      Buffers: shared hit=17
+Planning Time: 0.098 ms
+Execution Time: 26.936 ms
+

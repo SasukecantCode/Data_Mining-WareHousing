@@ -1,0 +1,22 @@
+name: setubid
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: setubid_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-setubid}
+      POSTGRES_USER: ${POSTGRES_USER:-setubid}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-setubid_dev_password}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - setubid_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-setubid} -d ${POSTGRES_DB:-setubid}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  setubid_postgres_data:

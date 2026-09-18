@@ -104,13 +104,29 @@ def choice1_tokens(notice):
 
 # ---------------- Choice 2: structurally + statistically denoised bigrams ----------------
 
-def structural_signal_tokens(notice):
+# Section B(e) mitigation: some portals truncate a notice mid-section (before
+# GENERAL CONDITIONS/CONTACT/KEY DATES -- the only sections this parser knows
+# to treat as noise -- ever appear), and three nodal portals append a verbatim
+# disclaimer footer straight after wherever the cut lands. Because no new
+# section header appears between the cut and the footer, this parser's
+# section-tracking has nothing to reclassify them with, and both the marker
+# and the disclaimer leak into "signal" as identical boilerplate across every
+# affected notice. See reports/taskE for the empirical trace.
+TRUNCATION_MARKER_RE = re.compile(r"\[entry truncated.*", re.IGNORECASE | re.DOTALL)
+
+
+def structural_signal_tokens(notice, strip_truncation_marker=False):
     """Strip portal preamble/footer + noise sections + format-variant fields.
     Return the ordered list of surviving word tokens (order kept, for bigrams)."""
     body = notice["body"]
     idx = body.find("Name of work:")
     if idx > 0:
         body = body[idx:]  # drops any preamble/legal boilerplate before the first field
+
+    if strip_truncation_marker:
+        m = TRUNCATION_MARKER_RE.search(body)
+        if m:
+            body = body[: m.start()]  # drops the marker and everything after it (disclaimer footer included)
 
     tokens = list(TOKEN_RE.findall(notice["title"].lower()))
     section = None
@@ -135,7 +151,7 @@ def structural_signal_tokens(notice):
     return tokens
 
 
-def build_corpus_stopwords(notices, df_threshold=0.40):
+def build_corpus_stopwords(notices, df_threshold=0.40, strip_truncation_marker=False):
     """Statistical noise decision: any token appearing in more than
     df_threshold of notices (after structural stripping) carries ~zero
     identity signal -- it's department-template vocabulary, not tender
@@ -144,7 +160,7 @@ def build_corpus_stopwords(notices, df_threshold=0.40):
     df = Counter()
     cache = {}
     for nid, notice in notices.items():
-        toks = structural_signal_tokens(notice)
+        toks = structural_signal_tokens(notice, strip_truncation_marker=strip_truncation_marker)
         cache[nid] = toks
         df.update(set(toks))
     stopwords = {t for t, c in df.items() if c / n > df_threshold}
