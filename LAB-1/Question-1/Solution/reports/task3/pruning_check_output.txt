@@ -1,0 +1,19 @@
+=== A. dashboard VIEW, filtered on store only (business_date used for the month range) ===
+Files scanned: 12/144
+Result: 6435443.95
+
+=== B. dashboard VIEW, filtered on store AND month (both partition columns) ===
+Files scanned: 12/144
+Result: 6435443.95
+-> the month filter here does NOT get pushed into the Parquet scan through the
+   view (DuckDB optimizer limitation for casts through views); file count stays
+   at the store-only pruning level, 12/144 -- still correct, just not maximally pruned.
+
+=== C. same query, but against read_parquet() DIRECTLY (bypasses the view) ===
+Files scanned: 1/144
+Result: 6435443.95
+-> full store+month pruning (1/144) IS achievable on this exact curated layout;
+   it just requires the query to touch read_parquet() directly rather than through
+   a convenience view. A dashboard/BI layer that needs the tightest pruning should
+   query the partitioned files directly for its hot-path filters, and use
+   fact_sales_dashboard for everything else (joins, ad-hoc slicing, correctness).

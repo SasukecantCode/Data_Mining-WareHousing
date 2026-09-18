@@ -1,4 +1,4 @@
-# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2)
+# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2 + Task 3)
 
 **Task 1** solves: *"analysts open daily sales files manually and produce
 inconsistent monthly numbers; the CFO wants October to mean October,
@@ -10,6 +10,11 @@ because the billing system resends a store report. Running the loader
 multiple times must produce exactly the same final dataset — load once =
 load twice = load three times."* See [Task 2](#task-2--idempotent-loading)
 below.
+
+**Task 3** solves: *"build the dashboard star schema so revenue can be
+quickly sliced by store/product/category/day-of-week/month without
+repeating store/product/category descriptions on every sales row."* See
+[Task 3](#task-3--dashboard-star-schema) below.
 
 The unrelated tender-notice deduplication problem (`LAB-1/Question-2`) is
 **not** part of this implementation.
@@ -327,6 +332,248 @@ Check: every line that existed ONLY in the original survives in the final datase
 ```
 Saved at [`reports/task2/resend_test_output.txt`](reports/task2/resend_test_output.txt).
 
+## Task 3 — dashboard star schema
+
+### Source-data traps re-confirmed against the actual (Task 2 deduplicated) data
+
+Before touching the schema, these were re-checked with live queries against
+`fact_sales` (the Task 2 output), not assumed:
+
+* **Not every line is a sale.** `SELECT DISTINCT line_type FROM fact_sales`
+  returns exactly `SALE, RETURN, DISCOUNT, VOID, TAX, TENDER` — matches
+  `billing_notes.md`.
+* **`product_code` is not globally unique.** `dim_product` has 24
+  `product_code` values that map to more than one `product_sk` (check #5,
+  below) — the 24 reissued codes from `masters.sql`, reissued
+  **2024-06-01**.
+* **Bill-level `DISCOUNT`/`TAX`/`TENDER` are not product rows.** Verified:
+  0 of 22,603 `DISCOUNT` lines have a `product_sk`; `TAX`/`TENDER` likewise
+  always `NULL` (check #4). Their `product_code` in the source is the
+  pseudo-code `'DISC'`/`'TAX'`/`'TENDER'`, never a real product code.
+* **Business date comes from the filename, not the timestamp.** Unchanged
+  from Task 1/2 — `fact_sales.business_date` is still parsed from
+  `SALES_<store>_<YYYYMMDD>...`, `transaction_ts` is kept separately (see
+  `reports/inspection_report.md` section 3 for the real midnight-crossing
+  example).
+
+None of this required new code — it's the same `fact_sales` Task 1/2 already
+built and validated. Task 3 does not redesign it; it builds a dashboard
+layer on top.
+
+### Schema design: snowflake, not a flat star
+
+`category` is deliberately **normalized out one hop further**, into its own
+`dim_category` table, rather than flattened as columns on `dim_product` (or
+worse, on the fact row) — that's what makes this a **snowflake schema**:
+
+```
+                    dim_date
+                       │
+                       │
+dim_store ─────── fact_sales ─────── dim_product ─────── dim_category
+(store_sk)        (grain: 1 unique   (product_sk,        (category_sk,
+                   business line,     category_sk FK)     category_name,
+                   Task 2 deduped)                         department,
+                                                            gst_rate)
+```
+
+* `fact_sales_dashboard` holds only surrogate-key foreign keys
+  (`store_sk`, `product_sk`, `date_sk`) — no `category_id`/`category_sk`,
+  and no descriptive text at all (`store_name`, `product_name`,
+  `category_name`, `address`, ... never appear on the fact grain —
+  validation check #7).
+* `dim_product` holds `category_sk` as a foreign key only — it does **not**
+  carry `category_name`/`department`/`gst_rate` alongside it. Those live
+  solely in `dim_category`, one join away.
+* A query needing category attributes therefore always goes
+  `fact_sales_dashboard → dim_product → dim_category` (two hops), e.g.
+  `sql/queries/10_dashboard_revenue_by_category.sql` and `12_dashboard_revenue_by_store_category_month.sql`:
+  ```sql
+  JOIN dim_product p   ON p.product_sk = f.product_sk
+  JOIN dim_category cat ON cat.category_sk = p.category_sk
+  ```
+  Verified live (`DESCRIBE dim_product` / `DESCRIBE fact_sales_dashboard`):
+  neither table contains `category_name`, `department`, or `gst_rate` —
+  those columns exist in exactly one place, `dim_category`.
+
+`dim_store` and `dim_date` are left as single flat dimensions (not
+snowflaked further, e.g. no separate `dim_geography` for
+city/state/region) — the assignment's dashboard slices
+(store/product/category/day-of-week/month) don't need that extra
+normalization, and adding it would be scope creep beyond what was asked.
+
+`fact_sales_dashboard` is a **DuckDB VIEW**, not a re-materialized table —
+it adds the dashboard-friendly surrogate keys (`sales_line_sk`, `store_sk`,
+`date_sk`) on top of the existing Task 1/2 curated Parquet at query time
+(`app/duck.py::connect()`). The underlying `curated/sales/*.parquet` files
+and `app/analytics/curate.py` pipeline are **untouched** — this is
+additive, not a redesign. All four dimension Parquet snapshots
+(`app/analytics/dims.py`) got their Task 3 columns added the same way:
+**additively**, alongside the original Task 1 column names, so the
+existing Task 1 queries (`sql/queries/02`, `05`) still run unmodified.
+
+| Dimension | Task 3 columns added | Task 1 columns kept |
+|---|---|---|
+| `dim_date` | `calendar_date`, `quarter`, `month_number`, `year_month`, `day_of_month`, `week_of_year`, `day_of_week` | `business_date`, `month`, `day`, `iso_week`, `iso_year` |
+| `dim_store` | `store_sk`, `address` | `address_line`, `store_id`, ... |
+| `dim_category` | `category_sk` | `category_id`, ... |
+| `dim_product` | `category_sk` (joined) | `product_sk` (unchanged identity), `category_id`, ... |
+
+**Weekday convention**: `day_of_week` is ISO 8601 — **Monday = 1 ... Sunday
+= 7** (`dim_date.day_of_week`), alongside the readable `day_name`. Verified:
+2024-01-01 (a real Monday) → `day_of_week=1, day_name='Monday'`
+(`tests/test_task3_star_schema.py::test_dim_date_weekday_convention_monday_is_1`).
+
+### Fact-table grain
+
+**One unique business line after Task 2 deduplication** — unchanged from
+Task 1/2. `fact_sales_dashboard` row count = 1,120,924 = Task 2's
+`idempotency_results.csv` row count exactly (validation check #6). No
+row is added, dropped, or split to build the dashboard layer.
+
+`product_sk` is resolved via `product_code + business_date BETWEEN
+valid_from AND valid_to` (Task 1's temporal join, unchanged) — **never**
+`product_code` alone. It is populated for `SALE`/`RETURN`/`VOID` and `NULL`
+for `DISCOUNT`/`TAX`/`TENDER`, with one documented edge case: a `VOID` that
+cancels a `DISCOUNT` line (product_code `'DISC'`) as part of a whole-bill
+cancellation also gets `product_sk = NULL` — it's a VOID by `line_type`,
+but still not a product (`tests/test_task3_star_schema.py::test_void_of_discount_has_no_product_sk`).
+
+`fact_sales_dashboard` deliberately does **not** carry `category_id` or any
+descriptive text (`store_name`, `product_name`, `category_name`, `address`,
+...) — those live only in the dimensions, reached by surrogate key
+(validation check #7).
+
+### Revenue calculation
+
+Unchanged from Task 1: `revenue_amount = qty * source_unit_price` for
+`SALE`/`RETURN`/`DISCOUNT`/`VOID`, `0` for `TAX`/`TENDER`. `VOID` is never
+filtered out — its negated `qty` is what cancels the original `SALE`
+(check #2: `S01/20240102/00017` nets to exactly ₹0). `price_revisions` is
+**never** used to compute `revenue_amount` — `historical_authoritative_price`
+is kept as a separate column for as-of-date price analysis only (Task 1's
+`sql/queries/07_historical_price_lookup.sql` still demonstrates this).
+
+### Product reissue handling
+
+Unchanged from Task 1: resolved once during curation, via the temporal join
+above, using `product_sk` as the stable identity in every downstream query
+— never re-joined by `product_code` at query time. Real example: `P108206`
+resolves to `product_sk=2173` ("Daawat Poha 10kg") for sales through
+2024-05-31, and `product_sk=2217` ("Local Mandi Apple 1kg") from
+2024-06-01 (validation check #1).
+
+### Bill-level adjustment handling ("the important dashboard attribution rule")
+
+A `DISCOUNT` line reduces **total net revenue** but has no product or
+category identity — it is never assigned one. Two revenue definitions are
+kept explicitly distinct rather than conflated:
+
+* **Total net revenue** — `SUM(revenue_amount)` over every revenue-bearing
+  line type. Reconciles to the Task 1 folder truth exactly.
+* **Product-attributed revenue** — `SUM(revenue_amount) WHERE product_sk IS
+  NOT NULL`. Always *less* than total net revenue, by exactly the
+  non-product lines (`DISCOUNT`, plus the rare VOID-of-DISCOUNT case).
+
+`sql/queries/13_total_vs_product_attributed_revenue.sql` proves the two
+reconcile with **zero unexplained gap** for October 2024:
+
+```
+total_net_revenue  product_attributed_revenue  non_product_revenue  of_which_discount  of_which_void_of_discount  unexplained_gap
+       56359195.92                 56927219.51           -568023.59         -570249.25                    2225.66              0.0
+```
+
+No allocation of `DISCOUNT` across products/categories is performed —
+category-level rollups (`sql/queries/10`, `12`) are **product-attributed
+only** and will not sum to total net revenue for a store/month. If a
+dashboard later needs category-level numbers that foot to the total, that
+needs a separate, explicitly documented allocation rule (e.g. pro-rata by
+each category's share of that bill's `SALE` revenue) — deliberately **not**
+implemented here, since the source data specifies no such rule and
+inventing one would silently change fact semantics.
+
+### Dashboard queries (`sql/queries/08-13`, run via `scripts/11_run_dashboard_queries.py`)
+
+* `08` — revenue by store and month (total net revenue)
+* `09` — revenue by product (product-attributed, top 20)
+* `10` — revenue by category (product-attributed)
+* `11` — revenue by day of week (Monday=1..Sunday=7)
+* `12` — revenue by store + category + month (product-attributed, October 2024)
+* `13` — total net vs. product-attributed revenue reconciliation
+
+Sample results (October 2024, full output in
+[`reports/task3/dashboard_queries_output.txt`](reports/task3/dashboard_queries_output.txt)):
+
+```
+revenue by day of week:
+ day_of_week  day_name  total_net_revenue   lines
+           1    Monday        59589704.80  127418
+           6  Saturday       104941626.27  225075   <- highest
+           7    Sunday        94969205.46  203483
+
+revenue by category (product-attributed, all-time):
+ category_id      category_name  product_attributed_revenue
+         C04   Staples & Grains                  98677244.71   <- highest
+         C09          Baby Care                  88746237.02
+         C05        Edible Oils                  82736636.78
+```
+
+### Performance: does the dashboard layer still prune by store/year/month?
+
+`scripts/10_dashboard_pruning_check.py` measures this with `EXPLAIN`
+(actual output, not asserted — full log at
+[`reports/task3/pruning_check_output.txt`](reports/task3/pruning_check_output.txt)):
+
+| Query form | Files scanned |
+|---|---|
+| `fact_sales_dashboard` filtered by store only (`partition_store='S01'`) | **12 / 144** |
+| `fact_sales_dashboard` filtered by store + year + month | **12 / 144** (no better — see below) |
+| `read_parquet(...)` queried **directly**, filtered by store + month | **1 / 144** |
+
+A real DuckDB limitation was found and is documented rather than glossed
+over: filtering a `CREATE VIEW`-wrapped `read_parquet()` (which is what
+`fact_sales`/`fact_sales_dashboard` are) on the `month` partition column
+does not get the same automatic type-coercion pushdown that querying
+`read_parquet()` directly gets — so through the view, only the `store`
+filter reaches the Parquet scan (still a real 91.7% file reduction), while
+full store+month pruning (1/144, same result as Task 1's
+`scripts/06_partition_pruning_demo.py`) requires querying the underlying
+`read_parquet(...)` glob directly. Both paths return the **identical**
+correct result (₹6,435,443.95 for S01, October 2024) — this is a pruning
+depth difference, not a correctness difference. Recommendation documented
+in the script: use `fact_sales_dashboard` for joins/ad-hoc slicing, and
+query the partitioned files directly for a dashboard's hot-path filters
+that need maximal pruning.
+
+### Task 3 validation (`scripts/09_task3_validate.py`)
+
+All 8 required checks, run against the live data
+([full output](reports/task3/validation_output.txt)):
+
+```
+[PASS] 1_reissued_code_resolves_differently_before_after_2024-06-01: P108206 -> 2 distinct product_sk
+[PASS] 2_sale_plus_void_nets_to_zero: S01/20240102/00017 net revenue = 0.00
+[PASS] 3_tax_and_tender_zero_revenue: {'TAX': 0.0, 'TENDER': 0.0}
+[PASS] 4_discount_reduces_revenue_without_product_identity: 22603 DISCOUNT lines, revenue=-5294511.42, 0 with a product_sk
+[PASS] 5_product_code_alone_is_not_a_unique_identity: 24 product_code values map to more than one product_sk
+[PASS] 6_fact_row_count_matches_task2_dedup_dataset: fact_sales_dashboard rows=1120924, Task 2 row_count=1120924
+[PASS] 7_descriptive_attributes_not_duplicated_on_fact_rows: none found on the fact grain
+[PASS] 8_revenue_reconciles_with_folder_truth_all_12_months: 12 months checked, 0 mismatches
+
+TASK 3 VALIDATION: PASS (8/8 checks passed)
+```
+
+### How to run Task 3
+
+```bash
+cd LAB-1/Question-1/Solution
+# Task 1/2 must already have run once (dims + fact_sales in MinIO)
+.venv/bin/python scripts/09_task3_validate.py            # 8 required checks
+.venv/bin/python scripts/10_dashboard_pruning_check.py    # EXPLAIN-based pruning proof
+.venv/bin/python scripts/11_run_dashboard_queries.py      # all 6 dashboard queries
+.venv/bin/python -m pytest tests/test_task3_star_schema.py -q
+```
+
 ## Project layout
 
 ```
@@ -352,20 +599,29 @@ Solution/
 │   ├── normalization/                filenames.py, readers.py (3 dialects)
 │   ├── deduplication/dedup.py         (bill_no,line_no) union + conflict audit
 │   ├── enrichment/enrich.py           temporal product_sk / price resolution
-│   ├── analytics/                     revenue.py, curate.py, dims.py, checksum.py (Task 2)
+│   ├── analytics/                     revenue.py, curate.py, dims.py (Task 3 cols added),
+│   │                                  checksum.py (Task 2)
 │   └── validation/validate.py         data-quality checks + reconciliation
 ├── sql/
 │   ├── schema/audit.sql               lineage/idempotency tables
-│   └── queries/01..07*.sql            the required analytical queries
+│   └── queries/
+│       ├── 01..07*.sql                Task 1 required analytical queries
+│       └── 08..13*.sql                Task 3 dashboard queries + attribution-rule check
 ├── scripts/
 │   ├── 00..06                         one script per Task 1 pipeline phase
 │   ├── 07_idempotency_test.py         Task 2: mandatory 3-run test
-│   └── 08_resend_demo.py              Task 2: real resend proof
+│   ├── 08_resend_demo.py              Task 2: real resend proof
+│   ├── 09_task3_validate.py           Task 3: 8 required validation checks
+│   ├── 10_dashboard_pruning_check.py  Task 3: EXPLAIN-based pruning proof
+│   └── 11_run_dashboard_queries.py    Task 3: runs sql/queries/08-13
 ├── tests/                             pytest, unit + integration (@pytest.mark.integration)
+│                                      (test_task3_star_schema.py = Task 3 invariants)
 └── reports/
     ├── inspection_report.md           Phase 1 findings, with real examples
-    └── task2/                         idempotency_test_output.txt, idempotency_results.csv,
-                                        resend_test_output.txt -- actual execution evidence
+    ├── task2/                         idempotency_test_output.txt, idempotency_results.csv,
+    │                                  resend_test_output.txt -- actual execution evidence
+    └── task3/                         validation_output.txt, pruning_check_output.txt,
+                                        dashboard_queries_output.txt -- actual execution evidence
 ```
 
 ## What was deliberately not done

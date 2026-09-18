@@ -1,0 +1,236 @@
+==============================================================================
+08_dashboard_revenue_by_store_month.sql
+==============================================================================
+store_id               store_name  year  month year_month  total_net_revenue
+     S01      Annapurna Jayanagar  2024      1    2024-01         4371424.37
+     S02    Annapurna Koramangala  2024      1    2024-01         3315204.12
+     S03        Annapurna T Nagar  2024      1    2024-01         4332236.60
+     S04     Annapurna Kukatpally  2024      1    2024-01         2865432.49
+     S05   Annapurna Kochi Marine  2024      1    2024-01         2323647.27
+     S06   Annapurna Andheri West  2024      1    2024-01         3901762.04
+     S07          Annapurna Baner  2024      1    2024-01         2620851.37
+     S08      Annapurna Satellite  2024      1    2024-01         2637970.96
+     S09       Annapurna Vaishali  2024      1    2024-01         1963723.67
+     S10 Annapurna Rajouri Garden  2024      1    2024-01         4400597.13
+     S11    Annapurna Gomti Nagar  2024      1    2024-01         2440662.53
+     S12      Annapurna Salt Lake  2024      1    2024-01         3272558.78
+     S01      Annapurna Jayanagar  2024      2    2024-02         3802842.23
+     S02    Annapurna Koramangala  2024      2    2024-02         2990177.14
+     S03        Annapurna T Nagar  2024      2    2024-02         4228954.16
+     S04     Annapurna Kukatpally  2024      2    2024-02         2457922.67
+     S05   Annapurna Kochi Marine  2024      2    2024-02         2090021.88
+     S06   Annapurna Andheri West  2024      2    2024-02         3549624.07
+     S07          Annapurna Baner  2024      2    2024-02         2249072.06
+     S08      Annapurna Satellite  2024      2    2024-02         2405695.98
+     S09       Annapurna Vaishali  2024      2    2024-02         1878900.76
+     S10 Annapurna Rajouri Garden  2024      2    2024-02         4080868.56
+     S11    Annapurna Gomti Nagar  2024      2    2024-02         2183091.62
+     S12      Annapurna Salt Lake  2024      2    2024-02         2969914.42
+     S01      Annapurna Jayanagar  2024      3    2024-03         4408976.65
+     S02    Annapurna Koramangala  2024      3    2024-03         3680365.59
+     S03        Annapurna T Nagar  2024      3    2024-03         4907538.80
+     S04     Annapurna Kukatpally  2024      3    2024-03         3259373.38
+     S05   Annapurna Kochi Marine  2024      3    2024-03         2517068.94
+     S06   Annapurna Andheri West  2024      3    2024-03         4262091.73
+     S07          Annapurna Baner  2024      3    2024-03         2825068.65
+     S08      Annapurna Satellite  2024      3    2024-03         2751447.89
+     S09       Annapurna Vaishali  2024      3    2024-03         2363742.31
+     S10 Annapurna Rajouri Garden  2024      3    2024-03         4791561.32
+     S11    Annapurna Gomti Nagar  2024      3    2024-03         2669840.27
+     S12      Annapurna Salt Lake  2024      3    2024-03         3534573.56
+     S01      Annapurna Jayanagar  2024      4    2024-04         4199964.44
+     S02    Annapurna Koramangala  2024      4    2024-04         3592952.59
+     S03        Annapurna T Nagar  2024      4    2024-04         4355128.93
+     S04     Annapurna Kukatpally  2024      4    2024-04         2858197.32
+     S05   Annapurna Kochi Marine  2024      4    2024-04         2173059.89
+     S06   Annapurna Andheri West  2024      4    2024-04         3741880.74
+     S07          Annapurna Baner  2024      4    2024-04         2598224.43
+     S08      Annapurna Satellite  2024      4    2024-04         2520194.03
+     S09       Annapurna Vaishali  2024      4    2024-04         2113369.33
+     S10 Annapurna Rajouri Garden  2024      4    2024-04         4151595.55
+     S11    Annapurna Gomti Nagar  2024      4    2024-04         2280326.82
+     S12      Annapurna Salt Lake  2024      4    2024-04         3373563.30
+     S01      Annapurna Jayanagar  2024      5    2024-05         4603791.25
+     S02    Annapurna Koramangala  2024      5    2024-05         3865654.75
+     S03        Annapurna T Nagar  2024      5    2024-05         4832110.25
+     S04     Annapurna Kukatpally  2024      5    2024-05         3485957.93
+     S05   Annapurna Kochi Marine  2024      5    2024-05         2309725.63
+     S06   Annapurna Andheri West  2024      5    2024-05         3995850.72
+     S07          Annapurna Baner  2024      5    2024-05         2610082.10
+     S08      Annapurna Satellite  2024      5    2024-05         2711168.57
+     S09       Annapurna Vaishali  2024      5    2024-05         2375456.95
+     S10 Annapurna Rajouri Garden  2024      5    2024-05         4777388.14
+     S11    Annapurna Gomti Nagar  2024      5    2024-05         2647085.13
+     S12      Annapurna Salt Lake  2024      5    2024-05         3550444.98
+     S01      Annapurna Jayanagar  2024      6    2024-06         4187784.29
+     S02    Annapurna Koramangala  2024      6    2024-06         3503130.17
+     S03        Annapurna T Nagar  2024      6    2024-06         4749422.88
+     S04     Annapurna Kukatpally  2024      6    2024-06         2990076.63
+     S05   Annapurna Kochi Marine  2024      6    2024-06         2145975.09
+     S06   Annapurna Andheri West  2024      6    2024-06         3844076.88
+     S07          Annapurna Baner  2024      6    2024-06         2746206.80
+     S08      Annapurna Satellite  2024      6    2024-06         2517093.92
+     S09       Annapurna Vaishali  2024      6    2024-06         1990387.42
+     S10 Annapurna Rajouri Garden  2024      6    2024-06         4549125.86
+     S11    Annapurna Gomti Nagar  2024      6    2024-06         2402918.81
+     S12      Annapurna Salt Lake  2024      6    2024-06         3360884.07
+     S01      Annapurna Jayanagar  2024      7    2024-07         4220062.05
+     S02    Annapurna Koramangala  2024      7    2024-07         3793732.95
+     S03        Annapurna T Nagar  2024      7    2024-07         4906519.77
+     S04     Annapurna Kukatpally  2024      7    2024-07         3243952.35
+     S05   Annapurna Kochi Marine  2024      7    2024-07         2259562.78
+     S06   Annapurna Andheri West  2024      7    2024-07         3952329.22
+     S07          Annapurna Baner  2024      7    2024-07         2651159.69
+     S08      Annapurna Satellite  2024      7    2024-07         2777047.94
+     S09       Annapurna Vaishali  2024      7    2024-07         2184591.50
+     S10 Annapurna Rajouri Garden  2024      7    2024-07         4331817.73
+     S11    Annapurna Gomti Nagar  2024      7    2024-07         2424478.29
+     S12      Annapurna Salt Lake  2024      7    2024-07         3549905.84
+     S01      Annapurna Jayanagar  2024      8    2024-08         4892237.87
+     S02    Annapurna Koramangala  2024      8    2024-08         4061188.48
+     S03        Annapurna T Nagar  2024      8    2024-08         5394175.36
+     S04     Annapurna Kukatpally  2024      8    2024-08         3458479.99
+     S05   Annapurna Kochi Marine  2024      8    2024-08         2531249.25
+     S06   Annapurna Andheri West  2024      8    2024-08         4574179.65
+     S07          Annapurna Baner  2024      8    2024-08         3201302.70
+     S08      Annapurna Satellite  2024      8    2024-08         3014216.66
+     S09       Annapurna Vaishali  2024      8    2024-08         2638726.74
+     S10 Annapurna Rajouri Garden  2024      8    2024-08         4948978.96
+     S11    Annapurna Gomti Nagar  2024      8    2024-08         2915546.20
+     S12      Annapurna Salt Lake  2024      8    2024-08         3621899.89
+     S01      Annapurna Jayanagar  2024      9    2024-09         4949514.86
+     S02    Annapurna Koramangala  2024      9    2024-09         3980405.95
+     S03        Annapurna T Nagar  2024      9    2024-09         5142686.78
+     S04     Annapurna Kukatpally  2024      9    2024-09         3359453.29
+     S05   Annapurna Kochi Marine  2024      9    2024-09         2543677.14
+     S06   Annapurna Andheri West  2024      9    2024-09         4382435.29
+     S07          Annapurna Baner  2024      9    2024-09         3079354.09
+     S08      Annapurna Satellite  2024      9    2024-09         3146012.63
+     S09       Annapurna Vaishali  2024      9    2024-09         2335678.96
+     S10 Annapurna Rajouri Garden  2024      9    2024-09         5079053.89
+     S11    Annapurna Gomti Nagar  2024      9    2024-09         2809311.05
+     S12      Annapurna Salt Lake  2024      9    2024-09         3807453.53
+     S01      Annapurna Jayanagar  2024     10    2024-10         6435443.95
+     S02    Annapurna Koramangala  2024     10    2024-10         5110182.71
+     S03        Annapurna T Nagar  2024     10    2024-10         6525145.39
+     S04     Annapurna Kukatpally  2024     10    2024-10         4471770.07
+     S05   Annapurna Kochi Marine  2024     10    2024-10         3192322.78
+     S06   Annapurna Andheri West  2024     10    2024-10         5682685.69
+     S07          Annapurna Baner  2024     10    2024-10         4069433.83
+     S08      Annapurna Satellite  2024     10    2024-10         3445850.62
+     S09       Annapurna Vaishali  2024     10    2024-10         2825005.39
+     S10 Annapurna Rajouri Garden  2024     10    2024-10         6419282.87
+     S11    Annapurna Gomti Nagar  2024     10    2024-10         3412236.75
+     S12      Annapurna Salt Lake  2024     10    2024-10         4769835.87
+     S01      Annapurna Jayanagar  2024     11    2024-11         5412978.17
+     S02    Annapurna Koramangala  2024     11    2024-11         4763032.85
+     S03        Annapurna T Nagar  2024     11    2024-11         6206706.29
+     S04     Annapurna Kukatpally  2024     11    2024-11         4037408.47
+     S05   Annapurna Kochi Marine  2024     11    2024-11         3043707.15
+     S06   Annapurna Andheri West  2024     11    2024-11         5441832.22
+     S07          Annapurna Baner  2024     11    2024-11         3122942.34
+     S08      Annapurna Satellite  2024     11    2024-11         3293794.09
+     S09       Annapurna Vaishali  2024     11    2024-11         2764424.25
+     S10 Annapurna Rajouri Garden  2024     11    2024-11         5998310.07
+     S11    Annapurna Gomti Nagar  2024     11    2024-11         3132433.60
+     S12      Annapurna Salt Lake  2024     11    2024-11         4366268.97
+     S01      Annapurna Jayanagar  2024     12    2024-12         5510179.01
+     S02    Annapurna Koramangala  2024     12    2024-12         4538919.72
+     S03        Annapurna T Nagar  2024     12    2024-12         6284269.25
+     S04     Annapurna Kukatpally  2024     12    2024-12         3713233.94
+     S05   Annapurna Kochi Marine  2024     12    2024-12         3029019.74
+     S06   Annapurna Andheri West  2024     12    2024-12         5255554.45
+     S07          Annapurna Baner  2024     12    2024-12         3445887.39
+     S08      Annapurna Satellite  2024     12    2024-12         3256668.14
+     S09       Annapurna Vaishali  2024     12    2024-12         2544988.49
+     S10 Annapurna Rajouri Garden  2024     12    2024-12         5798461.90
+     S11    Annapurna Gomti Nagar  2024     12    2024-12         3111781.84
+     S12      Annapurna Salt Lake  2024     12    2024-12         4256295.61
+
+==============================================================================
+09_dashboard_revenue_by_product.sql
+==============================================================================
+ product_sk product_code                    product_name  product_attributed_revenue  units_sold
+       2137      P107952         24 Mantra Toor Dal 10kg                  2406570.59      1311.0
+       1006      P100035           Huggies Diapers Small                  2145379.81      1303.0
+       1474      P103316           Huggies Diapers Small                  2138342.61      1255.0
+       1265      P101851            Daawat Chana Dal 1kg                  2119443.71      1247.0
+       1927      P106486             Mamypoko Diapers XL                  2091071.65      1319.0
+       2073      P107508          Pampers Diapers Medium                  2073925.14      1424.0
+       2158      P108101          Mamypoko Baby Wipes XL                  2057046.74      1326.0
+       1306      P102139            Dhara Mustard Oil 5L                  2051303.70      1435.0
+       1991      P106934 Aashirvaad Whole Wheat Atta 1kg                  2021516.18      1336.0
+       1287      P102006           Fortune Toor Dal 10kg                  2000939.38      1387.0
+       1023      P100156         Aashirvaad Toor Dal 1kg                  1986378.29      1311.0
+       1312      P102181              24 Mantra Poha 5kg                  1977880.64      1322.0
+       1027      P100183           Pampers Diapers Large                  1949877.27      1392.0
+       1274      P101911    Daawat Sona Masoori Rice 1kg                  1934633.92      1392.0
+       1639      P104469           Huggies Baby Wipes XL                  1933063.06      1301.0
+       1691      P104831       Pampers Baby Powder Small                  1929407.78      1309.0
+       2077      P107536         Aashirvaad Toor Dal 1kg                  1917551.06      1263.0
+       1525      P103668    Gold Winner Rice Bran Oil 1L                  1881906.70      1306.0
+       1646      P104517                Daawat Poha 10kg                  1869730.74      1328.0
+       1672      P104700         Daawat Basmati Rice 1kg                  1823004.79      1334.0
+
+==============================================================================
+10_dashboard_revenue_by_category.sql
+==============================================================================
+ category_sk category_id         category_name department  product_attributed_revenue
+           4         C04      Staples & Grains       Food                 98677244.71
+           9         C09             Baby Care   Non-Food                 88746237.02
+           5         C05           Edible Oils       Food                 82736636.78
+           2         C02                 Dairy      Fresh                 39696588.61
+           7         C07         Personal Care   Non-Food                 37437446.74
+          10         C10 Frozen & Ready to Eat      Fresh                 29765097.34
+           8         C08             Home Care   Non-Food                 28253823.00
+           3         C03             Beverages       Food                 25805866.86
+          14         C14  Stationery & General   Non-Food                 25749321.35
+           6         C06       Spices & Masala       Food                 18408992.48
+          13         C13         Confectionery       Food                 17251020.23
+          12         C12   Fruits & Vegetables      Fresh                 15314853.80
+          11         C11                Bakery      Fresh                 12957549.04
+           1         C01     Biscuits & Snacks       Food                  7335274.17
+
+==============================================================================
+11_dashboard_revenue_by_day_of_week.sql
+==============================================================================
+ day_of_week  day_name  total_net_revenue  lines
+           1    Monday        59589704.80 127418
+           2   Tuesday        58523374.95 124690
+           3 Wednesday        60808849.66 130669
+           4  Thursday        65020714.40 139093
+           5    Friday        79012260.21 170496
+           6  Saturday       104941626.27 225075
+           7    Sunday        94969205.46 203483
+
+==============================================================================
+12_dashboard_revenue_by_store_category_month.sql
+==============================================================================
+store_id               store_name category_id    category_name  year  month  product_attributed_revenue
+     S03        Annapurna T Nagar         C04 Staples & Grains  2024     10                  1220174.16
+     S01      Annapurna Jayanagar         C04 Staples & Grains  2024     10                  1211339.36
+     S10 Annapurna Rajouri Garden         C04 Staples & Grains  2024     10                  1185800.08
+     S03        Annapurna T Nagar         C09        Baby Care  2024     10                  1111494.45
+     S01      Annapurna Jayanagar         C09        Baby Care  2024     10                  1106941.04
+     S10 Annapurna Rajouri Garden         C09        Baby Care  2024     10                  1070144.74
+     S01      Annapurna Jayanagar         C05      Edible Oils  2024     10                  1030266.99
+     S10 Annapurna Rajouri Garden         C05      Edible Oils  2024     10                  1027022.96
+     S06   Annapurna Andheri West         C04 Staples & Grains  2024     10                  1007208.04
+     S03        Annapurna T Nagar         C05      Edible Oils  2024     10                   971631.57
+     S06   Annapurna Andheri West         C09        Baby Care  2024     10                   965631.22
+     S02    Annapurna Koramangala         C04 Staples & Grains  2024     10                   958242.74
+     S06   Annapurna Andheri West         C05      Edible Oils  2024     10                   953192.05
+     S04     Annapurna Kukatpally         C04 Staples & Grains  2024     10                   935383.98
+     S12      Annapurna Salt Lake         C04 Staples & Grains  2024     10                   924113.97
+     S02    Annapurna Koramangala         C09        Baby Care  2024     10                   819303.54
+     S02    Annapurna Koramangala         C05      Edible Oils  2024     10                   792269.35
+     S07          Annapurna Baner         C04 Staples & Grains  2024     10                   773234.30
+     S12      Annapurna Salt Lake         C09        Baby Care  2024     10                   767795.87
+     S04     Annapurna Kukatpally         C05      Edible Oils  2024     10                   766214.42
+
+==============================================================================
+13_total_vs_product_attributed_revenue.sql
+==============================================================================
+ total_net_revenue  product_attributed_revenue  non_product_revenue  of_which_discount  of_which_void_of_discount  unexplained_gap
+       56359195.92                 56927219.51           -568023.59         -570249.25                    2225.66              0.0
+
