@@ -1,0 +1,14 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# local environment overrides (real secrets/config live here; .env.example is committed)
+.env
+
+# Windows download metadata that ships alongside the supplied dataset zips
+*:Zone.Identifier
+
+# OS cruft
+.DS_Store

@@ -1,0 +1,41 @@
+name: annapurna
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: annapurna_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-annapurna}
+      POSTGRES_USER: ${POSTGRES_USER:-annapurna}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-annapurna_dev_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - annapurna_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-annapurna} -d ${POSTGRES_DB:-annapurna}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: annapurna_minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-annapurna_minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-annapurna_minio_secret}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - annapurna_minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  annapurna_postgres_data:
+  annapurna_minio_data:

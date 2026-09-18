@@ -1,0 +1,7 @@
+duckdb==1.5.5
+psycopg[binary]==3.3.5
+pyarrow==25.0.1
+pandas==3.0.6
+minio==7.2.20
+pytest==9.1.1
+python-dotenv==1.2.3
