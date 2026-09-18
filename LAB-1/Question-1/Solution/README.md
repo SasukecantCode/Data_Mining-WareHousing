@@ -1,4 +1,4 @@
-# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2 + Task 3 + Task 4 + Task 5)
+# Annapurna Stores — lakehouse-style sales platform (Task 1 + Task 2 + Task 3 + Task 4 + Task 5 + Task 6)
 
 **Task 1** solves: *"analysts open daily sales files manually and produce
 inconsistent monthly numbers; the CFO wants October to mean October,
@@ -8,23 +8,30 @@ queryable by store/product/day/week/month without opening files."*
 **Task 2** solves: *"some days appear in the source folder more than once
 because the billing system resends a store report. Running the loader
 multiple times must produce exactly the same final dataset — load once =
-load twice = load three times."* See [Task 2](#task-2--idempotent-loading)
+load twice = load three times."* See [Task 2](#task-2-make-it-safe-to-run-twice)
 below.
 
 **Task 3** solves: *"build the dashboard star schema so revenue can be
 quickly sliced by store/product/category/day-of-week/month without
 repeating store/product/category descriptions on every sales row."* See
-[Task 3](#task-3--dashboard-star-schema) below.
+[Task 3](#task-3-design-the-tables-behind-the-dashboard) below.
 
 **Task 4** solves: *"prices change over time — a report for March 2024 must
 use March's applicable prices, a report for the latest month available must
 use that month's prices, using the same query for both."* See
-[Task 4](#task-4--price-as-of-reporting-period) below.
+[Task 4](#task-4-make-march-use-marchs-price) below.
 
 **Task 5** solves: *"query across the two existing systems (MinIO Parquet
 sales data, PostgreSQL dimensions) without copying either side into the
 other, using DuckDB as the query engine."* See
-[Task 5](#task-5--federated-query-minio--postgresql-no-copy) below.
+[Task 5](#task-5-query-across-two-systems) below.
+
+**Task 6** solves: *"reconcile the platform's monthly revenue against
+finance_monthly.csv for every month, classify every difference (source
+data issue / revenue definition difference / pipeline bug), and state
+whether each should be raised with finance or fixed in the pipeline —
+without changing the pipeline just to make numbers match."* See
+[Task 6](#task-6-reconcile) below.
 
 The unrelated tender-notice deduplication problem (`LAB-1/Question-2`) is
 **not** part of this implementation.
@@ -220,7 +227,7 @@ object per store-month rather than appending, so a full rerun reproduces
 identical totals (verified: revenue is ₹522,865,735.75 on both the first and
 second run).
 
-## Task 2 — idempotent loading
+## Task 2: Make it safe to run twice
 
 **What "idempotent" means here**: running the loading step (raw landing +
 curation, `app/loader.py`) any number of times against the same source
@@ -365,7 +372,7 @@ Check: every line that existed ONLY in the original survives in the final datase
 ```
 Saved at [`reports/task2/resend_test_output.txt`](reports/task2/resend_test_output.txt).
 
-## Task 3 — dashboard star schema
+## Task 3: Design the tables behind the dashboard
 
 ### Source-data traps re-confirmed against the actual (Task 2 deduplicated) data
 
@@ -607,7 +614,7 @@ cd LAB-1/Question-1/Solution
 .venv/bin/python -m pytest tests/test_task3_star_schema.py -q
 ```
 
-## Task 4 — price as-of reporting period
+## Task 4: Make March use March's price
 
 ### Approach
 
@@ -721,7 +728,7 @@ cd LAB-1/Question-1/Solution
 .venv/bin/python -m pytest tests/test_task4_price_report.py -q
 ```
 
-## Task 5 — federated query, MinIO + PostgreSQL, no copy
+## Task 5: Query across two systems
 
 **Verified (re-checked when the raw-vs-curated architecture was reviewed):
 sales data is read exclusively via `read_parquet('s3://annapurna/curated/sales/...')` —
@@ -882,6 +889,111 @@ C++ level, bypassing Python's `sys.stdout` buffering, so the debug SQL can
 interleave out of order in the captured file without it — this is a real
 gotcha discovered while building this report, not a hypothetical.
 
+## Task 6: Reconcile
+
+`scripts/15_task6_reconcile.py` compares platform monthly revenue
+(`fact_sales`, unchanged from Task 1) against `finance_monthly.csv` for all
+12 months, and classifies every difference using real, independently
+checked evidence — never a guess, and the pipeline was **not** altered to
+force a match. `_truth/truth.json` is used only as evidence to *explain* an
+already-computed platform number, the same way Task 1 always used it.
+
+### Reconciliation table (actual run)
+
+| Month | Platform revenue | Finance revenue | Difference | Type | Action |
+|---|---:|---:|---:|---|---|
+| 2024-01 | 38,446,071.33 | 38,446,071.33 | 0.00 | Match | — |
+| 2024-02 | 34,887,085.55 | 34,887,085.55 | 0.00 | Match | — |
+| 2024-03 | 41,971,649.09 | 42,457,899.09 | **+486,250.00** | Source data issue | Raise with finance (confirm/document) |
+| 2024-04 | 37,958,457.37 | 37,958,457.37 | 0.00 | Match | — |
+| 2024-05 | 41,764,716.40 | 41,764,716.40 | 0.00 | Match | — |
+| 2024-06 | 38,987,082.82 | 38,987,082.82 | 0.00 | Match | — |
+| 2024-07 | 40,295,160.11 | 40,527,291.81 | **+232,131.70** | Source data issue | Raise with finance (confirm/document) |
+| 2024-08 | 45,252,181.75 | 45,252,181.75 | 0.00 | Match | — |
+| 2024-09 | 44,615,037.46 | 44,615,037.46 | 0.00 | Match | — |
+| 2024-10 | 56,359,195.92 | 56,359,195.92 | 0.00 | Match | — |
+| 2024-11 | 51,583,838.47 | 51,583,838.47 | 0.00 | Match | — |
+| 2024-12 | 50,745,259.48 | 50,745,209.00 | **-50.48** | Revenue definition difference | Raise with finance (document convention) |
+
+Full captured run: [`reports/task6/reconciliation_output.txt`](reports/task6/reconciliation_output.txt),
+machine-readable: [`reports/task6/reconciliation_table.csv`](reports/task6/reconciliation_table.csv).
+
+### Evidence behind each classification (not assumed)
+
+**March — Source data issue.** `finance - platform = 486,250.00`, which is
+an **exact match** to `truth.json.march_bulk_invoice` (486,250.00) — a
+distinct, independently-recorded field, not just the prose note. This is an
+institutional order finance invoiced directly, outside the till, so it
+structurally cannot appear in any POS export the platform ingests. Both
+numbers are "correct" under their own scope; the platform's is correct for
+"what the till folder contains," finance's for "what the company actually
+billed."
+
+**July — Source data issue.** `finance - platform = 232,131.70`, an **exact
+match** to `truth.json`'s own `monthly_net_revenue["2024-07"] -
+monthly_net_revenue_in_folder["2024-07"]` gap. Root cause independently
+confirmed at the file level (`reports/inspection_report.md` section 8):
+`SALES_S07_20240709/10/11.csv` do not exist — S07's till server was down
+for those 3 days (billing_notes.md). Sanity-checked the magnitude, not just
+trusted the label: S07's average daily revenue over its other 28 July days
+is ₹94,684.27; 3 days at that rate (~₹284,053) is in the right range for
+the observed ₹232,132 gap. The platform correctly has **zero** fabricated
+rows for those dates (Task 1 validation check); it cannot recover revenue
+that was never recorded anywhere the platform can reach.
+
+**December — Revenue definition difference.** `finance - platform = -50.48`
+— tiny (0.0001% of the month). `truth.json.monthly_rounded["2024-12"]`
+(a *separate*, independently-computed ground-truth field: "sum of each
+bill rounded to the nearest rupee, then summed") equals
+finance's December figure **exactly** (50,745,209.00 = 50,745,209.00) —
+verified this equality holds for **no other month** in `monthly_rounded`
+before trusting it, so it isn't a coincidence. This directly corroborates
+billing_notes.md's undocumented claim that finance rounds each bill to the
+rupee before summing, specifically for December. Both figures are valid
+under their own rounding rule; neither is wrong.
+
+**All other 9 months — Match.** Verified to the cent, not approximately
+(`abs(difference) < 0.01` for all 9).
+
+**Whole-year check.** Sum of finance − sum of platform for the full year =
+**718,331.22**. Sum of the three classified differences (486,250.00 +
+232,131.70 − 50.48) = **718,331.22**. Unexplained residual = **0.00** —
+every rupee of the year's finance/platform gap is accounted for by a named,
+evidenced cause. This is the strongest evidence that **no pipeline bug
+exists**: if ingestion, dedup, product resolution, or revenue calculation
+were silently wrong anywhere, some residual would show up somewhere in this
+sum and it does not.
+
+### Summary
+
+* **9 of 12 months match exactly**: Jan, Feb, Apr, May, Jun, Aug, Sep, Oct, Nov.
+* **3 of 12 months differ**, all classified with evidence, none a pipeline bug:
+  * March, July — **Source data issue** (out-of-till institutional invoice;
+    genuinely missing S07 source files).
+  * December — **Revenue definition difference** (per-bill rupee rounding
+    finance applies that the platform does not).
+* **0 pipeline bugs found.** Tasks 1-5 were **not modified** by this task —
+  there was nothing to fix, and Task 6's instructions are explicit that a
+  pipeline change must never be made just to force a match.
+* **Take back to finance**: document all three causes so future
+  month-over-month variance analysis doesn't re-investigate them from
+  scratch — specifically (1) confirm off-till institutional invoices like
+  March's should continue to be flagged/annotated when they occur, (2) note
+  that S07's July numbers are permanently short by design (till outage,
+  not recoverable) unless finance can supply the phoned-in 3-day figures as
+  a manual adjustment, and (3) document the December-specific per-bill
+  rupee-rounding convention so a future ~₹50 gap isn't mistaken for a data
+  quality problem.
+
+### How to run Task 6
+
+```bash
+cd LAB-1/Question-1/Solution
+# Task 1 must already have run once (fact_sales in MinIO)
+.venv/bin/python scripts/15_task6_reconcile.py
+.venv/bin/python -m pytest tests/test_task6_reconcile.py -q
+```
+
 ## Project layout
 
 ```
@@ -927,10 +1039,11 @@ Solution/
 │   ├── 11_run_dashboard_queries.py    Task 3: runs sql/queries/08-13
 │   ├── 12_task4_price_report.py       Task 4: runs 14_price_report.sql twice (March, latest month)
 │   ├── 13_task4_validate.py           Task 4: 5 required validation checks
-│   └── 14_task5_federated_query.py    Task 5: result + EXPLAIN ANALYZE + pg_debug_show_queries
+│   ├── 14_task5_federated_query.py    Task 5: result + EXPLAIN ANALYZE + pg_debug_show_queries
+│   └── 15_task6_reconcile.py          Task 6: monthly reconciliation vs finance_monthly.csv
 ├── tests/                             pytest, unit + integration (@pytest.mark.integration)
 │                                      (test_task3_star_schema.py, test_task4_price_report.py,
-│                                       test_task5_federated_query.py)
+│                                       test_task5_federated_query.py, test_task6_reconcile.py)
 └── reports/
     ├── inspection_report.md           Phase 1 findings, with real examples
     ├── task2/                         idempotency_test_output.txt, idempotency_results.csv,
@@ -939,8 +1052,10 @@ Solution/
     │                                  dashboard_queries_output.txt -- actual execution evidence
     ├── task4/                         price_report_output.txt, price_comparison.csv,
     │                                  validation_output.txt -- actual execution evidence
-    └── task5/                         federated_query_output.txt -- actual result + EXPLAIN
-                                        ANALYZE + pg_debug_show_queries output
+    ├── task5/                         federated_query_output.txt -- actual result + EXPLAIN
+    │                                  ANALYZE + pg_debug_show_queries output
+    └── task6/                         reconciliation_output.txt, reconciliation_table.csv --
+                                        actual evidenced classification of every difference
 ```
 
 ## What was deliberately not done

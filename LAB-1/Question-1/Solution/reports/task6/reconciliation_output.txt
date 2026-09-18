@@ -1,0 +1,49 @@
+=== Task 6: Monthly revenue reconciliation, platform vs finance_monthly.csv ===
+
+--- Reconciliation table ---
+
+[2024-01] platform= 38,446,071.33  finance= 38,446,071.33  diff=       +0.00  type=Match
+
+[2024-02] platform= 34,887,085.55  finance= 34,887,085.55  diff=       +0.00  type=Match
+
+[2024-03] platform= 41,971,649.09  finance= 42,457,899.09  diff= +486,250.00  type=Source data issue
+    evidence: finance - platform = 486,250.00; truth.json.march_bulk_invoice = 486,250.00; EXACT MATCH. finance_notes['2024-03'] (vendor documentation): 'scope: includes an institutional order invoiced outside the till'.
+    action:   No fix needed -- this is a real institutional order invoiced directly by finance, outside the till/POS system, so it can never appear in the sales folder the platform ingests. Raise with finance only to confirm this is expected/recurring and agree on a standard annotation for future months with off-till invoices, not to dispute the number.
+
+[2024-04] platform= 37,958,457.37  finance= 37,958,457.37  diff=       +0.00  type=Match
+
+[2024-05] platform= 41,764,716.40  finance= 41,764,716.40  diff=       +0.00  type=Match
+
+[2024-06] platform= 38,987,082.82  finance= 38,987,082.82  diff=       +0.00  type=Match
+
+[2024-07] platform= 40,295,160.11  finance= 40,527,291.81  diff= +232,131.70  type=Source data issue
+    evidence: finance - platform = 232,131.70; truth.json full-scope vs in-folder gap for 2024-07 = 232,131.70 (EXACT MATCH to the finance-platform diff). Missing source files (confirmed absent from data_2/data/sales/): ['SALES_S07_20240709', 'SALES_S07_20240710', 'SALES_S07_20240711']. S07's average daily revenue on the OTHER 28 July days it does have = 94,684.27/day; 3 missing days at that rate would be ~284,052.82, plausible vs. the actual 232,131.70 gap (within 50%-150% of that estimate: True).
+    action:   No fix possible in our pipeline -- the source files for S07 2024-07-09/10/11 genuinely do not exist (till server outage per billing_notes.md); we cannot fabricate them. Raise with finance to confirm they are comfortable that the platform's July number is a known, permanent undercount for this reason (not a bug), and to ask whether they can supply the phoned-in S07 figures for those 3 days as a manual adjustment line if a precise July total is needed.
+
+[2024-08] platform= 45,252,181.75  finance= 45,252,181.75  diff=       +0.00  type=Match
+
+[2024-09] platform= 44,615,037.46  finance= 44,615,037.46  diff=       +0.00  type=Match
+
+[2024-10] platform= 56,359,195.92  finance= 56,359,195.92  diff=       +0.00  type=Match
+
+[2024-11] platform= 51,583,838.47  finance= 51,583,838.47  diff=       +0.00  type=Match
+
+[2024-12] platform= 50,745,259.48  finance= 50,745,209.00  diff=      -50.48  type=Revenue definition difference
+    evidence: finance - platform = -50.48 (finance is LOWER). truth.json.monthly_rounded ['2024-12'] = 50,745,209.00, which is EXACTLY equal to finance_monthly.csv's December figure (50,745,209.00) -- diff = 0.0. This equality holds ONLY for December among all 12 months (checked: other months' monthly_rounded values do NOT match finance to the cent), consistent with billing_notes.md's undocumented-elsewhere claim that finance specifically rounds each bill to the rupee before summing -- for December only, per vendor practice.
+    action:   No pipeline fix -- both figures are internally correct under their own definition (exact paise vs. rupee-rounded-per-bill); this is a real, tiny (0.0001% of monthly revenue) definitional difference, not an error. Raise with finance only to document the rounding convention so future analysts don't mistake a ~₹50 gap for a data problem.
+
+==============================================================================
+Summary
+==============================================================================
+Months checked:                 12
+Months matching exactly:        9  (2024-01, 2024-02, 2024-04, 2024-05, 2024-06, 2024-08, 2024-09, 2024-10, 2024-11)
+Months differing:               3  (2024-03, 2024-07, 2024-12)
+  - Source data issue: 2024-03, 2024-07
+  - Revenue definition difference: 2024-12
+Unclassified / pipeline-bug candidates found: 0
+
+Total year finance-vs-platform difference: 718,331.22
+Sum of the 3 classified differences:       718,331.22
+Unexplained residual:                      0.00  (0.00 means every rupee of the year's gap is accounted for)
+
+No pipeline bug found. Tasks 1-5 are unchanged -- reconciliation was purely investigative, per Task 6's instructions not to alter the pipeline to force a match.
